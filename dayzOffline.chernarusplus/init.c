@@ -91,7 +91,7 @@ class CustomMission: MissionServer
 		EntityAI item2 = player.GetInventory().CreateInInventory(pantsArray.GetRandomElement());
 		EntityAI item3 = player.GetInventory().CreateInInventory(shoesArray.GetRandomElement());
 */
-		
+		//Remove vanilla default clothing.
 		player.RemoveAllItems()
 		
 		EntityAI itemEnt;
@@ -104,13 +104,14 @@ class CustomMission: MissionServer
 		/* itemEnt = player.GetInventory().CreateInInventory("RoadFlare");
 		itemBs = ItemBase.Cast(itemEnt) */;
 		
-		//Default Clothing
+		//Starter Clothing
 		itemEnt = player.GetInventory().CreateInInventory( "M65Jacket_Black" );
 		itemEnt = player.GetInventory().CreateInInventory( "BallisticHelmet_Black" );
 		itemEnt = player.GetInventory().CreateInInventory( "CargoPants_Black" );
 		
 		switch ( Math.RandomInt(0, 5) ) {
 			case 0:
+				//M4A1
 				itemEnt = player.GetInventory().CreateInInventory( "M4A1_Black" );
 				//itemEnt.GetInventory().CreateAttachment( "M4_Suppressor" );
 				itemEnt.GetInventory().CreateAttachment( "M4_RISHndgrd_Black" );
@@ -123,10 +124,16 @@ class CustomMission: MissionServer
 				player.GetInventory().CreateInInventory( "Mag_STANAGCoupled_30Rnd" ); 
 				player.GetInventory().CreateInInventory( "Mag_STANAGCoupled_30Rnd" ); 
 				
-				//Clothing
-				itemEnt = player.GetInventory().CreateInInventory( "HighCapacityVest_Black" )
+				player.GetInventory().CreateInInventory( "Ammo_556x45" ); 
+				player.GetInventory().CreateInInventory( "Ammo_556x45" ); 
+				player.GetInventory().CreateInInventory( "Ammo_556x45" ); 
+				player.GetInventory().CreateInInventory( "Ammo_556x45" ); 
+				
+				//EXTRA
+				itemEnt = player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
 			break;
 			case 1:
+				//MOSIN
 				itemEnt = player.GetInventory().CreateInInventory( "Mosin9130" );
 				//itemEnt.GetInventory().CreateAttachment( "Mosin_Compensator" );
 				itemEnt.GetInventory().CreateAttachment( "PUScopeOptic" );
@@ -134,10 +141,8 @@ class CustomMission: MissionServer
 				player.GetInventory().CreateInInventory( "Ammo_762x54" );
 				player.GetInventory().CreateInInventory( "Ammo_762x54" );
 				player.GetInventory().CreateInInventory( "Ammo_762x54" );
-				player.GetInventory().CreateInInventory( "Ammo_762x54" );
-				player.GetInventory().CreateInInventory( "Ammo_762x54" );
-				player.GetInventory().CreateInInventory( "Ammo_762x54" );
 				
+				//FNX
 				itemEnt = player.GetInventory().CreateInInventory( "FNX45" );
 				itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
 				itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
@@ -147,10 +152,13 @@ class CustomMission: MissionServer
 				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
 				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
 				
-				//Clothing
-				itemEnt = player.GetInventory().CreateInInventory( "BallisticVest" )
+				//EXTRA
+				itemEnt = player.GetInventory().CreateInInventory( "BallisticVest" );
+				itemEnt.GetInventory().CreateAttachment( "CarrierPouches" );
+				itemEnt.GetInventory().CreateAttachment( "CarrierHolsterSolo" );
 			break;
 			case 2:
+				//SVD
 				itemEnt = player.GetInventory().CreateInInventory( "SVD" );
 				itemEnt.GetInventory().CreateAttachment( "PSO1Optic" );
 				//auto oMag = player.GetInventory().CreateInInventory( "Mag_SVD_10Rnd" );
@@ -163,7 +171,8 @@ class CustomMission: MissionServer
 				player.GetInventory().CreateInInventory( "Ammo_762x54" );
 				player.GetInventory().CreateInInventory( "Ammo_762x54" );
 				//player.GetWeaponManager().AttachMagazine( oMag ); 
-			
+				
+				//FNX
 				itemEnt = player.GetInventory().CreateInInventory( "FNX45" );
 				itemEnt.GetInventory().CreateAttachment( "FNP45_MRDSOptic" );
 				itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
@@ -173,11 +182,12 @@ class CustomMission: MissionServer
 				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
 				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
 				
-				//Clothing & Gear
-				itemEnt = player.GetInventory().CreateInInventory( "BallisticVest" )
+				//Extra
+				itemEnt = player.GetInventory().CreateInInventory( "HighCapacityVest_Black" )
 				itemEnt = player.GetInventory().CreateInInventory( "Battery9V" )
 			break;
 			case 3:
+				//MPK
 				itemEnt = player.GetInventory().CreateInInventory( "MP5K" );
 				itemEnt.GetInventory().CreateAttachment( "MP5_PlasticHndgrd" );
 				itemEnt.GetInventory().CreateAttachment( "MP5k_StockBttstck" );
@@ -193,6 +203,7 @@ class CustomMission: MissionServer
 				player.GetInventory().CreateInInventory( "Ammo_9x19" );
 				player.GetInventory().CreateInInventory( "Ammo_9x19" );
 				
+				//FNX
 				itemEnt = player.GetInventory().CreateInInventory( "FNX45" );
 				itemEnt.GetInventory().CreateAttachment( "FNP45_MRDSOptic" );
 				itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
@@ -203,9 +214,11 @@ class CustomMission: MissionServer
 				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
 				
 				//Clothing
-				itemEnt = player.GetInventory().CreateInInventory( "BallisticVest" )
+				itemEnt = player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
 			break;
 			case 4:
+				
+				//AKM
 				itemEnt = player.GetInventory().CreateInInventory( "AKM" );
 				itemEnt.GetInventory().CreateAttachment( "AK_WoodBttstck" );
 				itemEnt.GetInventory().CreateAttachment( "AK_WoodHndgrd" );
@@ -220,13 +233,13 @@ class CustomMission: MissionServer
 				player.GetInventory().CreateInInventory( "Ammo_762x39" );
 				
 				//Clothing & Gear
-				itemEnt = player.GetInventory().CreateInInventory( "HighCapacityVest_Black" )
-				itemEnt = player.GetInventory().CreateInInventory( "PSO1Optic" )
+				itemEnt = player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
+				itemEnt = player.GetInventory().CreateInInventory( "PSO1Optic" );
 				itemEnt.GetInventory().CreateAttachment( "Battery9V" );
 			break
 		}
 		
-		//Default Gear
+		//Armbands
 		itemEnt = player.GetInventory().CreateInInventory( "Armband_Black" );
 		itemEnt = player.GetInventory().CreateInInventory( "Armband_Blue" );
 		itemEnt = player.GetInventory().CreateInInventory( "Armband_Green" );
@@ -235,15 +248,18 @@ class CustomMission: MissionServer
 		itemEnt = player.GetInventory().CreateInInventory( "Armband_Red" );
 		itemEnt = player.GetInventory().CreateInInventory( "Armband_White" );
 		itemEnt = player.GetInventory().CreateInInventory( "Armband_Yellow" );
+		
+		//Extra Starting Gear
 		itemEnt = player.GetInventory().CreateInInventory( "PersonalRadio" );
 		itemEnt.GetInventory().CreateAttachment( "Battery9V" );
-		itemEnt = player.GetInventory().CreateInInventory( "CombatKnife" );
-		itemEnt = player.GetInventory().CreateInInventory( "BandageDressing" );
-		itemEnt = player.GetInventory().CreateInInventory( "BandageDressing" );
+		//itemEnt = player.GetInventory().CreateInInventory( "CombatKnife" ); Make instant kill later then uncomment.
+		itemEnt = player.GetInventory().CreateInInventory( "SalineBagIV" );
 		itemEnt = player.GetInventory().CreateInInventory( "BandageDressing" );
 
-      //  player.LocalTakeEntityToHands( itemEnt );
+		//  player.LocalTakeEntityToHands( itemEnt );
        // player.SetQuickBarEntityShortcut( itemEnt, 0, true ); 
+	   
+	   //Set Hydration to full.
 		player.GetStatWater().Set(1000);
 	}
 };
