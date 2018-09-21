@@ -104,11 +104,96 @@ class CustomMission: MissionServer
 		/* itemEnt = player.GetInventory().CreateInInventory("RoadFlare");
 		itemBs = ItemBase.Cast(itemEnt) */;
 		
-        itemEnt = player.GetInventory().CreateInInventory( "M65Jacket_Black" );
-        itemEnt = player.GetInventory().CreateInInventory( "BallisticHelmet_Black" );
+		//Default Clothing
+		itemEnt = player.GetInventory().CreateInInventory( "M65Jacket_Black" );
+		itemEnt = player.GetInventory().CreateInInventory( "BallisticHelmet_Black" );
 		itemEnt = player.GetInventory().CreateInInventory( "HighCapacityVest_Black" )
-        itemEnt = player.GetInventory().CreateInInventory( "CargoPants_Black" );
+		itemEnt = player.GetInventory().CreateInInventory( "CargoPants_Black" );
 		
+		switch ( Math.RandomInt(0, 4) ) {
+			case 0:
+				itemEnt = player.GetInventory().CreateInInventory( "M4A1_Black" );
+				//itemEnt.GetInventory().CreateAttachment( "M4_Suppressor" );
+				itemEnt.GetInventory().CreateAttachment( "M4_RISHndgrd_Black" );
+				itemEnt.GetInventory().CreateAttachment( "M4_MPBttstck_Black" );
+				itemEnt.GetInventory().CreateAttachment( "ACOGOptic" );
+				
+				player.GetInventory().CreateInInventory( "Mag_STANAGCoupled_30Rnd" ); 
+				player.GetInventory().CreateInInventory( "Mag_STANAGCoupled_30Rnd" ); 
+			break;
+			case 1:
+				itemEnt = player.GetInventory().CreateInInventory( "Mosin9130" );
+				//itemEnt.GetInventory().CreateAttachment( "Mosin_Compensator" );
+				itemEnt.GetInventory().CreateAttachment( "PUScopeOptic" );
+				player.GetInventory().CreateInInventory( "Ammo_762x54" );
+				player.GetInventory().CreateInInventory( "Ammo_762x54" );
+				player.GetInventory().CreateInInventory( "Ammo_762x54" );
+				player.GetInventory().CreateInInventory( "Ammo_762x54" );
+				player.GetInventory().CreateInInventory( "Ammo_762x54" );
+				player.GetInventory().CreateInInventory( "Ammo_762x54" );
+				player.GetInventory().CreateInInventory( "Ammo_762x54" );
+				
+				itemEnt = player.GetInventory().CreateInInventory( "FNX45" );
+				itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
+				itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
+				
+				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+			break;
+			case 2:
+				itemEnt = player.GetInventory().CreateInInventory( "SVD" );
+				itemEnt.GetInventory().CreateAttachment( "PSO1Optic" );
+				//auto oMag = player.GetInventory().CreateInInventory( "Mag_SVD_10Rnd" );
+				player.GetInventory().CreateInInventory( "Mag_SVD_10Rnd" ); 
+				player.GetInventory().CreateInInventory( "Mag_SVD_10Rnd" );
+				player.GetInventory().CreateInInventory( "Ammo_762x54" );
+				player.GetInventory().CreateInInventory( "Ammo_762x54" );
+				player.GetInventory().CreateInInventory( "Ammo_762x54" );
+				player.GetInventory().CreateInInventory( "Ammo_762x54" );
+				//player.GetWeaponManager().AttachMagazine( oMag ); 
+			
+				itemEnt = player.GetInventory().CreateInInventory( "FNX45" );
+				itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
+				itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
+				
+				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+			break;
+			case 3:
+				itemEnt = player.GetInventory().CreateInInventory( "MP5K" );
+				itemEnt.GetInventory().CreateAttachment( "MP5_PlasticHndgrd" );
+				itemEnt.GetInventory().CreateAttachment( "MP5k_StockBttstck" );
+				
+				itemEnt = player.GetInventory().CreateInInventory( "M68Optic" );
+				itemEnt.GetInventory().CreateAttachment( "Battery9V" );
+				
+				player.GetInventory().CreateInInventory( "Mag_MP5_30Rnd" ); 
+				player.GetInventory().CreateInInventory( "Mag_MP5_30Rnd" ); 
+				player.GetInventory().CreateInInventory( "Mag_MP5_30Rnd" ); 
+				
+				player.GetInventory().CreateInInventory( "Ammo_9x19" );
+				player.GetInventory().CreateInInventory( "Ammo_9x19" );
+				player.GetInventory().CreateInInventory( "Ammo_9x19" );
+			break;
+			case 4:
+				itemEnt = player.GetInventory().CreateInInventory( "AKM" );
+				itemEnt.GetInventory().CreateAttachment( "AK_WoodBttstck" );
+				itemEnt.GetInventory().CreateAttachment( "AK_WoodHndgrd" );
+				itemEnt.GetInventory().CreateAttachment( "KobraOptic" );
+
+				player.GetInventory().CreateInInventory( "Mag_AKM_30Rnd" ); 
+				player.GetInventory().CreateInInventory( "Mag_AKM_30Rnd" ); 
+				player.GetInventory().CreateInInventory( "Mag_AKM_30Rnd" ); 
+				
+				player.GetInventory().CreateInInventory( "Ammo_762x39" );
+				player.GetInventory().CreateInInventory( "Ammo_762x39" );
+				player.GetInventory().CreateInInventory( "Ammo_762x39" );
+			break
+		}
+		
+		//Default Gear
 		itemEnt = player.GetInventory().CreateInInventory( "Armband_Black" );
 		itemEnt = player.GetInventory().CreateInInventory( "Armband_Blue" );
 		itemEnt = player.GetInventory().CreateInInventory( "Armband_Green" );
@@ -117,63 +202,14 @@ class CustomMission: MissionServer
 		itemEnt = player.GetInventory().CreateInInventory( "Armband_Red" );
 		itemEnt = player.GetInventory().CreateInInventory( "Armband_White" );
 		itemEnt = player.GetInventory().CreateInInventory( "Armband_Yellow" );
-		//itemEnt = player.GetInventory().CreateInInventory( "TortillaBag" );
-		
 		itemEnt = player.GetInventory().CreateInInventory( "PersonalRadio" );
 		itemEnt.GetInventory().CreateAttachment( "Battery9V" );
-		
-		//itemEnt = player.GetInventory().CreateInInventory( "AuriculariaMushroom" )
-		//itemEnt = player.GetInventory().CreateInInventory( "Binoculars" );
 		itemEnt = player.GetInventory().CreateInInventory( "CombatKnife" );
-		//itemEnt = player.GetInventory().CreateInInventory( "Cannabis" );
-		//itemEnt = player.GetInventory().CreateInInventory( "Shovel" );
-		
 		itemEnt = player.GetInventory().CreateInInventory( "BandageDressing" );
 		itemEnt = player.GetInventory().CreateInInventory( "BandageDressing" );
 		itemEnt = player.GetInventory().CreateInInventory( "BandageDressing" );
-		
-		/* itemEnt = player.GetInventory().CreateInInventory( "FNX45" );
-		itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
-		itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
-		itemEnt = player.GetInventory().CreateInInventory( "AmmoBox_45ACP_25Rnd" );
-		itemEnt = player.GetInventory().CreateInInventory( "AmmoBox_45ACP_25Rnd" );
-		itemEnt = player.GetInventory().CreateInInventory( "AmmoBox_45ACP_25Rnd" ); */
-	   
-		itemEnt = player.GetInventory().CreateInInventory( "SVD" );
-		itemEnt.GetInventory().CreateAttachment( "PSO1Optic" );
-		auto oMag = player.GetInventory().CreateInInventory( "Mag_SVD_10Rnd" );
-		player.GetInventory().CreateInInventory( "Mag_SVD_10Rnd" ); 
-		player.GetInventory().CreateInInventory( "Mag_SVD_10Rnd" );
-		player.GetInventory().CreateInInventory( "AmmoBox_762x54_20Rnd" );
-		player.GetInventory().CreateInInventory( "AmmoBox_762x54_20Rnd" );
-		player.GetInventory().CreateInInventory( "AmmoBox_762x54_20Rnd" );
-		player.GetInventory().CreateInInventory( "AmmoBox_762x54_20Rnd" );
-		player.GetWeaponManager().AttachMagazine( oMag );
-		
-		//itemEnt = player.GetInventory().CreateInInventory( "Mosin9130" );
-		//itemEnt.GetInventory().CreateAttachment( "Mosin_Compensator" );
-		/* itemEnt.GetInventory().CreateAttachment( "PUScopeOptic" );
-		player.GetInventory().CreateInInventory( "AmmoBox_762x54_20Rnd" );
-		player.GetInventory().CreateInInventory( "AmmoBox_762x54_20Rnd" );
-		player.GetInventory().CreateInInventory( "AmmoBox_762x54_20Rnd" );
-		player.GetInventory().CreateInInventory( "AmmoBox_762x54_20Rnd" );
-		player.GetInventory().CreateInInventory( "AmmoBox_762x54_20Rnd" );
-		player.GetInventory().CreateInInventory( "AmmoBox_762x54_20Rnd" );
-		player.GetInventory().CreateInInventory( "AmmoBox_762x54_20Rnd" ); */
-		
-		
-		itemEnt = player.GetInventory().CreateInInventory( "M4A1_Black" );
-        //itemEnt.GetInventory().CreateAttachment( "M4_Suppressor" );
-        itemEnt.GetInventory().CreateAttachment( "M4_RISHndgrd_Black" );
-        itemEnt.GetInventory().CreateAttachment( "M4_MPBttstck_Black" );
-        itemEnt.GetInventory().CreateAttachment( "ACOGOptic" );
-		
-        //auto oMag2 = player.GetInventory().CreateInInventory( "Mag_STANAGCoupled_30Rnd" );
-        player.GetInventory().CreateInInventory( "Mag_STANAGCoupled_30Rnd" ); 
-        player.GetInventory().CreateInInventory( "Mag_STANAGCoupled_30Rnd" ); 
 
       //  player.LocalTakeEntityToHands( itemEnt );
-
        // player.SetQuickBarEntityShortcut( itemEnt, 0, true ); 
 		player.GetStatWater().Set(1000);
 	}
