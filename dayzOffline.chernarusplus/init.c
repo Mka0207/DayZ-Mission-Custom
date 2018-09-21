@@ -1,4 +1,3 @@
-
 void main()
 {
 
@@ -30,12 +29,48 @@ void main()
 
 class CustomMission: MissionServer
 {	
+
+	PlayerBase m_oPlayer;
+	
 	void SetRandomHealth(EntityAI itemEnt)
 	{
 		int rndHlt = Math.RandomInt(40,100);
 		itemEnt.SetHealth("","",rndHlt);
 	}
+	
+	vector GetCursorPos()
+	{
+		vector rayStart = GetGame().GetCurrentCameraPosition();
+		vector rayEnd = rayStart + GetGame().GetCurrentCameraDirection() * 10000;
+		vector hitPos;
+		vector hitNormal;
+		int hitComponentIndex;
+		DayZPhysics.RaycastRV(rayStart, rayEnd, hitPos, hitNormal, hitComponentIndex, NULL, NULL, m_oPlayer);
 
+		return hitPos;
+	}
+	
+	/* override void OnKeyPress( int key )
+	{
+		super.OnKeyPress(key);
+		
+		if ( key == KeyCode.KC_N )
+		{
+			TStringArray attArr = {
+			"CivSedanWheel","CivSedanWheel","CivSedanWheel","CivSedanWheel",
+			"CarBattery","CarRadiator","EngineBelt","SparkPlug","CivSedanHood",
+			"CivSedanTrunk","CivSedanDoors_Driver","CivSedanDoors_CoDriver",
+			"CivSedanDoors_BackLeft","CivSedanDoors_BackRight",
+			}; 
+			
+			EntityAI oCar = EntityAI.Cast( GetGame().CreateObject( "CivilianSedan", GetCursorPos(), false, true ) );
+			
+			for (int j = 0; j < attArr.Count(); j++) { oCar.GetInventory().CreateAttachment( attArr.Get(j) ); }
+			
+			oCar.SetAllowDamage( false );
+		}
+	} */
+	
 	override PlayerBase CreateCharacter(PlayerIdentity identity, vector pos, ParamsReadContext ctx, string characterName)
 	{
 		Entity playerEnt;
@@ -56,16 +91,91 @@ class CustomMission: MissionServer
 		EntityAI item2 = player.GetInventory().CreateInInventory(pantsArray.GetRandomElement());
 		EntityAI item3 = player.GetInventory().CreateInInventory(shoesArray.GetRandomElement());
 */
+		
+		player.RemoveAllItems()
+		
 		EntityAI itemEnt;
 		ItemBase itemBs;
 		
-		itemEnt = player.GetInventory().CreateInInventory("Rag");
-		itemBs = ItemBase.Cast(itemEnt);
+		/* itemBs = ItemBase.Cast(itemEnt);
 		itemBs.SetQuantity(4);
-		SetRandomHealth(itemEnt);
+		SetRandomHealth(itemEnt); */
 
-		itemEnt = player.GetInventory().CreateInInventory("RoadFlare");
-		itemBs = ItemBase.Cast(itemEnt);
+		/* itemEnt = player.GetInventory().CreateInInventory("RoadFlare");
+		itemBs = ItemBase.Cast(itemEnt) */;
+		
+        itemEnt = player.GetInventory().CreateInInventory( "M65Jacket_Black" );
+        itemEnt = player.GetInventory().CreateInInventory( "BallisticHelmet_Black" );
+		itemEnt = player.GetInventory().CreateInInventory( "HighCapacityVest_Black" )
+        itemEnt = player.GetInventory().CreateInInventory( "CargoPants_Black" );
+		
+		itemEnt = player.GetInventory().CreateInInventory( "Armband_Black" );
+		itemEnt = player.GetInventory().CreateInInventory( "Armband_Blue" );
+		itemEnt = player.GetInventory().CreateInInventory( "Armband_Green" );
+		itemEnt = player.GetInventory().CreateInInventory( "Armband_Orange" );
+		itemEnt = player.GetInventory().CreateInInventory( "Armband_Pink" );
+		itemEnt = player.GetInventory().CreateInInventory( "Armband_Red" );
+		itemEnt = player.GetInventory().CreateInInventory( "Armband_White" );
+		itemEnt = player.GetInventory().CreateInInventory( "Armband_Yellow" );
+		//itemEnt = player.GetInventory().CreateInInventory( "TortillaBag" );
+		
+		itemEnt = player.GetInventory().CreateInInventory( "PersonalRadio" );
+		itemEnt.GetInventory().CreateAttachment( "Battery9V" );
+		
+		//itemEnt = player.GetInventory().CreateInInventory( "AuriculariaMushroom" )
+		//itemEnt = player.GetInventory().CreateInInventory( "Binoculars" );
+		itemEnt = player.GetInventory().CreateInInventory( "CombatKnife" );
+		//itemEnt = player.GetInventory().CreateInInventory( "Cannabis" );
+		//itemEnt = player.GetInventory().CreateInInventory( "Shovel" );
+		
+		itemEnt = player.GetInventory().CreateInInventory( "BandageDressing" );
+		itemEnt = player.GetInventory().CreateInInventory( "BandageDressing" );
+		itemEnt = player.GetInventory().CreateInInventory( "BandageDressing" );
+		
+		/* itemEnt = player.GetInventory().CreateInInventory( "FNX45" );
+		itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
+		itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
+		itemEnt = player.GetInventory().CreateInInventory( "AmmoBox_45ACP_25Rnd" );
+		itemEnt = player.GetInventory().CreateInInventory( "AmmoBox_45ACP_25Rnd" );
+		itemEnt = player.GetInventory().CreateInInventory( "AmmoBox_45ACP_25Rnd" ); */
+	   
+		itemEnt = player.GetInventory().CreateInInventory( "SVD" );
+		itemEnt.GetInventory().CreateAttachment( "PSO1Optic" );
+		auto oMag = player.GetInventory().CreateInInventory( "Mag_SVD_10Rnd" );
+		player.GetInventory().CreateInInventory( "Mag_SVD_10Rnd" ); 
+		player.GetInventory().CreateInInventory( "Mag_SVD_10Rnd" );
+		player.GetInventory().CreateInInventory( "AmmoBox_762x54_20Rnd" );
+		player.GetInventory().CreateInInventory( "AmmoBox_762x54_20Rnd" );
+		player.GetInventory().CreateInInventory( "AmmoBox_762x54_20Rnd" );
+		player.GetInventory().CreateInInventory( "AmmoBox_762x54_20Rnd" );
+		player.GetWeaponManager().AttachMagazine( oMag );
+		
+		//itemEnt = player.GetInventory().CreateInInventory( "Mosin9130" );
+		//itemEnt.GetInventory().CreateAttachment( "Mosin_Compensator" );
+		/* itemEnt.GetInventory().CreateAttachment( "PUScopeOptic" );
+		player.GetInventory().CreateInInventory( "AmmoBox_762x54_20Rnd" );
+		player.GetInventory().CreateInInventory( "AmmoBox_762x54_20Rnd" );
+		player.GetInventory().CreateInInventory( "AmmoBox_762x54_20Rnd" );
+		player.GetInventory().CreateInInventory( "AmmoBox_762x54_20Rnd" );
+		player.GetInventory().CreateInInventory( "AmmoBox_762x54_20Rnd" );
+		player.GetInventory().CreateInInventory( "AmmoBox_762x54_20Rnd" );
+		player.GetInventory().CreateInInventory( "AmmoBox_762x54_20Rnd" ); */
+		
+		
+		itemEnt = player.GetInventory().CreateInInventory( "M4A1_Black" );
+        //itemEnt.GetInventory().CreateAttachment( "M4_Suppressor" );
+        itemEnt.GetInventory().CreateAttachment( "M4_RISHndgrd_Black" );
+        itemEnt.GetInventory().CreateAttachment( "M4_MPBttstck_Black" );
+        itemEnt.GetInventory().CreateAttachment( "ACOGOptic" );
+		
+        //auto oMag2 = player.GetInventory().CreateInInventory( "Mag_STANAGCoupled_30Rnd" );
+        player.GetInventory().CreateInInventory( "Mag_STANAGCoupled_30Rnd" ); 
+        player.GetInventory().CreateInInventory( "Mag_STANAGCoupled_30Rnd" ); 
+
+      //  player.LocalTakeEntityToHands( itemEnt );
+
+       // player.SetQuickBarEntityShortcut( itemEnt, 0, true ); 
+		player.GetStatWater().Set(1000);
 	}
 };
   
