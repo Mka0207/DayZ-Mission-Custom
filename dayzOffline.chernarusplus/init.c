@@ -154,8 +154,6 @@ class CustomMission: MissionServer
 				
 				//EXTRA
 				itemEnt = player.GetInventory().CreateInInventory( "BallisticVest" );
-				itemEnt.GetInventory().CreateAttachment( "CarrierPouches" );
-				itemEnt.GetInventory().CreateAttachment( "CarrierHolsterSolo" );
 			break;
 			case 2:
 				//SVD
