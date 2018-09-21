@@ -118,6 +118,9 @@ class CustomMission: MissionServer
 				itemEnt.GetInventory().CreateAttachment( "M4_MPBttstck_Black" );
 				itemEnt.GetInventory().CreateAttachment( "ACOGOptic" );
 				
+				itemEnt = player.GetInventory().CreateInInventory( "M68Optic" );
+				itemEnt.GetInventory().CreateAttachment( "Battery9V" );
+				
 				player.GetInventory().CreateInInventory( "Mag_STANAGCoupled_30Rnd" ); 
 				player.GetInventory().CreateInInventory( "Mag_STANAGCoupled_30Rnd" ); 
 			break;
@@ -146,6 +149,8 @@ class CustomMission: MissionServer
 				itemEnt.GetInventory().CreateAttachment( "PSO1Optic" );
 				//auto oMag = player.GetInventory().CreateInInventory( "Mag_SVD_10Rnd" );
 				player.GetInventory().CreateInInventory( "Mag_SVD_10Rnd" ); 
+				player.GetInventory().CreateInInventory( "Mag_SVD_10Rnd" );
+				player.GetInventory().CreateInInventory( "Mag_SVD_10Rnd" );
 				player.GetInventory().CreateInInventory( "Mag_SVD_10Rnd" );
 				player.GetInventory().CreateInInventory( "Ammo_762x54" );
 				player.GetInventory().CreateInInventory( "Ammo_762x54" );
