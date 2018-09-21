@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <types>
-    <type name="ACOGOptic">
+   <!--  <type name="ACOGOptic">
         <nominal>20</nominal>
         <lifetime>7200</lifetime>
         <restock>1800</restock>
@@ -7561,5 +7561,5 @@
         <usage name="Military"/>
         <value name="Tier3"/>
         <value name="Tier4"/>
-    </type>
+    </type> -->
 </types>
