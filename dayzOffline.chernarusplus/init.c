@@ -107,10 +107,9 @@ class CustomMission: MissionServer
 		//Default Clothing
 		itemEnt = player.GetInventory().CreateInInventory( "M65Jacket_Black" );
 		itemEnt = player.GetInventory().CreateInInventory( "BallisticHelmet_Black" );
-		itemEnt = player.GetInventory().CreateInInventory( "HighCapacityVest_Black" )
 		itemEnt = player.GetInventory().CreateInInventory( "CargoPants_Black" );
 		
-		switch ( Math.RandomInt(0, 4) ) {
+		switch ( Math.RandomInt(0, 5) ) {
 			case 0:
 				itemEnt = player.GetInventory().CreateInInventory( "M4A1_Black" );
 				//itemEnt.GetInventory().CreateAttachment( "M4_Suppressor" );
@@ -123,6 +122,9 @@ class CustomMission: MissionServer
 				
 				player.GetInventory().CreateInInventory( "Mag_STANAGCoupled_30Rnd" ); 
 				player.GetInventory().CreateInInventory( "Mag_STANAGCoupled_30Rnd" ); 
+				
+				//Clothing
+				itemEnt = player.GetInventory().CreateInInventory( "HighCapacityVest_Black" )
 			break;
 			case 1:
 				itemEnt = player.GetInventory().CreateInInventory( "Mosin9130" );
@@ -139,10 +141,14 @@ class CustomMission: MissionServer
 				itemEnt = player.GetInventory().CreateInInventory( "FNX45" );
 				itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
 				itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
+				itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
 				
 				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
 				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
 				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+				
+				//Clothing
+				itemEnt = player.GetInventory().CreateInInventory( "BallisticVest" )
 			break;
 			case 2:
 				itemEnt = player.GetInventory().CreateInInventory( "SVD" );
@@ -159,12 +165,17 @@ class CustomMission: MissionServer
 				//player.GetWeaponManager().AttachMagazine( oMag ); 
 			
 				itemEnt = player.GetInventory().CreateInInventory( "FNX45" );
+				itemEnt.GetInventory().CreateAttachment( "FNP45_MRDSOptic" );
 				itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
 				itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
 				
 				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
 				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
 				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+				
+				//Clothing & Gear
+				itemEnt = player.GetInventory().CreateInInventory( "BallisticVest" )
+				itemEnt = player.GetInventory().CreateInInventory( "Battery9V" )
 			break;
 			case 3:
 				itemEnt = player.GetInventory().CreateInInventory( "MP5K" );
@@ -181,6 +192,18 @@ class CustomMission: MissionServer
 				player.GetInventory().CreateInInventory( "Ammo_9x19" );
 				player.GetInventory().CreateInInventory( "Ammo_9x19" );
 				player.GetInventory().CreateInInventory( "Ammo_9x19" );
+				
+				itemEnt = player.GetInventory().CreateInInventory( "FNX45" );
+				itemEnt.GetInventory().CreateAttachment( "FNP45_MRDSOptic" );
+				itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
+				itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
+				
+				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+				
+				//Clothing
+				itemEnt = player.GetInventory().CreateInInventory( "BallisticVest" )
 			break;
 			case 4:
 				itemEnt = player.GetInventory().CreateInInventory( "AKM" );
@@ -195,6 +218,11 @@ class CustomMission: MissionServer
 				player.GetInventory().CreateInInventory( "Ammo_762x39" );
 				player.GetInventory().CreateInInventory( "Ammo_762x39" );
 				player.GetInventory().CreateInInventory( "Ammo_762x39" );
+				
+				//Clothing & Gear
+				itemEnt = player.GetInventory().CreateInInventory( "HighCapacityVest_Black" )
+				itemEnt = player.GetInventory().CreateInInventory( "PSO1Optic" )
+				itemEnt.GetInventory().CreateAttachment( "Battery9V" );
 			break
 		}
 		
