@@ -30,7 +30,7 @@ void main()
 	Appartment spawn
 	*/	
 	
-	/* ItemBase m_apt;
+	ItemBase m_apt;
     vector apt_pos;
     vector apt_dir;
    
@@ -38,7 +38,7 @@ void main()
     apt_pos[1] = 17.5;
     apt_pos[2] = 2184.65;
 
-	m_apt = g_Game.CreateObject("Land_Tenement_Small", apt_pos, false); */
+	m_apt = g_Game.CreateObject("Land_Tenement_Small", apt_pos, false); 
 
 }
 
@@ -301,23 +301,13 @@ class CustomMission: MissionServer
 		wep_primary.GetInventory().CreateAttachment("KobraOptic");
 		addMags(player, "Mag_AKM_30Rnd", 6);
 		
-		//SECONDARY WEAPON
-		player.GetInventory().CreateInInventory( "FNX45" );
-		
 		//SCOPES
 		EntityAI optic_attach;
 		EntityAI optic2_attach;
 		
-		optic_attach = player.GetInventory().CreateInInventory( "M68Optic" );
+		optic_attach = player.GetInventory().CreateInInventory( "PSO1Optic" );
 		optic_attach.GetInventory().CreateAttachment( "Battery9V" );
-		
-		optic2_attach = player.GetInventory().CreateInInventory( "FNP45_MRDSOptic" );
-		optic2_attach.GetInventory().CreateAttachment( "Battery9V" );
-		
-		//MAGS
-		player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
-		player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
-		
+
 		//AMMO
 		EntityAI extra_ammo;
 		
@@ -325,9 +315,6 @@ class CustomMission: MissionServer
 		player.GetInventory().CreateInInventory( "Ammo_762x39" ); 
 		player.GetInventory().CreateInInventory( "Ammo_762x39" ); 
 		player.GetInventory().CreateInInventory( "Ammo_762x39" ); 
-		player.GetInventory().CreateInInventory( "Ammo_45ACP" );
-		player.GetInventory().CreateInInventory( "Ammo_45ACP" );
-		player.GetInventory().CreateInInventory( "Ammo_45ACP" );
 		
 		player.SetQuickBarEntityShortcut(extra_ammo, 2, true);
 
@@ -406,7 +393,7 @@ class CustomMission: MissionServer
 		player.SetQuickBarEntityShortcut(item_bandage_ent, 3, true);
 		
 		//AttachMag
-		auto load_mag = player.GetInventory().CreateInInventory( "Mag_STANAG_30Rnd" );
+		//auto load_mag = player.GetInventory().CreateInInventory( "Mag_STANAG_30Rnd" );
 		//EntityAI entity_in_hands = player.GetHumanInventory().GetEntityInHands();
 		//EntityAI quickBarEntity = player.GetQuickBarEntity(1);
 
