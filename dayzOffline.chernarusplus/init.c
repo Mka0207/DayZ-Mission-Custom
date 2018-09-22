@@ -244,7 +244,7 @@ class CustomMission: MissionServer
 		itemEnt = player.GetInventory().CreateInInventory( "Armband_Orange" );
 		itemEnt = player.GetInventory().CreateInInventory( "Armband_Pink" );
 		itemEnt = player.GetInventory().CreateInInventory( "Armband_Red" );
-		itemEnt = player.GetInventory().CreateInInventory( "Armband_White" );
+		//itemEnt = player.GetInventory().CreateInInventory( "Armband_White" );
 		itemEnt = player.GetInventory().CreateInInventory( "Armband_Yellow" );
 		
 		//Extra Starting Gear
