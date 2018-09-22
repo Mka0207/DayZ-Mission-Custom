@@ -25,52 +25,25 @@ void main()
 	
 	weather.SetWindMaximumSpeed(15);
 	weather.SetWindFunctionParams(0.1, 0.3, 50);
+	
+	/*
+	Appartment spawn
+	*/	
+	
+	/* ItemBase m_apt;
+    vector apt_pos;
+    vector apt_dir;
+   
+    apt_pos[0] = 5239.7;
+    apt_pos[1] = 17.5;
+    apt_pos[2] = 2184.65;
+
+	m_apt = g_Game.CreateObject("Land_Tenement_Small", apt_pos, false); */
+
 }
 
 class CustomMission: MissionServer
 {	
-
-	PlayerBase m_oPlayer;
-	
-	void SetRandomHealth(EntityAI itemEnt)
-	{
-		int rndHlt = Math.RandomInt(40,100);
-		itemEnt.SetHealth("","",rndHlt);
-	}
-	
-	vector GetCursorPos()
-	{
-		vector rayStart = GetGame().GetCurrentCameraPosition();
-		vector rayEnd = rayStart + GetGame().GetCurrentCameraDirection() * 10000;
-		vector hitPos;
-		vector hitNormal;
-		int hitComponentIndex;
-		DayZPhysics.RaycastRV(rayStart, rayEnd, hitPos, hitNormal, hitComponentIndex, NULL, NULL, m_oPlayer);
-
-		return hitPos;
-	}
-	
-	/* override void OnKeyPress( int key )
-	{
-		super.OnKeyPress(key);
-		
-		if ( key == KeyCode.KC_N )
-		{
-			TStringArray attArr = {
-			"CivSedanWheel","CivSedanWheel","CivSedanWheel","CivSedanWheel",
-			"CarBattery","CarRadiator","EngineBelt","SparkPlug","CivSedanHood",
-			"CivSedanTrunk","CivSedanDoors_Driver","CivSedanDoors_CoDriver",
-			"CivSedanDoors_BackLeft","CivSedanDoors_BackRight",
-			}; 
-			
-			EntityAI oCar = EntityAI.Cast( GetGame().CreateObject( "CivilianSedan", GetCursorPos(), false, true ) );
-			
-			for (int j = 0; j < attArr.Count(); j++) { oCar.GetInventory().CreateAttachment( attArr.Get(j) ); }
-			
-			oCar.SetAllowDamage( false );
-		}
-	} */
-	
 	override PlayerBase CreateCharacter(PlayerIdentity identity, vector pos, ParamsReadContext ctx, string characterName)
 	{
 		Entity playerEnt;
@@ -82,181 +55,371 @@ class CustomMission: MissionServer
 		return m_player;
 	}
 	
+	void addMags(PlayerBase player, string mag_type, int count)
+	{
+		if (count < 1)
+			return;
+
+		EntityAI mag;
+
+		for (int i = 0; i < count; i++) {
+			mag = player.GetInventory().CreateInInventory(mag_type);
+		}
+
+		player.SetQuickBarEntityShortcut(mag, 1, true);
+	}
+	
+	EntityAI DefaultClass_A(PlayerBase player)
+	{
+		
+		//PRIMARY WEAPON
+		EntityAI wep_primary = player.GetHumanInventory().CreateInHands( "M4A1" );
+		wep_primary.GetInventory().CreateAttachment( "M4_RISHndgrd_Black" );
+		wep_primary.GetInventory().CreateAttachment( "M4_MPBttstck_Black" );
+		wep_primary.GetInventory().CreateAttachment( "ACOGOptic" );
+		//itemEnt.GetInventory().CreateAttachment( "M4_Suppressor" ); OP!
+		addMags( player, "Mag_STANAG_30Rnd", 3 );
+		
+		//SCOPES
+		EntityAI optic_attach;
+		optic_attach = player.GetInventory().CreateInInventory( "M68Optic" );
+		optic_attach.GetInventory().CreateAttachment( "Battery9V" );
+		
+		//MAGS
+		//player.GetInventory().CreateInInventory( "Mag_STANAGCoupled_30Rnd" ); 
+		//player.GetInventory().CreateInInventory( "Mag_STANAGCoupled_30Rnd" ); 
+		
+		//AMMO
+		EntityAI extra_ammo;
+		
+		player.GetInventory().CreateInInventory( "Ammo_556x45" ); 
+		player.GetInventory().CreateInInventory( "Ammo_556x45" ); 
+		player.GetInventory().CreateInInventory( "Ammo_556x45" ); 
+		extra_ammo = player.GetInventory().CreateInInventory( "Ammo_556x45" ); 
+		
+		player.SetQuickBarEntityShortcut(extra_ammo, 2, true);
+
+		//VEST
+		player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
+		
+		return wep_primary;
+		
+	}
+	
+	EntityAI DefaultClass_B(PlayerBase player)
+	{
+		
+		//PRIMARY WEAPON
+		EntityAI wep_primary = player.GetHumanInventory().CreateInHands( "FNX45" );
+		
+		//SECONDARY WEAPON
+		EntityAI secondarywep;
+		secondarywep = player.GetInventory().CreateInInventory( "Mosin9130" );
+		secondarywep.GetInventory().CreateAttachment( "PUScopeOptic" );
+		player.SetQuickBarEntityShortcut(secondarywep, 1, true);
+		
+		//SCOPES
+		EntityAI optic_attach;
+		EntityAI optic2_attach;
+		
+		optic_attach = player.GetInventory().CreateInInventory( "M68Optic" );
+		optic_attach.GetInventory().CreateAttachment( "Battery9V" );
+		
+		optic2_attach = player.GetInventory().CreateInInventory( "FNP45_MRDSOptic" );
+		optic2_attach.GetInventory().CreateAttachment( "Battery9V" );
+		
+		//MAGS
+		EntityAI secondarymag;
+		secondarymag = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
+		player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
+		player.SetQuickBarEntityShortcut(secondarymag, 4, true);
+		
+		//AMMO
+		EntityAI extra_ammo;
+		
+		player.GetInventory().CreateInInventory( "Ammo_762x54" ); 
+		player.GetInventory().CreateInInventory( "Ammo_762x54" ); 
+		player.GetInventory().CreateInInventory( "Ammo_762x54" ); 
+		extra_ammo = player.GetInventory().CreateInInventory( "Ammo_762x54" ); 
+		
+		player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+		player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+		player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+		
+		player.SetQuickBarEntityShortcut(extra_ammo, 2, true);
+
+		//VEST
+		player.GetInventory().CreateInInventory( "BallisticVest" );
+		
+		return wep_primary;
+		
+	}
+	
+	EntityAI DefaultClass_C(PlayerBase player)
+	{
+		
+		//PRIMARY WEAPON
+		EntityAI wep_primary = player.GetHumanInventory().CreateInHands( "UMP45" );
+		wep_primary.GetInventory().CreateAttachment("PistolSuppressor");
+		addMags(player, "Mag_UMP_25Rnd", 3);
+		
+		//SECONDARY WEAPON
+		player.GetInventory().CreateInInventory( "FNX45" );
+		
+		//SCOPES
+		EntityAI optic_attach;
+		EntityAI optic2_attach;
+		
+		optic_attach = player.GetInventory().CreateInInventory( "M68Optic" );
+		optic_attach.GetInventory().CreateAttachment( "Battery9V" );
+		
+		optic2_attach = player.GetInventory().CreateInInventory( "FNP45_MRDSOptic" );
+		optic2_attach.GetInventory().CreateAttachment( "Battery9V" );
+		
+		//MAGS
+		player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
+		player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
+		
+		//AMMO
+		EntityAI extra_ammo;
+		
+		player.GetInventory().CreateInInventory( "Ammo_45ACP" ); 
+		player.GetInventory().CreateInInventory( "Ammo_45ACP" ); 
+		player.GetInventory().CreateInInventory( "Ammo_45ACP" ); 
+		player.GetInventory().CreateInInventory( "Ammo_45ACP" ); 
+		player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+		player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+		player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+		
+		player.SetQuickBarEntityShortcut(extra_ammo, 2, true);
+
+		//VEST
+		player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
+		
+		return wep_primary;
+		
+	}
+	
+	EntityAI DefaultClass_D(PlayerBase player)
+	{
+		
+		//PRIMARY WEAPON
+		EntityAI wep_primary = player.GetHumanInventory().CreateInHands( "SVD" );
+		wep_primary.GetInventory().CreateAttachment("PSO1Optic");
+		addMags(player, "Mag_SVD_10Rnd", 6);
+		
+		//SECONDARY WEAPON
+		player.GetInventory().CreateInInventory( "FNX45" );
+		
+		//SCOPES
+		EntityAI optic_attach;
+		EntityAI optic2_attach;
+		
+		optic_attach = player.GetInventory().CreateInInventory( "M68Optic" );
+		optic_attach.GetInventory().CreateAttachment( "Battery9V" );
+		
+		optic2_attach = player.GetInventory().CreateInInventory( "FNP45_MRDSOptic" );
+		optic2_attach.GetInventory().CreateAttachment( "Battery9V" );
+		
+		//MAGS
+		player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
+		player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
+		
+		//AMMO
+		EntityAI extra_ammo;
+		
+		extra_ammo = player.GetInventory().CreateInInventory( "Ammo_762x54" ); 
+		player.GetInventory().CreateInInventory( "Ammo_762x54" ); 
+		player.GetInventory().CreateInInventory( "Ammo_762x54" ); 
+		player.GetInventory().CreateInInventory( "Ammo_762x54" ); 
+		player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+		player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+		player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+		
+		player.SetQuickBarEntityShortcut(extra_ammo, 2, true);
+
+		//VEST
+		player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
+		
+		return wep_primary;
+		
+	}
+	
+	EntityAI DefaultClass_E(PlayerBase player)
+	{
+		
+		//PRIMARY WEAPON
+		EntityAI wep_primary = player.GetHumanInventory().CreateInHands( "MP5K" );
+		wep_primary.GetInventory().CreateAttachment("MP5_PlasticHndgrd");
+		wep_primary.GetInventory().CreateAttachment("MP5k_StockBttstck");
+		addMags(player, "Mag_MP5_30Rnd", 4);
+		
+		//SECONDARY WEAPON
+		player.GetInventory().CreateInInventory( "FNX45" );
+		
+		//SCOPES
+		EntityAI optic_attach;
+		EntityAI optic2_attach;
+		
+		optic_attach = player.GetInventory().CreateInInventory( "M68Optic" );
+		optic_attach.GetInventory().CreateAttachment( "Battery9V" );
+		
+		optic2_attach = player.GetInventory().CreateInInventory( "FNP45_MRDSOptic" );
+		optic2_attach.GetInventory().CreateAttachment( "Battery9V" );
+		
+		//MAGS
+		player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
+		player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
+		
+		//AMMO
+		EntityAI extra_ammo;
+		
+		extra_ammo = player.GetInventory().CreateInInventory( "Ammo_9x19" ); 
+		player.GetInventory().CreateInInventory( "Ammo_9x19" ); 
+		player.GetInventory().CreateInInventory( "Ammo_9x19" ); 
+		player.GetInventory().CreateInInventory( "Ammo_9x19" ); 
+		player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+		player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+		player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+		
+		player.SetQuickBarEntityShortcut(extra_ammo, 2, true);
+
+		//VEST
+		player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
+		
+		return wep_primary;
+		
+	}
+	
+	EntityAI DefaultClass_F(PlayerBase player)
+	{
+		
+		//PRIMARY WEAPON
+		EntityAI wep_primary = player.GetHumanInventory().CreateInHands( "AKM" );
+		wep_primary.GetInventory().CreateAttachment("AK_WoodBttstck");
+		wep_primary.GetInventory().CreateAttachment("AK_WoodHndgrd");
+		wep_primary.GetInventory().CreateAttachment("KobraOptic");
+		addMags(player, "Mag_AKM_30Rnd", 6);
+		
+		//SECONDARY WEAPON
+		player.GetInventory().CreateInInventory( "FNX45" );
+		
+		//SCOPES
+		EntityAI optic_attach;
+		EntityAI optic2_attach;
+		
+		optic_attach = player.GetInventory().CreateInInventory( "M68Optic" );
+		optic_attach.GetInventory().CreateAttachment( "Battery9V" );
+		
+		optic2_attach = player.GetInventory().CreateInInventory( "FNP45_MRDSOptic" );
+		optic2_attach.GetInventory().CreateAttachment( "Battery9V" );
+		
+		//MAGS
+		player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
+		player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
+		
+		//AMMO
+		EntityAI extra_ammo;
+		
+		extra_ammo = player.GetInventory().CreateInInventory( "Ammo_762x39" ); 
+		player.GetInventory().CreateInInventory( "Ammo_762x39" ); 
+		player.GetInventory().CreateInInventory( "Ammo_762x39" ); 
+		player.GetInventory().CreateInInventory( "Ammo_762x39" ); 
+		player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+		player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+		player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+		
+		player.SetQuickBarEntityShortcut(extra_ammo, 2, true);
+
+		//VEST
+		player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
+		
+		return wep_primary;
+		
+	}
+	
 	override void StartingEquipSetup(PlayerBase player, bool clothesChosen)
 	{
-/*
-		player.RemoveAllItems();
-
-		EntityAI item = player.GetInventory().CreateInInventory(topsArray.GetRandomElement());
-		EntityAI item2 = player.GetInventory().CreateInInventory(pantsArray.GetRandomElement());
-		EntityAI item3 = player.GetInventory().CreateInInventory(shoesArray.GetRandomElement());
-*/
 		//Remove vanilla default clothing.
 		player.RemoveAllItems()
 		
-		EntityAI itemEnt;
-		ItemBase itemBs;
+		//EntityClass vars
+		//EntityAI itemEntity;
+		//ItemBase itemBs;
 		
-		/* itemBs = ItemBase.Cast(itemEnt);
-		itemBs.SetQuantity(4);
-		SetRandomHealth(itemEnt); */
-
-		/* itemEnt = player.GetInventory().CreateInInventory("RoadFlare");
-		itemBs = ItemBase.Cast(itemEnt) */;
-		
-		//Starter Clothing
-		itemEnt = player.GetInventory().CreateInInventory( "M65Jacket_Black" );
-		itemEnt = player.GetInventory().CreateInInventory( "BallisticHelmet_Black" );
-		itemEnt = player.GetInventory().CreateInInventory( "CargoPants_Black" );
-		
-		switch ( Math.RandomInt(0, 5) ) {
-			case 0:
-				//M4A1
-				itemEnt = player.GetInventory().CreateInInventory( "M4A1_Black" );
-				//itemEnt.GetInventory().CreateAttachment( "M4_Suppressor" );
-				itemEnt.GetInventory().CreateAttachment( "M4_RISHndgrd_Black" );
-				itemEnt.GetInventory().CreateAttachment( "M4_MPBttstck_Black" );
-				itemEnt.GetInventory().CreateAttachment( "ACOGOptic" );
-				
-				itemEnt = player.GetInventory().CreateInInventory( "M68Optic" );
-				itemEnt.GetInventory().CreateAttachment( "Battery9V" );
-				
-				player.GetInventory().CreateInInventory( "Mag_STANAGCoupled_30Rnd" ); 
-				player.GetInventory().CreateInInventory( "Mag_STANAGCoupled_30Rnd" ); 
-				
-				player.GetInventory().CreateInInventory( "Ammo_556x45" ); 
-				player.GetInventory().CreateInInventory( "Ammo_556x45" ); 
-				player.GetInventory().CreateInInventory( "Ammo_556x45" ); 
-				player.GetInventory().CreateInInventory( "Ammo_556x45" ); 
-				
-				//EXTRA
-				itemEnt = player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
-			break;
-			case 1:
-				//MOSIN
-				itemEnt = player.GetInventory().CreateInInventory( "Mosin9130" );
-				//itemEnt.GetInventory().CreateAttachment( "Mosin_Compensator" );
-				itemEnt.GetInventory().CreateAttachment( "PUScopeOptic" );
-				player.GetInventory().CreateInInventory( "Ammo_762x54" );
-				player.GetInventory().CreateInInventory( "Ammo_762x54" );
-				player.GetInventory().CreateInInventory( "Ammo_762x54" );
-				player.GetInventory().CreateInInventory( "Ammo_762x54" );
-				
-				//FNX
-				itemEnt = player.GetInventory().CreateInInventory( "FNX45" );
-				itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
-				itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
-				itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
-				
-				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
-				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
-				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
-				
-				//EXTRA
-				itemEnt = player.GetInventory().CreateInInventory( "BallisticVest" );
-			break;
-			case 2:
-				//SVD
-				itemEnt = player.GetInventory().CreateInInventory( "SVD" );
-				itemEnt.GetInventory().CreateAttachment( "PSO1Optic" );
-				//auto oMag = player.GetInventory().CreateInInventory( "Mag_SVD_10Rnd" );
-				player.GetInventory().CreateInInventory( "Mag_SVD_10Rnd" ); 
-				player.GetInventory().CreateInInventory( "Mag_SVD_10Rnd" );
-				player.GetInventory().CreateInInventory( "Mag_SVD_10Rnd" );
-				player.GetInventory().CreateInInventory( "Mag_SVD_10Rnd" );
-				player.GetInventory().CreateInInventory( "Ammo_762x54" );
-				player.GetInventory().CreateInInventory( "Ammo_762x54" );
-				player.GetInventory().CreateInInventory( "Ammo_762x54" );
-				player.GetInventory().CreateInInventory( "Ammo_762x54" );
-				//player.GetWeaponManager().AttachMagazine( oMag ); 
-				
-				//FNX
-				itemEnt = player.GetInventory().CreateInInventory( "FNX45" );
-				itemEnt.GetInventory().CreateAttachment( "FNP45_MRDSOptic" );
-				itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
-				itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
-				
-				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
-				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
-				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
-				
-				//Extra
-				itemEnt = player.GetInventory().CreateInInventory( "HighCapacityVest_Black" )
-				itemEnt = player.GetInventory().CreateInInventory( "Battery9V" )
-			break;
-			case 3:
-				//MPK
-				itemEnt = player.GetInventory().CreateInInventory( "MP5K" );
-				itemEnt.GetInventory().CreateAttachment( "MP5_PlasticHndgrd" );
-				itemEnt.GetInventory().CreateAttachment( "MP5k_StockBttstck" );
-				
-				itemEnt = player.GetInventory().CreateInInventory( "M68Optic" );
-				itemEnt.GetInventory().CreateAttachment( "Battery9V" );
-				
-				player.GetInventory().CreateInInventory( "Mag_MP5_30Rnd" ); 
-				player.GetInventory().CreateInInventory( "Mag_MP5_30Rnd" ); 
-				player.GetInventory().CreateInInventory( "Mag_MP5_30Rnd" ); 
-				
-				player.GetInventory().CreateInInventory( "Ammo_9x19" );
-				player.GetInventory().CreateInInventory( "Ammo_9x19" );
-				player.GetInventory().CreateInInventory( "Ammo_9x19" );
-				
-				//FNX
-				itemEnt = player.GetInventory().CreateInInventory( "FNX45" );
-				itemEnt.GetInventory().CreateAttachment( "FNP45_MRDSOptic" );
-				itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
-				itemEnt = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
-				
-				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
-				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
-				itemEnt = player.GetInventory().CreateInInventory( "Ammo_45ACP" );
-				
-				//Clothing
-				itemEnt = player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
-			break;
-			case 4:
-				
-				//AKM
-				itemEnt = player.GetInventory().CreateInInventory( "AKM" );
-				itemEnt.GetInventory().CreateAttachment( "AK_WoodBttstck" );
-				itemEnt.GetInventory().CreateAttachment( "AK_WoodHndgrd" );
-				itemEnt.GetInventory().CreateAttachment( "KobraOptic" );
-
-				player.GetInventory().CreateInInventory( "Mag_AKM_30Rnd" ); 
-				player.GetInventory().CreateInInventory( "Mag_AKM_30Rnd" ); 
-				player.GetInventory().CreateInInventory( "Mag_AKM_30Rnd" ); 
-				
-				player.GetInventory().CreateInInventory( "Ammo_762x39" );
-				player.GetInventory().CreateInInventory( "Ammo_762x39" );
-				player.GetInventory().CreateInInventory( "Ammo_762x39" );
-				
-				//Clothing & Gear
-				itemEnt = player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
-				itemEnt = player.GetInventory().CreateInInventory( "PSO1Optic" );
-				itemEnt.GetInventory().CreateAttachment( "Battery9V" );
-			break
-		}
+		//Clothing
+		player.GetInventory().CreateInInventory( "M65Jacket_Black" );
+		player.GetInventory().CreateInInventory( "BallisticHelmet_Black" );
+		player.GetInventory().CreateInInventory( "CargoPants_Black" );
 		
 		//Armbands
-		itemEnt = player.GetInventory().CreateInInventory( "Armband_Black" );
-		itemEnt = player.GetInventory().CreateInInventory( "Armband_Blue" );
-		itemEnt = player.GetInventory().CreateInInventory( "Armband_Green" );
-		itemEnt = player.GetInventory().CreateInInventory( "Armband_Orange" );
-		itemEnt = player.GetInventory().CreateInInventory( "Armband_Pink" );
-		itemEnt = player.GetInventory().CreateInInventory( "Armband_Red" );
-		//itemEnt = player.GetInventory().CreateInInventory( "Armband_White" );
-		itemEnt = player.GetInventory().CreateInInventory( "Armband_Yellow" );
+		//player.GetInventory().CreateInInventory( "Armband_White" );
+		player.GetInventory().CreateInInventory( "Armband_Black" );
+		player.GetInventory().CreateInInventory( "Armband_Blue" );
+		player.GetInventory().CreateInInventory( "Armband_Green" );
+		player.GetInventory().CreateInInventory( "Armband_Orange" );
+		player.GetInventory().CreateInInventory( "Armband_Pink" );
+		player.GetInventory().CreateInInventory( "Armband_Red" );
+		player.GetInventory().CreateInInventory( "Armband_Yellow" );
 		
 		//Extra Starting Gear
-		itemEnt = player.GetInventory().CreateInInventory( "PersonalRadio" );
-		itemEnt.GetInventory().CreateAttachment( "Battery9V" );
-		//itemEnt = player.GetInventory().CreateInInventory( "CombatKnife" ); Make instant kill later then uncomment.
-		itemEnt = player.GetInventory().CreateInInventory( "SalineBagIV" );
-		itemEnt = player.GetInventory().CreateInInventory( "BandageDressing" );
+		EntityAI item_radio_ent;
+		item_radio_ent = player.GetInventory().CreateInInventory( "PersonalRadio" );
+		item_radio_ent.GetInventory().CreateAttachment( "Battery9V" );
+		
+		//Knife = player.GetInventory().CreateInInventory( "CombatKnife" ); Make instant kill later then uncomment.
+		player.GetInventory().CreateInInventory( "SalineBagIV" );
+		
+		EntityAI item_bandage_ent;
+		item_bandage_ent = player.GetInventory().CreateInInventory( "BandageDressing" );
+		
+		EntityAI primarywep;
+		switch ( Math.RandomInt( 0, 6 ) ) 
+		{
+			case 0 : 
+				primarywep = DefaultClass_A( player ); 
+			break;
+			
+			case 1 : 
+				primarywep = DefaultClass_B( player ); 
+			break;
+			
+			case 2 : 
+				primarywep = DefaultClass_C( player ); 
+			break;
+			
+			case 3 : 
+				primarywep = DefaultClass_D( player ); 
+			break;
+			
+			case 4 : 
+				primarywep = DefaultClass_E( player ); 
+			break;
+			
+			case 5 : 
+				primarywep = DefaultClass_F( player ); 
+			break;
+		} 
+		
+		player.PredictiveTakeEntityToHands(primarywep);
+		player.SetQuickBarEntityShortcut(primarywep, 0, true);
+		player.SetQuickBarEntityShortcut(item_bandage_ent, 3, true);
+		
+		//AttachMag
+		auto load_mag = player.GetInventory().CreateInInventory( "Mag_STANAG_30Rnd" );
+		//EntityAI entity_in_hands = player.GetHumanInventory().GetEntityInHands();
+		//EntityAI quickBarEntity = player.GetQuickBarEntity(1);
 
-		//  player.LocalTakeEntityToHands( itemEnt );
-       // player.SetQuickBarEntityShortcut( itemEnt, 0, true ); 
-	   
+		//player.GetWeaponManager().AttachMagazine( load_mag );
+		//player.ReloadWeapon( primarywep, load_mag );	
+		
+		//EntityAI magazine_ent = player.GetMagazineToReload( primarywep );
+		//player.ReloadWeapon( primarywep, quickBarEntity );
+		
+		/* Magazine mag;
+		Class.CastTo( mag, load_mag );
+		player.GetWeaponManager().AttachMagazine( mag ); */
+		
 	   //Set Hydration to full.
 		player.GetStatWater().Set(1000);
 	}
