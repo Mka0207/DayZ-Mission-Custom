@@ -22,11 +22,15 @@ void main()
 	weather.GetRain().SetForecastTimeLimits( 600 , 600 );
 	weather.GetFog().SetForecastTimeLimits( 1800 , 1800 );
 
-	weather.GetOvercast().Set( Math.RandomFloatInclusive(0.0, 0.3), 0, 0);
+	/* weather.GetOvercast().Set( Math.RandomFloatInclusive(0.0, 0.3), 0, 0);
 	weather.GetRain().Set( Math.RandomFloatInclusive(0.0, 0.2), 0, 0);
-	weather.GetFog().Set( Math.RandomFloatInclusive(0.0, 0.1), 0, 0);
+	weather.GetFog().Set( Math.RandomFloatInclusive(0.0, 0.1), 0, 0); */
 	
-	weather.SetWindMaximumSpeed(15);
+	weather.GetOvercast().Set( 0, 0, 0 );
+	weather.GetRain().Set( 0, 0, 0 );
+	weather.GetFog().Set( 0, 0, 0 ); 
+	
+	weather.SetWindMaximumSpeed(17);
 	weather.SetWindFunctionParams(0.1, 0.3, 50);
 
 	//Custom Stuff
