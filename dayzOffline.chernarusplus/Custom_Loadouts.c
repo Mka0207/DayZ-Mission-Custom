@@ -16,7 +16,8 @@ void OnSpawnCallback(PlayerBase player)
 	player.GetInventory().CreateInInventory( "Armband_Yellow" );
 	
 	//Melee
-	player.GetInventory().CreateInInventory( "Crowbar" );
+	EntityAI crow_barwep player.GetInventory().CreateInInventory( "Crowbar" );
+	player.SetQuickBarEntityShortcut(crow_barwep, 5, true);
 	
 	//Extra Starting Gear
 	EntityAI item_radio_ent;
