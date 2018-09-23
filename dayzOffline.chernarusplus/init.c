@@ -1,3 +1,55 @@
+void AddBuildings()
+{
+	/*
+	Appartment spawn
+	*/	
+	ItemBase m_apt;
+    vector apt_pos;
+    vector apt_dir;
+   
+    apt_pos[0] = 5239.7;
+    apt_pos[1] = 17.5;
+    apt_pos[2] = 2184.65;
+
+	m_apt = g_Game.CreateObject("Land_Tenement_Small", apt_pos, false); 
+	
+	/*
+	Crashed C130
+	*/	
+	ItemBase m_c130;
+    vector c130_pos;
+    vector c130_dir;
+   
+    c130_pos[0] = 5051.91;
+    c130_pos[1] = 14;
+    c130_pos[2] = 2414.31;
+ 
+    c130_dir[0] = 90;
+    c130_dir[1] = 0;
+    c130_dir[2] = 20;
+
+	m_c130 = g_Game.CreateObject("Land_Wreck_C130J", c130_pos, false);
+	m_c130.SetOrientation(c130_dir);
+	
+	/*
+	Scaffolding for the Airport building
+	*/	
+	ItemBase m_scf1;
+    vector scf1_pos;
+    vector scf1_dir;
+   
+    scf1_pos[0] = 4930.7;
+    scf1_pos[1] = 12;
+    scf1_pos[2] = 2489;
+ 
+    scf1_dir[0] = 49;
+    scf1_dir[1] = 0;
+    scf1_dir[2] = 0;
+
+	m_scf1 = g_Game.CreateObject("Land_Misc_Scaffolding", scf1_pos, false);
+	m_scf1.SetOrientation(scf1_dir);
+}
+
 void main()
 {
 
@@ -25,21 +77,8 @@ void main()
 	
 	weather.SetWindMaximumSpeed(15);
 	weather.SetWindFunctionParams(0.1, 0.3, 50);
-	
-	/*
-	Appartment spawn
-	*/	
-	
-	ItemBase m_apt;
-    vector apt_pos;
-    vector apt_dir;
-   
-    apt_pos[0] = 5239.7;
-    apt_pos[1] = 17.5;
-    apt_pos[2] = 2184.65;
 
-	m_apt = g_Game.CreateObject("Land_Tenement_Small", apt_pos, false); 
-
+	AddBuildings();
 }
 
 class CustomMission: MissionServer
@@ -71,6 +110,8 @@ class CustomMission: MissionServer
 	
 	EntityAI DefaultClass_A(PlayerBase player)
 	{
+		//VEST
+		player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
 		
 		//PRIMARY WEAPON
 		EntityAI wep_primary = player.GetHumanInventory().CreateInHands( "M4A1" );
@@ -98,9 +139,6 @@ class CustomMission: MissionServer
 		extra_ammo = player.GetInventory().CreateInInventory( "Ammo_556x45" ); 
 		
 		player.SetQuickBarEntityShortcut(extra_ammo, 2, true);
-
-		//VEST
-		player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
 		
 		return wep_primary;
 		
@@ -108,9 +146,8 @@ class CustomMission: MissionServer
 	
 	EntityAI DefaultClass_B(PlayerBase player)
 	{
-		
-		//PRIMARY WEAPON
-		EntityAI wep_primary = player.GetHumanInventory().CreateInHands( "FNX45" );
+		//VEST
+		player.GetInventory().CreateInInventory( "BallisticVest" );
 		
 		//SECONDARY WEAPON
 		EntityAI secondarywep;
@@ -125,7 +162,10 @@ class CustomMission: MissionServer
 		optic_attach = player.GetInventory().CreateInInventory( "M68Optic" );
 		optic_attach.GetInventory().CreateAttachment( "Battery9V" );
 		
-		optic2_attach = player.GetInventory().CreateInInventory( "FNP45_MRDSOptic" );
+		//PRIMARY WEAPON
+		EntityAI attach_extra;
+		EntityAI wep_primary = player.GetHumanInventory().CreateInHands( "FNX45" );
+		optic2_attach = wep_primary.GetInventory().CreateAttachment( "FNP45_MRDSOptic" );
 		optic2_attach.GetInventory().CreateAttachment( "Battery9V" );
 		
 		//MAGS
@@ -147,9 +187,6 @@ class CustomMission: MissionServer
 		player.GetInventory().CreateInInventory( "Ammo_45ACP" );
 		
 		player.SetQuickBarEntityShortcut(extra_ammo, 2, true);
-
-		//VEST
-		player.GetInventory().CreateInInventory( "BallisticVest" );
 		
 		return wep_primary;
 		
@@ -157,14 +194,13 @@ class CustomMission: MissionServer
 	
 	EntityAI DefaultClass_C(PlayerBase player)
 	{
+		//VEST
+		player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
 		
 		//PRIMARY WEAPON
 		EntityAI wep_primary = player.GetHumanInventory().CreateInHands( "UMP45" );
 		wep_primary.GetInventory().CreateAttachment("PistolSuppressor");
 		addMags(player, "Mag_UMP_25Rnd", 3);
-		
-		//SECONDARY WEAPON
-		player.GetInventory().CreateInInventory( "FNX45" );
 		
 		//SCOPES
 		EntityAI optic_attach;
@@ -173,7 +209,10 @@ class CustomMission: MissionServer
 		optic_attach = player.GetInventory().CreateInInventory( "M68Optic" );
 		optic_attach.GetInventory().CreateAttachment( "Battery9V" );
 		
-		optic2_attach = player.GetInventory().CreateInInventory( "FNP45_MRDSOptic" );
+		//SECONDARY WEAPON
+		EntityAI attach_extra;
+		EntityAI secondarywep = player.GetHumanInventory().CreateInInventory( "FNX45" );
+		optic2_attach = secondarywep.GetInventory().CreateAttachment( "FNP45_MRDSOptic" );
 		optic2_attach.GetInventory().CreateAttachment( "Battery9V" );
 		
 		//MAGS
@@ -192,9 +231,6 @@ class CustomMission: MissionServer
 		player.GetInventory().CreateInInventory( "Ammo_45ACP" );
 		
 		player.SetQuickBarEntityShortcut(extra_ammo, 2, true);
-
-		//VEST
-		player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
 		
 		return wep_primary;
 		
@@ -202,14 +238,13 @@ class CustomMission: MissionServer
 	
 	EntityAI DefaultClass_D(PlayerBase player)
 	{
+		//VEST
+		player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
 		
 		//PRIMARY WEAPON
 		EntityAI wep_primary = player.GetHumanInventory().CreateInHands( "SVD" );
 		wep_primary.GetInventory().CreateAttachment("PSO1Optic");
 		addMags(player, "Mag_SVD_10Rnd", 6);
-		
-		//SECONDARY WEAPON
-		player.GetInventory().CreateInInventory( "FNX45" );
 		
 		//SCOPES
 		EntityAI optic_attach;
@@ -218,7 +253,10 @@ class CustomMission: MissionServer
 		optic_attach = player.GetInventory().CreateInInventory( "M68Optic" );
 		optic_attach.GetInventory().CreateAttachment( "Battery9V" );
 		
-		optic2_attach = player.GetInventory().CreateInInventory( "FNP45_MRDSOptic" );
+		//SECONDARY WEAPON
+		EntityAI attach_extra;
+		EntityAI secondarywep = player.GetHumanInventory().CreateInInventory( "FNX45" );
+		optic2_attach = secondarywep.GetInventory().CreateAttachment( "FNP45_MRDSOptic" );
 		optic2_attach.GetInventory().CreateAttachment( "Battery9V" );
 		
 		//MAGS
@@ -237,9 +275,6 @@ class CustomMission: MissionServer
 		player.GetInventory().CreateInInventory( "Ammo_45ACP" );
 		
 		player.SetQuickBarEntityShortcut(extra_ammo, 2, true);
-
-		//VEST
-		player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
 		
 		return wep_primary;
 		
@@ -247,15 +282,14 @@ class CustomMission: MissionServer
 	
 	EntityAI DefaultClass_E(PlayerBase player)
 	{
+		//VEST
+		player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
 		
 		//PRIMARY WEAPON
 		EntityAI wep_primary = player.GetHumanInventory().CreateInHands( "MP5K" );
 		wep_primary.GetInventory().CreateAttachment("MP5_PlasticHndgrd");
 		wep_primary.GetInventory().CreateAttachment("MP5k_StockBttstck");
 		addMags(player, "Mag_MP5_30Rnd", 4);
-		
-		//SECONDARY WEAPON
-		player.GetInventory().CreateInInventory( "FNX45" );
 		
 		//SCOPES
 		EntityAI optic_attach;
@@ -264,7 +298,10 @@ class CustomMission: MissionServer
 		optic_attach = player.GetInventory().CreateInInventory( "M68Optic" );
 		optic_attach.GetInventory().CreateAttachment( "Battery9V" );
 		
-		optic2_attach = player.GetInventory().CreateInInventory( "FNP45_MRDSOptic" );
+		//SECONDARY WEAPON
+		EntityAI attach_extra;
+		EntityAI secondarywep = player.GetHumanInventory().CreateInInventory( "FNX45" );
+		optic2_attach = secondarywep.GetInventory().CreateAttachment( "FNP45_MRDSOptic" );
 		optic2_attach.GetInventory().CreateAttachment( "Battery9V" );
 		
 		//MAGS
@@ -283,9 +320,6 @@ class CustomMission: MissionServer
 		player.GetInventory().CreateInInventory( "Ammo_45ACP" );
 		
 		player.SetQuickBarEntityShortcut(extra_ammo, 2, true);
-
-		//VEST
-		player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
 		
 		return wep_primary;
 		
@@ -293,6 +327,8 @@ class CustomMission: MissionServer
 	
 	EntityAI DefaultClass_F(PlayerBase player)
 	{
+		//VEST
+		player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
 		
 		//PRIMARY WEAPON
 		EntityAI wep_primary = player.GetHumanInventory().CreateInHands( "AKM" );
@@ -317,9 +353,6 @@ class CustomMission: MissionServer
 		player.GetInventory().CreateInInventory( "Ammo_762x39" ); 
 		
 		player.SetQuickBarEntityShortcut(extra_ammo, 2, true);
-
-		//VEST
-		player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
 		
 		return wep_primary;
 		
