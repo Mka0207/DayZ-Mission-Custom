@@ -2,7 +2,7 @@ void AddBuildings()
 {
 	/*
 	Appartment spawn
-	*/	
+	
 	ItemBase m_apt;
     vector apt_pos;
     vector apt_dir;
@@ -12,6 +12,28 @@ void AddBuildings()
     apt_pos[2] = 2184.65;
 
 	m_apt = g_Game.CreateObject("Land_Tenement_Small", apt_pos, false); 
+	
+	*/	
+	/*
+    ATC Spawn, replaces appartment
+    */	
+	
+	ItemBase m_atc;
+    vector atc_pos;
+    vector atc_dir;
+   
+    atc_pos[0] = 5239.7;
+    atc_pos[1] = 25.5;
+    atc_pos[2] = 2184.65;
+ 
+    atc_dir[0] = 66;
+    atc_dir[1] = 0;
+    atc_dir[2] = 0;
+ 
+	
+	m_atc = g_Game.CreateObject("Land_Mil_ATC_Big", atc_pos, false);
+	m_atc.SetOrientation(atc_dir);
+	
 	
 	/*
 	Crashed C130
