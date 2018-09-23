@@ -62,6 +62,44 @@ class CustomMission: MissionServer
 		//Run our callback.
 		OnSpawnCallback(player);
 	}
+	
+	override void OnClientRespawnEvent(PlayerIdentity identity, PlayerBase player)
+	{
+		// note: player is now killed in db right after the actual kill happens 
+		/*if (GetHive() && player)
+		{
+			GetHive().CharacterKill(player);
+		}*/
+		
+		if(player)
+		{
+			if (player.IsUnconscious() || player.IsRestrained())
+			{
+				// kill character
+				player.SetHealth("", "", 0.0);
+			}
+			
+			// remove the body after disconnect for deathmatch.
+			player.Delete();
+		}
+	}
+	
+	override void HandleBody(PlayerBase player)
+	{
+		if (player.IsAlive() && !player.IsRestrained() && !player.IsUnconscious())
+		{
+			// remove the body
+			player.Delete();	
+		}
+		else if (player.IsUnconscious() || player.IsRestrained())
+		{
+			// kill character
+			player.SetHealth("", "", 0.0);
+			
+			// remove the body after disconnect for deathmatch.
+			player.Delete();
+		}
+	}
 };
   
 Mission CreateCustomMission(string path)
