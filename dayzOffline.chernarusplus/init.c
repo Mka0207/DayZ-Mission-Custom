@@ -272,9 +272,6 @@ class CustomMission: MissionServer
 		EntityAI optic_attach;
 		EntityAI optic2_attach;
 		
-		optic_attach = player.GetInventory().CreateInInventory( "M68Optic" );
-		optic_attach.GetInventory().CreateAttachment( "Battery9V" );
-		
 		//SECONDARY WEAPON
 		EntityAI attach_extra;
 		EntityAI secondarywep = player.GetHumanInventory().CreateInInventory( "FNX45" );
