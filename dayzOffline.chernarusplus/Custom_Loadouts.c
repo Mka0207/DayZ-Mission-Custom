@@ -15,6 +15,9 @@ void OnSpawnCallback(PlayerBase player)
 	player.GetInventory().CreateInInventory( "Armband_Red" );
 	player.GetInventory().CreateInInventory( "Armband_Yellow" );
 	
+	//Melee
+	player.GetInventory().CreateInInventory( "Crowbar" );
+	
 	//Extra Starting Gear
 	EntityAI item_radio_ent;
 	item_radio_ent = player.GetInventory().CreateInInventory( "PersonalRadio" );
