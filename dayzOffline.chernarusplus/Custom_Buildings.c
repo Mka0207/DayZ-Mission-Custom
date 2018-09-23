@@ -3,7 +3,7 @@
 static void AddBuildings()
 {
 	/*
-	Appartment spawn
+	Appartment spawn - Replaced by ATC
 	
 	ItemBase m_apt;
     vector apt_pos;
@@ -16,9 +16,9 @@ static void AddBuildings()
 	m_apt = g_Game.CreateObject("Land_Tenement_Small", apt_pos, false); 
 	
 	*/	
-	/*
-    ATC Spawn, replaces appartment
-    */	
+
+    //ATC Spawn, replaces appartment
+	
 	
 	ItemBase m_atc;
     vector atc_pos;
@@ -37,9 +37,9 @@ static void AddBuildings()
 	m_atc.SetOrientation(atc_dir);
 	
 	
-	/*
-	Crashed C130
-	*/	
+	
+	//Crashed C130
+		
 	ItemBase m_c130;
     vector c130_pos;
     vector c130_dir;
@@ -55,9 +55,9 @@ static void AddBuildings()
 	m_c130 = g_Game.CreateObject("Land_Wreck_C130J", c130_pos, false);
 	m_c130.SetOrientation(c130_dir);
 	
-	/*
-	Scaffolding for the Airport building
-	*/	
+	
+	//Scaffolding for the Airport building
+	
 	ItemBase m_scf1;
     vector scf1_pos;
     vector scf1_dir;
