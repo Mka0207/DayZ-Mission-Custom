@@ -16,7 +16,7 @@ void OnSpawnCallback(PlayerBase player)
 	player.GetInventory().CreateInInventory( "Armband_Yellow" );
 	
 	//Melee
-	EntityAI crow_barwep player.GetInventory().CreateInInventory( "Crowbar" );
+	EntityAI crow_barwep = player.GetInventory().CreateInInventory( "Crowbar" );
 	player.SetQuickBarEntityShortcut(crow_barwep, 5, true);
 	
 	//Extra Starting Gear
@@ -80,7 +80,7 @@ void addMags(PlayerBase player, string mag_type, int count)
 	player.SetQuickBarEntityShortcut(mag, 1, true);
 }
 	
-EntityAI DefaultClass_A(PlayerBase player)
+EntityAI DefaultClass_A(PlayerBase player) //M4 Loadout
 {
 	//VEST
 	player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
@@ -116,7 +116,7 @@ EntityAI DefaultClass_A(PlayerBase player)
 	
 }
 
-EntityAI DefaultClass_B(PlayerBase player)
+EntityAI DefaultClass_B(PlayerBase player) //Mosin Loadout
 {
 	//VEST
 	player.GetInventory().CreateInInventory( "BallisticVest" );
@@ -131,8 +131,8 @@ EntityAI DefaultClass_B(PlayerBase player)
 	EntityAI optic_attach;
 	EntityAI optic2_attach;
 	
-	optic_attach = player.GetInventory().CreateInInventory( "M68Optic" );
-	optic_attach.GetInventory().CreateAttachment( "Battery9V" );
+	//optic_attach = player.GetInventory().CreateInInventory( "M68Optic" );
+	//optic_attach.GetInventory().CreateAttachment( "Battery9V" );
 	
 	//PRIMARY WEAPON
 	EntityAI attach_extra;
@@ -164,7 +164,7 @@ EntityAI DefaultClass_B(PlayerBase player)
 	
 }
 
-EntityAI DefaultClass_C(PlayerBase player)
+EntityAI DefaultClass_C(PlayerBase player) //UMP Loadout
 {
 	//VEST
 	player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
@@ -172,7 +172,7 @@ EntityAI DefaultClass_C(PlayerBase player)
 	//PRIMARY WEAPON
 	EntityAI wep_primary = player.GetHumanInventory().CreateInHands( "UMP45" );
 	wep_primary.GetInventory().CreateAttachment("PistolSuppressor");
-	addMags(player, "Mag_UMP_25Rnd", 3);
+	addMags(player, "Mag_UMP_25Rnd", 4);
 	
 	//SCOPES
 	EntityAI optic_attach;
@@ -181,15 +181,18 @@ EntityAI DefaultClass_C(PlayerBase player)
 	optic_attach = player.GetInventory().CreateInInventory( "M68Optic" );
 	optic_attach.GetInventory().CreateAttachment( "Battery9V" );
 	
-	//SECONDARY WEAPON
+/*	//SECONDARY WEAPON
 	EntityAI attach_extra;
 	EntityAI secondarywep = player.GetHumanInventory().CreateInInventory( "FNX45" );
 	optic2_attach = secondarywep.GetInventory().CreateAttachment( "FNP45_MRDSOptic" );
 	optic2_attach.GetInventory().CreateAttachment( "Battery9V" );
 	
+	
 	//MAGS
 	player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
 	player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
+	
+*/	
 	
 	//AMMO
 	EntityAI extra_ammo;
@@ -208,7 +211,7 @@ EntityAI DefaultClass_C(PlayerBase player)
 	
 }
 
-EntityAI DefaultClass_D(PlayerBase player)
+EntityAI DefaultClass_D(PlayerBase player) //SVD Loadout
 {
 	//VEST
 	player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
@@ -222,15 +225,18 @@ EntityAI DefaultClass_D(PlayerBase player)
 	EntityAI optic_attach;
 	EntityAI optic2_attach;
 	
-	//SECONDARY WEAPON
+/*	//SECONDARY WEAPON
 	EntityAI attach_extra;
 	EntityAI secondarywep = player.GetHumanInventory().CreateInInventory( "FNX45" );
 	optic2_attach = secondarywep.GetInventory().CreateAttachment( "FNP45_MRDSOptic" );
 	optic2_attach.GetInventory().CreateAttachment( "Battery9V" );
 	
+	
+	
 	//MAGS
 	player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
 	player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
+*/	
 	
 	//AMMO
 	EntityAI extra_ammo;
@@ -249,7 +255,7 @@ EntityAI DefaultClass_D(PlayerBase player)
 	
 }
 
-EntityAI DefaultClass_E(PlayerBase player)
+EntityAI DefaultClass_E(PlayerBase player) //MP5 Loadout
 {
 	//VEST
 	player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
@@ -267,7 +273,7 @@ EntityAI DefaultClass_E(PlayerBase player)
 	optic_attach = player.GetInventory().CreateInInventory( "M68Optic" );
 	optic_attach.GetInventory().CreateAttachment( "Battery9V" );
 	
-	//SECONDARY WEAPON
+/*	//SECONDARY WEAPON
 	EntityAI attach_extra;
 	EntityAI secondarywep = player.GetHumanInventory().CreateInInventory( "FNX45" );
 	optic2_attach = secondarywep.GetInventory().CreateAttachment( "FNP45_MRDSOptic" );
@@ -276,6 +282,7 @@ EntityAI DefaultClass_E(PlayerBase player)
 	//MAGS
 	player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
 	player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
+*/	
 	
 	//AMMO
 	EntityAI extra_ammo;
@@ -294,7 +301,7 @@ EntityAI DefaultClass_E(PlayerBase player)
 	
 }
 
-EntityAI DefaultClass_F(PlayerBase player)
+EntityAI DefaultClass_F(PlayerBase player) //AKM Loadout
 {
 	//VEST
 	player.GetInventory().CreateInInventory( "HighCapacityVest_Black" );
