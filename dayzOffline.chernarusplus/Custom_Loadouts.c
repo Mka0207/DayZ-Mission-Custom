@@ -2,7 +2,7 @@ void OnSpawnCallback(PlayerBase player)
 {
 	//Clothing
 	player.GetInventory().CreateInInventory( "M65Jacket_Black" );
-	player.GetInventory().CreateInInventory( "BallisticHelmet_Black" );
+	player.GetInventory().CreateInInventory( "BalaclavaMask_Blackskull" );
 	player.GetInventory().CreateInInventory( "CargoPants_Black" );
 	
 	//Armbands
