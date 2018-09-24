@@ -3,6 +3,7 @@ void OnSpawnCallback(PlayerBase player)
 	//Clothing
 	player.GetInventory().CreateInInventory( "M65Jacket_Black" );
 	player.GetInventory().CreateInInventory( "BalaclavaMask_Blackskull" );
+	player.GetInventory().CreateInInventory( "GorkaHelmet_Black" );
 	player.GetInventory().CreateInInventory( "CargoPants_Black" );
 	
 	//Armbands
@@ -20,9 +21,9 @@ void OnSpawnCallback(PlayerBase player)
 	player.SetQuickBarEntityShortcut(crow_barwep, 5, true);
 	
 	//Extra Starting Gear
-	EntityAI item_radio_ent;
-	item_radio_ent = player.GetInventory().CreateInInventory( "PersonalRadio" );
-	item_radio_ent.GetInventory().CreateAttachment( "Battery9V" );
+	//EntityAI item_radio_ent;
+	//item_radio_ent = player.GetInventory().CreateInInventory( "PersonalRadio" );
+	//item_radio_ent.GetInventory().CreateAttachment( "Battery9V" );
 	
 	//Knife = player.GetInventory().CreateInInventory( "CombatKnife" ); Make instant kill later then uncomment.
 	//player.GetInventory().CreateInInventory( "SalineBagIV" );
