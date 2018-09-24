@@ -26,9 +26,9 @@ void main()
 	weather.GetRain().Set( Math.RandomFloatInclusive(0.0, 0.2), 0, 0);
 	weather.GetFog().Set( Math.RandomFloatInclusive(0.0, 0.1), 0, 0); */
 	
-	weather.GetOvercast().Set( 0, 0, 0 );
-	weather.GetRain().Set( 0, 0, 0 );
-	weather.GetFog().Set( 0, 0, 0 ); 
+	weather.GetOvercast().Set( 0.9, 0, 1000 );
+	weather.GetRain().Set( 0.2, 0, 1000 );
+	weather.GetFog().Set( 0.9, 0, 1000 ); 
 	
 	weather.SetWindMaximumSpeed(17);
 	weather.SetWindFunctionParams(0.1, 0.3, 50);
