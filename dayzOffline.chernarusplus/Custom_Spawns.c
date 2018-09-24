@@ -3,7 +3,7 @@
 TVectorArray SelectedSpawn;
 static TVectorArray GetRandomDMSpawnTable()
 {
-	int MaxNumOfSpawnAreas = 2;
+	int MaxNumOfSpawnAreas = 1;
 	
 	TVectorArray BalotaSpawns = { 
 
