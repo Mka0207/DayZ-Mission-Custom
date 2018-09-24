@@ -25,7 +25,7 @@ void OnSpawnCallback(PlayerBase player)
 	item_radio_ent.GetInventory().CreateAttachment( "Battery9V" );
 	
 	//Knife = player.GetInventory().CreateInInventory( "CombatKnife" ); Make instant kill later then uncomment.
-	player.GetInventory().CreateInInventory( "SalineBagIV" );
+	//player.GetInventory().CreateInInventory( "SalineBagIV" );
 	
 	EntityAI item_bandage_ent;
 	item_bandage_ent = player.GetInventory().CreateInInventory( "BandageDressing" );
