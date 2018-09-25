@@ -1,6 +1,5 @@
 //Custom Spawn system by Mka0207 & Pandas & Nonlin.
 
-TVectorArray SelectedSpawn;
 static vector GetRandomSpawn()
 {
 	float x = Math.RandomFloatInclusive(4560, 5301);
