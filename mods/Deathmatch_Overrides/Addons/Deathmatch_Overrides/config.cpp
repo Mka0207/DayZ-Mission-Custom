@@ -1,6 +1,6 @@
 class CfgPatches
 {
-	class CameraMod
+	class Deathmatch_Overrides
 	{
 		units[]={};
 		weapons[]={};
