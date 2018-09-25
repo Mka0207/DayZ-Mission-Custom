@@ -37,16 +37,13 @@ void main()
 	AddBuildings();
 }
 
-//Create Random Spawn Locations!
-TVectorArray Spawn_Location_Table = GetRandomDMSpawnTable();
-
 class CustomMission: MissionServer
 {	
 	override PlayerBase CreateCharacter(PlayerIdentity identity, vector pos, ParamsReadContext ctx, string characterName)
 	{
 		Entity playerEnt;
 		
-		playerEnt = GetGame().CreatePlayer(identity, characterName, Spawn_Location_Table.GetRandomElement(), 0, "NONE"); //Creates random player
+		playerEnt = GetGame().CreatePlayer(identity, characterName, GetRandomSpawn(), 0, "NONE"); //Creates random player
 		Class.CastTo(m_player, playerEnt);
 		
 		GetGame().SelectPlayer(identity, m_player);
