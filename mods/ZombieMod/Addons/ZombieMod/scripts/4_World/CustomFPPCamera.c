@@ -111,6 +111,7 @@ modded class PlayerBase extends ManBase
 								if ( !this.IsAlive() and this.IsMan() )
 								{
 									// remove the body
+									Print("Removed Player Body");
 									this.Delete();	
 								}
 							}
