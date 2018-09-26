@@ -1,15 +1,15 @@
 class CfgMods
 {
-	class Deathmatch_Overrides
+	class ZombieMod
 	{
-		dir = "Deathmatch_Overrides";
+		dir = "ZombieMod";
 		picture = "";
 		action = "";
 		hideName = 1;
 		hidePicture = 1;
-		name = "Modifications for DM";
-		credits = "Mka0207";
-		author = "Tyler Grissinger";
+		name = "Fixed FPP Camera";
+		credits = "Jacob_Mango, Sumrak";
+		author = "Jacob Kumar";
 		authorID = "0"; 
 		version = "1.0"; 
 		extra = 0;
