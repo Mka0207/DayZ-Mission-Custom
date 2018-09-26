@@ -143,7 +143,7 @@ static void AddBuildings()
  
     bat1_dir[0] = 140.72;
     bat1_dir[1] = -1;
-    bat1_dir[2] = -.43;
+    bat1_dir[2] = -0.43;
 
 	m_bat1 = g_Game.CreateObject("CarBattery", bat1_pos, false);
 	m_bat1.SetOrientation(bat1_dir);
