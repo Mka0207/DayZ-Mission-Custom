@@ -2,10 +2,10 @@
 
 static vector GetRandomSpawn()
 {
-	float x = Math.RandomFloatInclusive(4560, 5301);
+	float x = Math.RandomFloatInclusive(4560, 5500);
 	float y = 0;
-	float z = Math.RandomFloatInclusive(2145, 2307);
-	
+	float z = Math.RandomFloatInclusive(2100, 2800);
+
 	if (!(x > 5144 && x < 5185)) //TOP RIGHT AND TOP LEFT
 	{
 		if (!(z < 2619 && z > 2297)) //BOTTOM LEFT AND TOP LEFT
