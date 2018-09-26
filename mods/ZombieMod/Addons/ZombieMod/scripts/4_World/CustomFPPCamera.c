@@ -1,4 +1,6 @@
 //Loot Cleanup By Mka0207.
+int kill_base = 0;
+
 modded class PlayerBase extends ManBase
 {	
 	const float TICK_TEST_CHECK = 250; //! in secs. test timer
@@ -88,14 +90,14 @@ modded class PlayerBase extends ManBase
 			
 			if ( GetGame() && objects )
 			{
-				if ( objects.Count() > 1 )
+				if ( objects.Count() >= 1 )
 				{
 					for ( int i = 0; i < objects.Count(); i++ )
 					{
 						Object item = objects.Get( i );
 						if ( item )
 						{
-							for( int i_d=0; i_d < Loadout_List.Count(); i_d++ )
+							for( int i_d = 0; i_d < Loadout_List.Count(); i_d++ )
 							{
 								if ( item.GetType() == Loadout_List.Get(i_d) )
 								{
@@ -104,6 +106,12 @@ modded class PlayerBase extends ManBase
 								
 									GetGame().ObjectDelete(item);
 									objects.Remove(i);
+								}
+								
+								if ( !this.IsAlive() and this.IsMan() )
+								{
+									// remove the body
+									this.Delete();	
 								}
 							}
 						}
@@ -117,10 +125,23 @@ modded class PlayerBase extends ManBase
 		}
 	}
 	
+	/* override void CheckDeath()
+	{
+		if( IsPlayerSelected() && !IsAlive() )
+		{
+			SimulateDeath(false);
+			Event_OnPlayerDeath.Invoke( this );
+			m_DeathCheckTimer.Stop();
+		}
+	} */
+	
 	//Prevent Weapons dropping after death to prevent lag. -mka
 	override void EEKilled( Object killer )
 	{
+		int kill_add = kill_base++;
 		Print("EEKilled, You Are Dead!");
+		//GetGame().ChatPlayer( 0, "Kills : "+kill_add );
+      
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT )
 		{
 			// @NOTE: this branch does not happen, EEKilled is called only on server
