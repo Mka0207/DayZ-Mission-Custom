@@ -73,7 +73,7 @@ void CleanLootOnServer(float deltaT)
 		ref array<Object> objects_in_cone = new array<Object>;
 		ref array<CargoBase> proxyCargos = new array<CargoBase>;
 		
-		GetGame().GetObjectsAtPosition( Vector(4988.71, 0, 2439.76), 100.0, objects, proxyCargos );
+		GetGame().GetObjectsAtPosition( Vector(4988.71, 0, 2439.76), 5000.0, objects, proxyCargos );
 		
 		if ( GetGame() && objects )
 		{
