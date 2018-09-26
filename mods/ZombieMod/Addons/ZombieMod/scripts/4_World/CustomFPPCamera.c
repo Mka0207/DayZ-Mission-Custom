@@ -1,27 +1,9 @@
-
-//Prevent Weapons dropping after death to prevent lag. -mka
+//Loot Cleanup By Mka0207.
 modded class PlayerBase extends ManBase
 {	
 	const float TICK_TEST_CHECK = 250; //! in secs. test timer
 	protected float	m_TestCheckTimer = 0.0;
-	
-	bool DropItem(ItemBase item)
-	{
-		bool can_be_dropped = CanDropEntity( item );
-		if( can_be_dropped )
-		{
-			can_be_dropped = PredictiveDropEntity( item );
-		}
 
-		vector 	pos_spawn	= GetPosition() + GetDirection();
-		pos_spawn[0]		= pos_spawn[0] + Math.RandomFloat(-0.2, 0.2);
-		pos_spawn[2]		= pos_spawn[2] + Math.RandomFloat(-0.2, 0.2);
-
-		item.SetPosition(pos_spawn);
-		item.PlaceOnSurface();
-		return false;
-	}
-	
 	//Loadout List.
 	ref TStringArray Loadout_List = {
 		"M65Jacket_Black",
@@ -135,6 +117,7 @@ modded class PlayerBase extends ManBase
 		}
 	}
 	
+	//Prevent Weapons dropping after death to prevent lag. -mka
 	override void EEKilled( Object killer )
 	{
 		Print("EEKilled, You Are Dead!");
@@ -169,6 +152,7 @@ modded class PlayerBase extends ManBase
 		}
 	}
 } 
+
 
 modded class Hunger: ModifierBase
 {	
