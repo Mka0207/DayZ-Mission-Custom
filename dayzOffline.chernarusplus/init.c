@@ -1,6 +1,7 @@
 #include "$CurrentDir:\\mpmissions\\dayzOffline.chernarusplus\\Custom_Spawns.c"
 #include "$CurrentDir:\\mpmissions\\dayzOffline.chernarusplus\\Custom_Buildings.c"
 #include "$CurrentDir:\\mpmissions\\dayzOffline.chernarusplus\\Custom_Loadouts.c"
+#include "$CurrentDir:\\mpmissions\\dayzOffline.chernarusplus\\Custom_LootCleaner.c"
 
 void main()
 {
@@ -38,12 +39,16 @@ void main()
 }
 
 class CustomMission: MissionServer
-{	
+{
+	PlayerBase ent_player;
+	ItemBase ent_items;
+	//ref array<ItemBase> m_ItemsArray;
+	
 	override PlayerBase CreateCharacter(PlayerIdentity identity, vector pos, ParamsReadContext ctx, string characterName)
 	{
 		Entity playerEnt;
 		
-		playerEnt = GetGame().CreatePlayer(identity, characterName, GetRandomSpawn(), 0, "NONE"); //Creates random player
+		playerEnt = GetGame().CreatePlayer(identity, characterName, Vector(4988.71, 0, 2439.76), 0, "NONE"); //Creates random player
 		Class.CastTo(m_player, playerEnt);
 		
 		GetGame().SelectPlayer(identity, m_player);
@@ -58,6 +63,14 @@ class CustomMission: MissionServer
 		
 		//Run our callback.
 		OnSpawnCallback(player);
+		
+		//ItemBase itemTestc = player.GetInventory().CreateInInventory( "SalineBagIV" );
+		//m_ItemsArray = new array<ItemBase>;
+		//m_ItemsArray.Insert(itemTestc);
+		
+		/* ref Timer m_Timer;
+		m_Timer = new Timer;
+		m_Timer.Run(10, itemTestc, "MessageToOwnerStatus", new Param1<string>( "Yes" ), true); */
 	}
 	
 	override void OnClientRespawnEvent(PlayerIdentity identity, PlayerBase player)
@@ -96,6 +109,26 @@ class CustomMission: MissionServer
 			// remove the body after disconnect for deathmatch.
 			player.Delete();
 		}
+	}
+	
+	override void TickScheduler(float timeslice)
+	{
+		GetGame().GetWorld().GetPlayerList(m_Players);
+		if( m_Players.Count() == 0 ) return;
+		for(int i = 0; i < SCHEDULER_PLAYERS_PER_TICK; i++)
+		{
+			if(m_currentPlayer >= m_Players.Count() )
+			{
+				m_currentPlayer = 0;
+			}
+			//PrintString(m_currentPlayer.ToString());
+			PlayerBase currentPlayer = PlayerBase.Cast(m_Players.Get(m_currentPlayer));
+			
+			currentPlayer.OnTick();
+			m_currentPlayer++;
+		}
+		
+		CleanLootOnServer(timeslice);
 	}
 };
   
