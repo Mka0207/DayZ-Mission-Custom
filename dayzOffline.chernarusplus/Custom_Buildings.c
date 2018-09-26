@@ -41,15 +41,15 @@ static void AddBuildings()
 	m_c130.SetOrientation(c130_dir);
 	
 	
-	//Scaffolding for the Airport building
+	//Scaffolding for the Airport building 
 	
 	ItemBase m_scf1;
     vector scf1_pos;
     vector scf1_dir;
    
-    scf1_pos[0] = 4930.7;
-    scf1_pos[1] = 12;
-    scf1_pos[2] = 2489;
+    scf1_pos[0] = 4929.32;
+    scf1_pos[1] = 11.95;
+    scf1_pos[2] = 2487.09;
  
     scf1_dir[0] = 49;
     scf1_dir[1] = 0;
