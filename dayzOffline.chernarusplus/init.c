@@ -1,7 +1,6 @@
 #include "$CurrentDir:\\mpmissions\\dayzOffline.chernarusplus\\Custom_Spawns.c"
 #include "$CurrentDir:\\mpmissions\\dayzOffline.chernarusplus\\Custom_Buildings.c"
 #include "$CurrentDir:\\mpmissions\\dayzOffline.chernarusplus\\Custom_Loadouts.c"
-//#include "$CurrentDir:\\mpmissions\\dayzOffline.chernarusplus\\Custom_LootCleaner.c"
 
 void main()
 {
@@ -38,9 +37,6 @@ void main()
 	AddBuildings();
 }
 
-//Create Random Spawn Locations!
-TVectorArray Spawn_Location_Table = GetRandomDMSpawnTable();
-
 class CustomMission: MissionServer
 {
 	PlayerBase ent_player;
@@ -49,7 +45,8 @@ class CustomMission: MissionServer
 	override PlayerBase CreateCharacter(PlayerIdentity identity, vector pos, ParamsReadContext ctx, string characterName)
 	{
 		Entity playerEnt;
-		
+		//Create Random Spawn Locations!
+		TVectorArray Spawn_Location_Table = GetRandomDMSpawnTable();
 		playerEnt = GetGame().CreatePlayer(identity, characterName, Spawn_Location_Table.GetRandomElement(), 0, "NONE"); //Creates random player
 		Class.CastTo(m_player, playerEnt);
 		
@@ -69,14 +66,9 @@ class CustomMission: MissionServer
 		//ItemBase itemTestc = player.GetInventory().CreateInInventory( "SalineBagIV" );
 	}
 	
-	override void OnClientRespawnEvent(PlayerIdentity identity, PlayerBase player)
+	//Removed for Debug.
+	/* override void OnClientRespawnEvent(PlayerIdentity identity, PlayerBase player)
 	{
-		// note: player is now killed in db right after the actual kill happens 
-		/*if (GetHive() && player)
-		{
-			GetHive().CharacterKill(player);
-		}*/
-		
 		if(player)
 		{
 			if (player.IsUnconscious() || player.IsRestrained())
@@ -105,7 +97,7 @@ class CustomMission: MissionServer
 			// remove the body after disconnect for deathmatch.
 			player.Delete();
 		}
-	}
+	} */
 };
   
 Mission CreateCustomMission(string path)
