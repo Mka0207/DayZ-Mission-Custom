@@ -15,7 +15,7 @@ static TVectorArray GetRandomDMSpawnTable()
 	} 
 	else
 	{
-		int MaxNumOfSpawnAreas = 2;
+		int MaxNumOfSpawnAreas = 1; //increase this based on population later.
 		
 		TVectorArray BalotaSpawns = { 
 			"5301.58 0 2145.16", "5381.36 0 2177.86", "5313.41 0 2265.02",
