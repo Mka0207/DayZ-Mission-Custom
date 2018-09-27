@@ -1,6 +1,6 @@
-#include "$CurrentDir:\\mpmissions\\dayzOffline.chernarusplus\\Custom_Spawns.c"
-#include "$CurrentDir:\\mpmissions\\dayzOffline.chernarusplus\\Custom_Buildings.c"
-#include "$CurrentDir:\\mpmissions\\dayzOffline.chernarusplus\\Custom_Loadouts.c"
+#include "$CurrentDir:\\mpmissions\\DayZDeathmatch.chernarusplus\\Custom_Spawns.c"
+#include "$CurrentDir:\\mpmissions\\DayZDeathmatch.chernarusplus\\Custom_Buildings.c"
+#include "$CurrentDir:\\mpmissions\\DayZDeathmatch.chernarusplus\\Custom_Loadouts.c"
 
 void main()
 {

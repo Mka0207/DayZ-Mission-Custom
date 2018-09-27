@@ -64,7 +64,7 @@ ref TStringArray Loadout_List = {
 //Look into using a timer for this system in the future.
 
 //How many ticks before loot should be cleaned up.
-const float LOOT_CLEANUP_SECS = 15;
+protected int LOOT_CLEANUP_SECS = 15;
 
 //default float, dont edit this.
 protected float	m_LootCheckTimer = 0.0;
@@ -76,7 +76,7 @@ void OnPlayerLootTick(PlayerBase player, float curTime)
 {
 	m_LootCheckTimer += curTime;	
 	
-	if ( m_LootCheckTimer > !LOOT_DEBUG && LOOT_CLEANUP_SECS || 15 )
+	if ( m_LootCheckTimer > LOOT_CLEANUP_SECS )
 	{
 		//Reset the timer.
 		m_LootCheckTimer = 0;
@@ -87,7 +87,7 @@ void OnPlayerLootTick(PlayerBase player, float curTime)
 		ref array<CargoBase> proxyCargos = new array<CargoBase>;
 		
 		//Check the players radius including cargos.
-		GetGame().GetObjectsAtPosition( player.GetPosition(), 100.0, objects, proxyCargos );
+		GetGame().GetObjectsAtPosition( player.GetPosition(), m_LootMeterRadius, objects, proxyCargos );
 		
 		if ( GetGame() && objects )
 		{

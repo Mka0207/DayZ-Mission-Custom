@@ -32,33 +32,26 @@ void OnSpawnCallback(PlayerBase player)
 	item_bandage_ent = player.GetInventory().CreateInInventory( "BandageDressing" );
 	
 	EntityAI primarywep;
-	switch ( Math.RandomIntInclusive( 0, 5 ) ) 
-	{
-		case 0 : 
-			primarywep = DefaultClass_A( player ); 
-		break;
-		
-		case 1 : 
-			primarywep = DefaultClass_B( player ); 
-		break;
-		
-		case 2 : 
-			primarywep = DefaultClass_C( player ); 
-		break;
-		
-		case 3 : 
-			primarywep = DefaultClass_D( player ); 
-		break;
-		
-		case 4 : 
-			primarywep = DefaultClass_E( player ); 
-		break;
-		
-		case 5 : 
-			primarywep = DefaultClass_F( player ); 
-		break;
-	} 
-	
+	int num = Math.RandomIntInclusive( 0, 5 );
+	if (num == 0) {
+		primarywep = DefaultClass_A( player ); 
+	}
+	if (num == 1) {                      
+		primarywep = DefaultClass_B( player );
+	}
+	if (num == 2) {
+		primarywep = DefaultClass_C( player ); 
+	}
+	if (num == 3) {
+		primarywep = DefaultClass_D( player );
+	}
+	if (num == 4) {
+		primarywep = DefaultClass_E( player ); 
+	}
+	if (num == 5) {
+		primarywep = DefaultClass_F( player );
+	}	
+
 	player.PredictiveTakeEntityToHands(primarywep);
 	player.SetQuickBarEntityShortcut(primarywep, 0, true);
 	player.SetQuickBarEntityShortcut(item_bandage_ent, 3, true);
