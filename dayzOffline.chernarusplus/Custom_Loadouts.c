@@ -32,7 +32,7 @@ void OnSpawnCallback(PlayerBase player)
 	item_bandage_ent = player.GetInventory().CreateInInventory( "BandageDressing" );
 	
 	EntityAI primarywep;
-	switch ( Math.RandomInt( 0, 6 ) ) 
+	switch ( Math.RandomIntInclusive( 0, 5 ) ) 
 	{
 		case 0 : 
 			primarywep = DefaultClass_A( player ); 
@@ -122,11 +122,10 @@ EntityAI DefaultClass_B(PlayerBase player) //Mosin Loadout
 	//VEST
 	player.GetInventory().CreateInInventory( "BallisticVest" );
 	
-	//SECONDARY WEAPON
-	EntityAI secondarywep;
-	secondarywep = player.GetInventory().CreateInInventory( "Mosin9130" );
-	secondarywep.GetInventory().CreateAttachment( "PUScopeOptic" );
-	player.SetQuickBarEntityShortcut(secondarywep, 1, true);
+	//PRIMARY WEAPON
+	EntityAI wep_primary;
+	wep_primary = player.GetHumanInventory().CreateInHands( "Mosin9130" );
+	wep_primary.GetInventory().CreateAttachment( "PUScopeOptic" );
 	
 	//SCOPES
 	EntityAI optic_attach;
@@ -135,11 +134,12 @@ EntityAI DefaultClass_B(PlayerBase player) //Mosin Loadout
 	//optic_attach = player.GetInventory().CreateInInventory( "M68Optic" );
 	//optic_attach.GetInventory().CreateAttachment( "Battery9V" );
 	
-	//PRIMARY WEAPON
+	//SECONDARY WEAPON
 	EntityAI attach_extra;
-	EntityAI wep_primary = player.GetHumanInventory().CreateInHands( "FNX45" );
-	optic2_attach = wep_primary.GetInventory().CreateAttachment( "FNP45_MRDSOptic" );
+	EntityAI secondarywep = player.GetHumanInventory().CreateInInventory( "FNX45" );
+	optic2_attach = secondarywep.GetInventory().CreateAttachment( "FNP45_MRDSOptic" );
 	optic2_attach.GetInventory().CreateAttachment( "Battery9V" );
+	player.SetQuickBarEntityShortcut(secondarywep, 1, true);
 	
 	//MAGS
 	EntityAI secondarymag;
