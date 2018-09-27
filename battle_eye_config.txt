@@ -1,0 +1,8 @@
+The config file BEServer_x64.cfg needs to be in the same folder as BEServer_x64.dll.The location of this folder can be customized via the startup parameters -bePath and -profiles.
+
+Parameters:
+
+RConPassword MyPassword - Sets the password for the connection of the RCon tool (remote connection admin tool like BEC/Dart)
+
+RestrictRCon 1 - Enables/Disables RCon functions (kick/ban/connection restrictions)
+Edited September 18 by ImpulZ 
