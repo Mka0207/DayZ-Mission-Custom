@@ -4,31 +4,31 @@
 
 void main()
 {
-	Hive ce = CreateHive();
+	/* Hive ce = CreateHive();
 	if ( ce )
-		ce.InitOffline();
+		ce.InitOffline(); */
 
 	Weather weather = g_Game.GetWeather();
 
 	weather.GetOvercast().SetLimits( 0.0 , 1.0 );
-	weather.GetRain().SetLimits( 0.0 , 1.0 );
+	weather.GetRain().SetLimits( 0.0 , 0.0 );
 	weather.GetFog().SetLimits( 0.0 , 0.25 );
 
-	weather.GetOvercast().SetForecastChangeLimits( 0.0, 0.2 );
-	weather.GetRain().SetForecastChangeLimits( 0.0, 0.1 );
-	weather.GetFog().SetForecastChangeLimits( 0.15, 0.45 );
+	weather.GetOvercast().SetForecastChangeLimits( 0.0, 0.0 );
+	weather.GetRain().SetForecastChangeLimits( 0.0, 0.0 );
+	weather.GetFog().SetForecastChangeLimits( 0.0, 0.0 );
 
 	weather.GetOvercast().SetForecastTimeLimits( 1800 , 1800 );
-	weather.GetRain().SetForecastTimeLimits( 600 , 600 );
-	weather.GetFog().SetForecastTimeLimits( 1800 , 1800 );
+	weather.GetRain().SetForecastTimeLimits( 0, 0 );
+	weather.GetFog().SetForecastTimeLimits( 1800, 1800 );
 
 	/* weather.GetOvercast().Set( Math.RandomFloatInclusive(0.0, 0.3), 0, 0);
 	weather.GetRain().Set( Math.RandomFloatInclusive(0.0, 0.2), 0, 0);
 	weather.GetFog().Set( Math.RandomFloatInclusive(0.0, 0.1), 0, 0); */
 	
-	weather.GetOvercast().Set( 0, 0, 0 );
+	weather.GetOvercast().Set( 0.1, 0, 0 );
 	weather.GetRain().Set( 0, 0, 0 );
-	weather.GetFog().Set( 0, 0, 0 ); 
+	weather.GetFog().Set( 0.25, 0, 0 ); 
 	
 	weather.SetWindMaximumSpeed(17);
 	weather.SetWindFunctionParams(0.1, 0.3, 50);
@@ -67,7 +67,7 @@ class CustomMission: MissionServer
 	}
 	
 	//Removed for Debug.
-	/* override void OnClientRespawnEvent(PlayerIdentity identity, PlayerBase player)
+	override void OnClientRespawnEvent(PlayerIdentity identity, PlayerBase player)
 	{
 		if(player)
 		{
@@ -78,13 +78,13 @@ class CustomMission: MissionServer
 			}
 			
 			// remove the body after disconnect for deathmatch.
-			player.Delete();
+			//player.Delete();
 		}
 	}
 	
 	override void HandleBody(PlayerBase player)
 	{
-		if (player.IsAlive() && !player.IsRestrained() && !player.IsUnconscious())
+		/* if (player.IsAlive() && !player.IsRestrained() && !player.IsUnconscious())
 		{
 			// remove the body
 			player.Delete();	
@@ -96,8 +96,14 @@ class CustomMission: MissionServer
 			
 			// remove the body after disconnect for deathmatch.
 			player.Delete();
+		} */
+		
+		if ( player.IsUnconscious() || player.IsRestrained() )
+		{
+			// kill character
+			player.SetHealth("", "", 0.0);
 		}
-	} */
+	} 
 };
   
 Mission CreateCustomMission(string path)
