@@ -1,7 +1,7 @@
 //Stable Custom Spawn SYS by mka0207@fwkzt.com.
 
 //Enable this to spawn in one area.
-protected bool Spawn_LocalDebug = true;
+protected bool Spawn_LocalDebug = false;
 
 TVectorArray SelectedSpawn;
 static TVectorArray GetRandomDMSpawnTable()
