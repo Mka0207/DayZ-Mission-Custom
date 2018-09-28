@@ -3,9 +3,10 @@
 static void AddBuildings()
 {
 
+	//EntityAI m_survivortest;
+	//m_survivortest = g_Game.CreateObject("SurvivorM_Mirek", "5380.59 0 2170.23", false, true )
+	
     //ATC Spawn, replaces appartment
-	
-	
 	ItemBase m_atc;
     vector atc_pos;
     vector atc_dir;
@@ -21,10 +22,25 @@ static void AddBuildings()
 	
 	m_atc = g_Game.CreateObject("Land_Mil_ATC_Big", atc_pos, false);
 	m_atc.SetOrientation(atc_dir);
-		
+	
+	//ACT North East AF
+	ItemBase m_atc_ne;
+	vector atc_ne_pos;
+	vector atc_ne_dir;
+   
+	atc_ne_pos[0] = 12176.6;
+	atc_ne_pos[1] = 155.84;
+	atc_ne_pos[2] = 12633.2;
+ 
+	atc_ne_dir[0] = -66;
+	atc_ne_dir[1] = 0;
+	atc_ne_dir[2] = 0;
+ 
+	
+	m_atc_ne = g_Game.CreateObject("Land_Mil_ATC_Big", atc_ne_pos, false);
+	m_atc_ne.SetOrientation(atc_ne_dir);
 	
 	//Crashed C130
-		
 	ItemBase m_c130;
     vector c130_pos;
     vector c130_dir;
@@ -43,7 +59,7 @@ static void AddBuildings()
 	
 	//Scaffolding for the Airport building 
 	
-	ItemBase m_scf1;
+	/* ItemBase m_scf1;
     vector scf1_pos;
     vector scf1_dir;
    
@@ -56,7 +72,7 @@ static void AddBuildings()
     scf1_dir[2] = 0;
 
 	m_scf1 = g_Game.CreateObject("Land_Misc_Scaffolding", scf1_pos, false);
-	m_scf1.SetOrientation(scf1_dir);
+	m_scf1.SetOrientation(scf1_dir); */
 	
 	//Stairs to the roofs of housing blocks in elektro
 	

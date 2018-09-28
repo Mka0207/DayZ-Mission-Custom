@@ -46,8 +46,9 @@ class CustomMission: MissionServer
 	{
 		Entity playerEnt;
 		//Create Random Spawn Locations!
-		TVectorArray Spawn_Location_Table = GetRandomDMSpawnTable();
-		playerEnt = GetGame().CreatePlayer(identity, characterName, Spawn_Location_Table.GetRandomElement(), 0, "NONE"); //Creates random player
+		//TVectorArray Spawn_Location_Table = GetRandomDMSpawnTable();
+		//Spawn_Location_Table.GetRandomElement()
+		playerEnt = GetGame().CreatePlayer(identity, characterName, GetRandomSpawn(), 0, "NONE"); //Creates random player
 		Class.CastTo(m_player, playerEnt);
 		
 		GetGame().SelectPlayer(identity, m_player);
