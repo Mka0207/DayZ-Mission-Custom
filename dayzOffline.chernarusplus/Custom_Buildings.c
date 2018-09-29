@@ -1,6 +1,6 @@
 //Buildings by Ficarra1002
 
-static void AddBuildings()
+void AddBuildings()
 {
 
 	//EntityAI m_survivortest;

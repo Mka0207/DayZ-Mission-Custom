@@ -18,15 +18,15 @@ void OnSpawnCallback(PlayerBase player)
 	player.GetInventory().CreateInInventory( "Armband_White" );
 	
 	//Melee
-	/* EntityAI crow_barwep = player.GetInventory().CreateInInventory( "Crowbar" );
-	player.SetQuickBarEntityShortcut(crow_barwep, 5, true); */
+	EntityAI crow_barwep = player.GetInventory().CreateInInventory( "Crowbar" );
+	player.SetQuickBarEntityShortcut(crow_barwep, 5, true); 
 	
 	//Extra Starting Gear
-	EntityAI item_radio_ent;
+	/* EntityAI item_radio_ent;
 	item_radio_ent = player.GetInventory().CreateInInventory( "PersonalRadio" );
-	item_radio_ent.GetInventory().CreateAttachment( "Battery9V" );
+	item_radio_ent.GetInventory().CreateAttachment( "Battery9V" ); */
 	
-	player.GetInventory().CreateInInventory( "CombatKnife" );
+	//player.GetInventory().CreateInInventory( "CombatKnife" );
 	player.GetInventory().CreateInInventory( "SalineBagIV" );
 	
 	EntityAI item_bandage_ent;
@@ -137,7 +137,7 @@ EntityAI DefaultClass_B(PlayerBase player) //Mosin Loadout
 	EntityAI secondarywep = player.GetHumanInventory().CreateInInventory( "FNX45" );
 	optic2_attach = secondarywep.GetInventory().CreateAttachment( "FNP45_MRDSOptic" );
 	optic2_attach.GetInventory().CreateAttachment( "Battery9V" );
-	player.SetQuickBarEntityShortcut(secondarywep, 1, true);
+	player.SetQuickBarEntityShortcut(secondarywep, 2, true);
 	
 	//MAGS
 	EntityAI secondarymag;
@@ -157,7 +157,7 @@ EntityAI DefaultClass_B(PlayerBase player) //Mosin Loadout
 	player.GetInventory().CreateInInventory( "Ammo_45ACP" );
 	player.GetInventory().CreateInInventory( "Ammo_45ACP" );
 	
-	player.SetQuickBarEntityShortcut(extra_ammo, 2, true);
+	player.SetQuickBarEntityShortcut(extra_ammo, 1, true);
 	
 	return wep_primary;
 	

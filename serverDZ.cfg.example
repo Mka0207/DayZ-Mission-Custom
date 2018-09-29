@@ -53,6 +53,6 @@ class Missions
 {
     class DayZ
     {
-        template="DayZDeathmatch.chernarusplus";        //used mission         //first part is mission name, second part is used map
+        template="dayzOffline.chernarusplus";        //used mission         //first part is mission name, second part is used map
     };
 };
