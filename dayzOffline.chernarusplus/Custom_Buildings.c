@@ -3,8 +3,8 @@
 void AddBuildings()
 {
 
-	//EntityAI m_survivortest;
-	//m_survivortest = g_Game.CreateObject("SurvivorM_Mirek", "5380.59 0 2170.23", false, true )
+	//PlayerBase m_survivortest;
+	//m_survivortest = g_Game.CreateObject("SurvivorM_Mirek", "5380.59 0 2170.23", false, true );
 	
     //ATC Spawn, replaces appartment
 	ItemBase m_atc;

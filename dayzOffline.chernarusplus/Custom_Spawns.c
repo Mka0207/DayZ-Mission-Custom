@@ -14,14 +14,14 @@ static vector GetRandomSpawn()
 	float y;
 	float z;
 
-	if (player_count <=30 ) {
+	int MAX_PLAYERS = 20;
+	if ( player_count <= MAX_PLAYERS ) {
 		num = Math.RandomIntInclusive(1, 9);
 	}
 	
-	if (player_count > 30 ) {
+	if ( player_count > MAX_PLAYERS ) {
 		num = Math.RandomIntInclusive(1, 18);
 	}
-	
 
 	if (num == 1) {                                // WEST BALOTA TREES
 		x = Math.RandomFloatInclusive(4219, 4341);
@@ -73,15 +73,30 @@ static vector GetRandomSpawn()
 		y = 0;
 		z = Math.RandomFloatInclusive(2232, 2310);
 	}
-	if (num > 12 && num < 16) {					   // ELECTRO HAYBALES
+	if (num > 12 && num < 15) {					   // ELECTRO HAYBALES
 		x = Math.RandomFloatInclusive(9844, 9936);
 		y = 0;
 		z = Math.RandomFloatInclusive(2041, 2132);
 	}
-	if (num > 15) {								   // ELECTRO CHURCH
+	if (num == 15) {								   // ELECTRO CHURCH
 		x = Math.RandomFloatInclusive(10515, 10545);
 		y = 0;
 		z = Math.RandomFloatInclusive(2427, 2620);
+	}
+	if (num == 16) {	
+		x = Math.RandomFloatInclusive(9785, 9843);
+		y = 0;
+		z = Math.RandomFloatInclusive(2284, 2349);
+	}
+	if (num == 17) {	
+		x = Math.RandomFloatInclusive(9868, 9898);
+		y = 0;
+		z = Math.RandomFloatInclusive(2552, 2676);
+	}
+	if (num == 18) {	
+		x = Math.RandomFloatInclusive(10477, 10526);
+		y = 0;
+		z = Math.RandomFloatInclusive(2523, 2598);
 	}
 
 	return Vector(x, y, z);
