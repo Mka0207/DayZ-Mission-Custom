@@ -59,7 +59,7 @@ void AddBuildings()
 	
 	//Scaffolding for the Airport building 
 	
-	/* ItemBase m_scf1;
+	ItemBase m_scf1;
     vector scf1_pos;
     vector scf1_dir;
    
@@ -72,7 +72,7 @@ void AddBuildings()
     scf1_dir[2] = 0;
 
 	m_scf1 = g_Game.CreateObject("Land_Misc_Scaffolding", scf1_pos, false);
-	m_scf1.SetOrientation(scf1_dir); */
+	m_scf1.SetOrientation(scf1_dir);
 	
 	//Stairs to the roofs of housing blocks in elektro
 	
