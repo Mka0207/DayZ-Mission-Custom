@@ -101,28 +101,28 @@ static vector GetRandomSpawn()
 		z = Math.RandomFloatInclusive(2041, 2132);
 	}
 	// ELECTRO CHURCH
-	if (PosSpawnChance == 15) 
+	if (num == 15) 
 	{								
 		x = Math.RandomFloatInclusive(10515, 10545);
 		y = 0;
 		z = Math.RandomFloatInclusive(2427, 2620);
 	}
 	//ELECTRO RANDOM #1
-	if (PosSpawnChance == 16) 
+	if (num == 16) 
 	{	
 		x = Math.RandomFloatInclusive(9785, 9843);
 		y = 0;
 		z = Math.RandomFloatInclusive(2284, 2349);
 	}
 	//ELECTRO RANDOM #2
-	if (PosSpawnChance == 17) 
+	if (num == 17) 
 	{	
 		x = Math.RandomFloatInclusive(9868, 9898);
 		y = 0;
 		z = Math.RandomFloatInclusive(2552, 2676);
 	}
 	//ELECTRO RANDOM #3
-	if (PosSpawnChance == 18) 
+	if (num == 18) 
 	{	
 		x = Math.RandomFloatInclusive(10477, 10526);
 		y = 0;
