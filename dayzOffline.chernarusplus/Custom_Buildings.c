@@ -11,13 +11,22 @@ void AddBuildings()
     vector atc_pos;
     vector atc_dir;
    
-    atc_pos[0] = 5239.7;
+    atc_pos[0] = 5206.3;
+    atc_pos[1] = 24.8;
+    atc_pos[2] = 2167.39;
+ 
+    atc_dir[0] = 142;
+    atc_dir[1] = 0;
+    atc_dir[2] = 0;
+	
+/*  atc_pos[0] = 5239.7;
     atc_pos[1] = 25.5;
     atc_pos[2] = 2184.65;
  
     atc_dir[0] = 66;
     atc_dir[1] = 0;
-    atc_dir[2] = 0;
+    atc_dir[2] = 0; 
+*/
  
 	
 	m_atc = g_Game.CreateObject("Land_Mil_ATC_Big", atc_pos, false);
