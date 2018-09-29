@@ -7,93 +7,123 @@ static vector GetRandomSpawn()
 	int player_count = player_list.Count();
 	player_count++;
 
-
 	int num;
 	
 	float x;
 	float y;
 	float z;
 
-	int MAX_PLAYERS = 20;
-	if ( player_count <= MAX_PLAYERS ) {
+	int MAX_PLAYERS = 25;
+	if ( player_count <= MAX_PLAYERS ) 
+	{
 		num = Math.RandomIntInclusive(1, 9);
 	}
 	
-	if ( player_count > MAX_PLAYERS ) {
+	if ( player_count > MAX_PLAYERS ) 
+	{
 		num = Math.RandomIntInclusive(1, 18);
 	}
 
-	if (num == 1) {                                // WEST BALOTA TREES
+	// WEST BALOTA TREES
+	if (num == 1) 
+	{                                
 		x = Math.RandomFloatInclusive(4219, 4341);
 		y = 0;
 		z = Math.RandomFloatInclusive(2508, 2557);
 	}
-	if (num == 2) {                                // NORTH BALOTA TREES
+	// NORTH BALOTA TREES
+	if (num == 2) 	
+	{                                
 		x = Math.RandomFloatInclusive(4497, 4581);
 		y = 0;
 		z = Math.RandomFloatInclusive(2664, 2723);
 	}
-	if (num == 3) {									// WEST AIRFIELD					
+	if (num == 3) 
+	// WEST AIRFIELD
+	{														
 		x = Math.RandomFloatInclusive(4750, 4783);
 		y = 0;
 		z = Math.RandomFloatInclusive(2605, 2654);
 	}
-	if (num == 4) {                                 // SOUTH AIRFIELD
+	// SOUTH AIRFIELD
+	if (num == 4) {                                 
 		x = Math.RandomFloatInclusive(4713, 5097);
 		y = 0;
 		z = Math.RandomFloatInclusive(2252, 2409);
 	}
-	if (num == 5) {								    // EAST BALOTA
+	// EAST BALOTA
+	if (num == 5) 
+	{								    
 		x = Math.RandomFloatInclusive(4558, 4738);
 		y = 0;
 		z = Math.RandomFloatInclusive(2281, 2353);
 	}
-	if (num == 6) {								    // SOUTHEAST AIRFIELD
+	// SOUTHEAST AIRFIELD
+	if (num == 6) 
+	{								    
 		x = Math.RandomFloatInclusive(5093, 5176);
 		y = 0;
 		z = Math.RandomFloatInclusive(2150, 2169);
 	}
-	if (num == 7) {								    // AIRFIELD COAST SPAWN
+	// AIRFIELD COAST SPAWN
+	if (num == 7) 
+	{								    
 		x = Math.RandomFloatInclusive(5267, 5283);
 		y = 0;
 		z = Math.RandomFloatInclusive(1949, 1968);
 	}
-	if (num == 8) {								    // TANKER SPAWN
+	// TANKER SPAWN
+	if (num == 8)
+	{								   
 		x = Math.RandomFloatInclusive(5376, 5383);
 		y = 0;
 		z = Math.RandomFloatInclusive(2179, 2195);
 	}
-	if (num == 9) {								    // NORTH BALOTA AIRFIELD
+	// NORTH BALOTA AIRFIELD
+	if (num == 9) 
+	{								    
 		x = Math.RandomFloatInclusive(5105, 5188);
 		y = 0;
 		z = Math.RandomFloatInclusive(2519, 2531);
 	}
-	if (num > 9 && num < 13) {					   // ELECTRO APPLES
+	// ELECTRO APPLES
+	if (num > 9 && num < 13) 
+	{					  
 		x = Math.RandomFloatInclusive(9868, 9927);
 		y = 0;
 		z = Math.RandomFloatInclusive(2232, 2310);
 	}
-	if (num > 12 && num < 15) {					   // ELECTRO HAYBALES
+	 // ELECTRO HAYBALES
+	if (num > 12 && num < 15) 
+	{					  
 		x = Math.RandomFloatInclusive(9844, 9936);
 		y = 0;
 		z = Math.RandomFloatInclusive(2041, 2132);
 	}
-	if (num == 15) {								   // ELECTRO CHURCH
+	// ELECTRO CHURCH
+	if (PosSpawnChance == 15) 
+	{								
 		x = Math.RandomFloatInclusive(10515, 10545);
 		y = 0;
 		z = Math.RandomFloatInclusive(2427, 2620);
 	}
-	if (num == 16) {	
+	//ELECTRO RANDOM #1
+	if (PosSpawnChance == 16) 
+	{	
 		x = Math.RandomFloatInclusive(9785, 9843);
 		y = 0;
 		z = Math.RandomFloatInclusive(2284, 2349);
 	}
-	if (num == 17) {	
+	//ELECTRO RANDOM #2
+	if (PosSpawnChance == 17) 
+	{	
 		x = Math.RandomFloatInclusive(9868, 9898);
 		y = 0;
 		z = Math.RandomFloatInclusive(2552, 2676);
 	}
-	if (num == 18) {	
+	//ELECTRO RANDOM #3
+	if (PosSpawnChance == 18) 
+	{	
 		x = Math.RandomFloatInclusive(10477, 10526);
 		y = 0;
 		z = Math.RandomFloatInclusive(2523, 2598);
