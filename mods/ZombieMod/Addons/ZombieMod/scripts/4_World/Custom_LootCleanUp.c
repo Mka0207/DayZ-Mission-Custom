@@ -8,6 +8,7 @@ ref TStringArray Loadout_List = {
 "GorkaHelmet_Black",
 "CargoPants_Black",
 "AssaultBag_Black",
+"HumanSteakMeat",
 
 "Armband_Black",
 "Armband_Blue",
@@ -65,13 +66,13 @@ ref TStringArray Loadout_List = {
 //Look into using a timer for this system in the future.
 
 //How many ticks before loot should be cleaned up.
-const float LOOT_CLEANUP_SECS = 120;
+const float LOOT_CLEANUP_SECS = 160;
 
 //default float, dont edit this.
 protected float	m_LootCheckTimer = 0.0;
 
 //How far in meters from the center of the player the cleaner should check.
-protected float m_LootMeterRadius = 100.0;
+protected float m_LootMeterRadius = 90.0;
 
 void OnPlayerLootTick(PlayerBase player, float curTime)
 {
@@ -91,55 +92,50 @@ void OnPlayerLootTick(PlayerBase player, float curTime)
 		GetGame().GetObjectsAtPosition( player.GetPosition(), m_LootMeterRadius, objects, proxyCargos );
 		
 		//How many items were cleaned.
-		int cleaned_items = 0;
-		int total_cleaned = 0;
+		//int total_cleaned = 0;
 		
-		int cleaned_ragdolls = 0;
-		int total_cleanedrags = 0;
+		//int cleaned_ragdolls = 0;
 		
 		if ( GetGame() && objects )
 		{
-			if ( objects.Count() >= 1 )
+			for ( int i = 0; i < objects.Count(); i++ )
 			{
-				for ( int i = 0; i < objects.Count(); i++ )
+				//Handle Bodies --Moved.
+				/* if ( objects.Get(i).ClassName() == "SurvivorBase" ) //Class.CastTo( ent_man, objects.Get(i) )
 				{
-					//Handle Bodies
-					if ( objects.Get(i).ClassName() == "SurvivorBase" ) //Class.CastTo( ent_man, objects.Get(i) )
+					Man ent_man = objects.Get(i);
+					if ( !ent_man.IsAlive() ) 
 					{
-						Man ent_man = objects.Get(i);
-						if ( !ent_man.IsAlive() ) 
-						{
-							//Print( "[DEBUG] - Class Name "+objects.Get(i).ClassName() )
-							cleaned_ragdolls = cleaned_ragdolls + 1;
-							ent_man.Delete();
-						}
+						//Print( "[DEBUG] - Class Name "+objects.Get(i).ClassName() )
+						cleaned_ragdolls = cleaned_ragdolls + 1;
+						ent_man.Delete();
 					}
+				} */
 
-					//Handle Loot
-					Object item = objects.Get( i );
-					if ( item )
+				//Handle Loot
+				Object item = objects.Get( i );
+				if ( item )
+				{
+					for( int i_d = 0; i_d < Loadout_List.Count(); i_d++ )
 					{
-						for( int i_d = 0; i_d < Loadout_List.Count(); i_d++ )
+						if ( item.GetType() == Loadout_List.Get(i_d) )
 						{
-							if ( item.GetType() == Loadout_List.Get(i_d) )
+							if ( objects.Count() >= 1 )
 							{
 								Print("[DEBUG] - Removed Item "+item.GetType() + " idx = " + i.ToString());
-								//Print("[DEBUG] - Removed Item "+item.ClassName() + " idx = " + i.ToString());
+								//total_cleaned = total_cleaned + 1;
 								
-								total_cleaned = total_cleaned + 1;
-								
-								//Delete the items from the world and the table.
+								//Delete the items from the world.
 								GetGame().ObjectDelete(item);
-								objects.Remove(i);
 							}
 						}
 					}
 				}
 			}
-			
+		
 			//Announce that we cleaned the world.
-			GetGame().ChatPlayer( 0, "[Items_Cleaned] = "+total_cleaned );
-			GetGame().ChatPlayer( 0, "[Bodies_Cleaned] = "+cleaned_ragdolls );
+			//GetGame().ChatPlayer( 0, "[Items_Cleaned] = "+total_cleaned );
+			//GetGame().ChatPlayer( 0, "[Bodies_Cleaned] = "+cleaned_ragdolls );
 		}
 		else
 		{

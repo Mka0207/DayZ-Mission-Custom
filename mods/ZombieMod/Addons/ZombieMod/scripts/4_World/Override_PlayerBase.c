@@ -2,42 +2,78 @@
 
 modded class PlayerBase extends ManBase
 {	
-	override void OnTick()
-	{
-		//Vanilla DayZ Code Start ->
-		float deltaT = (GetGame().GetTime() - m_LastTick) / 1000;
-		if ( m_LastTick < 0 )  deltaT = 0;
-		m_LastTick = GetGame().GetTime();
 
-		OnScheduledTick(deltaT);	
-		//Vanilla DayZ Code End ->|
-		
+	
+	//How many ticks before bodies should be cleaned up.
+	const float BODY_CLEANUP_SECS = 18;
+	protected float	m_BodyCleanCheckTimer = 0.0;
+	override void OnScheduledTick(float deltaTime)
+	{
 		//Custom Code Begin
-		OnPlayerLootTick(this, deltaT)
+		 if ( !IsAlive() )
+		{
+			m_BodyCleanCheckTimer += deltaTime;
+			if ( m_BodyCleanCheckTimer > BODY_CLEANUP_SECS ) 
+			{
+				Delete();
+				Print("[DEBUG] - Cleaned PlayerBase Body");
+			}
+		}
+		
+		//OnPlayerLootTick(this, deltaTime);
+		
+		if( !IsPlayerSelected() || !IsAlive() ) return;
+		if( m_ModifiersManager ) m_ModifiersManager.OnScheduledTick(deltaTime);
+		if( m_NotifiersManager ) m_NotifiersManager.OnScheduledTick();
+		if( m_TrasferValues ) m_TrasferValues.OnScheduledTick(deltaTime);
+		if( m_DisplayStatus ) m_DisplayStatus.OnScheduledTick();
 	}
 	
-	//Prevent Weapons dropping after death to prevent lag. -mka
+	int humans_killed;
 	override void EEKilled( Object killer )
 	{
-		//Vanilla Print.
-		Print("EEKilled, You Are Dead!");
+		Print("EEKilled, you have died");
+		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT )
+		{
+			// @NOTE: this branch does not happen, EEKilled is called only on server
+			if( GetGame().GetPlayer() == this )
+			{
+				super.EEKilled( killer );
+			}
+
+			if (GetHumanInventory().GetEntityInHands())
+				GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(ServerDropEntity,1000,false,( GetHumanInventory().GetEntityInHands() ));
+		}
+		else if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_SERVER)//server
+		{
+			if( GetBleedingManager() ) delete GetBleedingManager();
+			if( GetHumanInventory().GetEntityInHands() )
+				GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(ServerDropEntity,1000,false,( GetHumanInventory().GetEntityInHands() )); 
+		}
 		
-		//Custom Code Begin
-		OnPlayerKilledByPlayer( this, killer )
-		DisableWeaponDrops( this, killer )
-		
-		//Vanilla DayZ Code Start ->
 		if ( GetSoftSkillManager() )
 		{
 			delete GetSoftSkillManager();
 		} 
 		
 		GetStateManager().OnPlayerKilled();
-
+		
+		// kill character in database
 		if (GetHive())
 		{
 			GetHive().CharacterKill(this);
 		}
-		//Vanilla DayZ Code End ->|
+		
+		//Custom Code Begin
+		//OnPlayerKilledByPlayer( this, killer )
+		Param1<string> params;
+		params = new Param1<string>( "" );
+		PlayerBase man;
+		if ( GetGame().IsServer() && Class.CastTo(man, killer) )
+		{
+			int kill_add = man.humans_killed++;
+			params.param1 = "Kill Streak : "+kill_add;
+			man.RPCSingleParam( ERPCs.RPC_USER_ACTION_MESSAGE, params, true, man.GetIdentity() );
+		}
 	}
 } 

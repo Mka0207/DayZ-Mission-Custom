@@ -1,5 +1,10 @@
 //Disabled as they arent needed yet in death-match.
 
+/* modded class StaminaHandler 
+{
+    override void Update(float deltaT) { return; }
+} */
+
 modded class Hunger: ModifierBase
 {	
 	override void OnTick(PlayerBase player, float deltaT)
