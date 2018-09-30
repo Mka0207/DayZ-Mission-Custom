@@ -1,6 +1,7 @@
 #include "$CurrentDir:\\mpmissions\\dayzOffline.chernarusplus\\Custom_Spawns.c"
 #include "$CurrentDir:\\mpmissions\\dayzOffline.chernarusplus\\Custom_Buildings.c"
 #include "$CurrentDir:\\mpmissions\\dayzOffline.chernarusplus\\Custom_Loadouts.c"
+#include "$CurrentDir:\\mpmissions\\dayzOffline.chernarusplus\\Custom_Adverts.c"
 
 void main()
 {
@@ -58,6 +59,27 @@ class CustomMission: MissionServer
 	{
 		player.RemoveAllItems();
 		OnSpawnCallback(player)
+	}
+	
+	override void TickScheduler(float timeslice)
+	{
+		GetGame().GetWorld().GetPlayerList(m_Players);
+		if( m_Players.Count() == 0 ) return;
+		for(int i = 0; i < SCHEDULER_PLAYERS_PER_TICK; i++)
+		{
+			if(m_currentPlayer >= m_Players.Count() )
+			{
+				m_currentPlayer = 0;
+			}
+			//PrintString(m_currentPlayer.ToString());
+			PlayerBase currentPlayer = PlayerBase.Cast(m_Players.Get(m_currentPlayer));
+			
+			currentPlayer.OnTick();
+			m_currentPlayer++;
+		}
+		
+		//Custom
+		OnTickAdverts( timeslice );
 	}
 };
   
