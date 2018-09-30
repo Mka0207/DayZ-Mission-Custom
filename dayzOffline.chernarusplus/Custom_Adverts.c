@@ -1,6 +1,6 @@
 //Advert System by mka0207@fwkzt.com
 
-const float ADVERT_DELAY = 15;
+const float ADVERT_DELAY = 360;
 float AdCheckTimer = 0.0;
 
 TStringArray Timed_Adverts()
@@ -9,7 +9,7 @@ TStringArray Timed_Adverts()
 	"Join our discord @ discord.gg/npTNKeM",
 	"Keep Us Alive @ fwkzt.com/donate",
 	"Suggestions? Post them on our discord!",
-	"Server Restarts happen without warning!"};
+	"Restarts happen without warning!"};
 }
 
 void OnTickAdverts( float timeslice )
