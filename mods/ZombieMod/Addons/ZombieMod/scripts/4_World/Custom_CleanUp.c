@@ -4,7 +4,7 @@
 //Look into using a timer for this system in the future.
 
 //How many ticks before loot should be cleaned up.
-const float LOOT_CLEANUP_SECS = 15;
+const float LOOT_CLEANUP_SECS = 180;
 
 //default float, dont edit this.
 protected float	m_LootCheckTimer = 0.0;
