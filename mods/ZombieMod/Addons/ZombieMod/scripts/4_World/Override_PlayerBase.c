@@ -2,15 +2,13 @@
 
 modded class PlayerBase extends ManBase
 {	
-
-	
 	//How many ticks before bodies should be cleaned up.
 	const float BODY_CLEANUP_SECS = 18;
 	protected float	m_BodyCleanCheckTimer = 0.0;
 	override void OnScheduledTick(float deltaTime)
 	{
-		//Custom Code Begin
-		 if ( !IsAlive() )
+		//Clean up dead bodies.
+		if ( !IsAlive() )
 		{
 			m_BodyCleanCheckTimer += deltaTime;
 			if ( m_BodyCleanCheckTimer > BODY_CLEANUP_SECS ) 
@@ -20,8 +18,10 @@ modded class PlayerBase extends ManBase
 			}
 		}
 		
-		//OnPlayerLootTick(this, deltaTime);
+		//Clean up loot
+		OnPlayerLootTick(this, deltaTime);
 		
+		//Vanilla Code
 		if( !IsPlayerSelected() || !IsAlive() ) return;
 		if( m_ModifiersManager ) m_ModifiersManager.OnScheduledTick(deltaTime);
 		if( m_NotifiersManager ) m_NotifiersManager.OnScheduledTick();
@@ -65,15 +65,17 @@ modded class PlayerBase extends ManBase
 		}
 		
 		//Custom Code Begin
-		//OnPlayerKilledByPlayer( this, killer )
-		Param1<string> params;
-		params = new Param1<string>( "" );
-		PlayerBase man;
-		if ( GetGame().IsServer() && Class.CastTo(man, killer) )
+		//OnPlayerKilledByPlayer( this, killer );
+		AddKillStreak(killer);
+	}
+	
+	//Delete Extra Event stuff when picked up.
+	void OnItemInventoryEnter(EntityAI item)
+	{
+		if ( item.IsKindOf( "Barrel_ColorBase" ) || item.ClassName() == "SeaChest" )
 		{
-			int kill_add = man.humans_killed++;
-			params.param1 = "Kill Streak : "+kill_add;
-			man.RPCSingleParam( ERPCs.RPC_USER_ACTION_MESSAGE, params, true, man.GetIdentity() );
+			item.Delete();
 		}
+		CalculatePlayerLoad();
 	}
 } 
