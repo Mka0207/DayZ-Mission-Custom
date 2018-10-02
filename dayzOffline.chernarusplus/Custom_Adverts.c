@@ -6,10 +6,11 @@ float AdCheckTimer = 0.0;
 TStringArray Timed_Adverts()
 {
 	return {
-	"Join our discord @ discord.gg/npTNKeM",
-	"Keep Us Alive @ fwkzt.com/donate",
-	"Suggestions? Post them on our discord!",
-	"Restarts happen without warning!"};
+	"Contact Us @ discord.gg/npTNKeM",
+	"Support Us @ fwkzt.com/donate",
+	"Watch out for random Cache Zones!",
+	"Try NOT to spawn camp!",
+	"Server restarts every 4 hours!"};
 }
 
 void OnTickAdverts( float timeslice )
