@@ -62,8 +62,13 @@ void OnPlayerLootTick(PlayerBase player, float curTime)
 						continue;
 					}
 					
+					if ( item.GetType() == "RDG2SmokeGrenade_Black" )
+					{
+						continue;
+					}	
+					
 					//Remove Melee, Firearms, Clothing and all other items dropped.
-					if ( item.IsWeapon() || item.IsClothing() || item.IsMeleeWeapon() || item.IsMagazine() || item.IsMan() && !item.IsAlive() )
+					if ( item.IsWeapon() || item.IsClothing() || item.IsMeleeWeapon() || item.IsMagazine() ) //item.IsMan() && !item.IsAlive()
 					{	
 						if ( objects.Count() >= 1 )
 						{

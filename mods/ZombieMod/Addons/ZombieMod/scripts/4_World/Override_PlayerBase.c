@@ -1,7 +1,4 @@
 //Class that are modded to be overridden!
-
-//How many ticks before bodies should be cleaned up.
-
 modded class PlayerBase extends ManBase
 {	
 	override void OnTick()
@@ -10,7 +7,9 @@ modded class PlayerBase extends ManBase
 		if ( m_LastTick < 0 )  deltaT = 0;//first tick protection
 		m_LastTick = GetGame().GetTime();
 		
+		//Cleanup Script
 		OnPlayerLootTick(this, deltaT);
+		//
 		
 		OnScheduledTick(deltaT);		
 	}
@@ -19,6 +18,10 @@ modded class PlayerBase extends ManBase
 	override void EEKilled( Object killer )
 	{
 		Print("EEKilled, you have died");
+		
+		//Remove the character after 18000 aka 18 secs.
+		GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(this.Delete, 18000, false);
+		
 		if( GetInstanceType() == DayZPlayerInstanceType.INSTANCETYPE_CLIENT )
 		{
 			// @NOTE: this branch does not happen, EEKilled is called only on server
