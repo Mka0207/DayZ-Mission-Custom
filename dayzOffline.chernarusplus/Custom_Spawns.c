@@ -118,9 +118,9 @@ static vector GetRandomSpawn()
 	// TANKER SPAWN
 	if (num == 14)
 	{								   
-		x = Math.RandomFloatInclusive(5376, 5383);
+		x = 5455.35;
 		y = 0;
-		z = Math.RandomFloatInclusive(2179, 2195);
+		z = 2227.32;
 	}
 	// NORTH BALOTA AIRFIELD
 	if (num == 15) 
