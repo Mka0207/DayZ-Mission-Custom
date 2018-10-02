@@ -10,7 +10,7 @@ const float LOOT_CLEANUP_SECS = 120;
 protected float	m_LootCheckTimer = 0.0;
 
 //How far in meters from the center of the player the cleaner should check.
-protected float m_LootMeterRadius = 90.0;
+protected float m_LootMeterRadius = 75.0;
 
 //How many items were cleaned.
 int total_cleaned = 0;
@@ -65,10 +65,9 @@ void OnPlayerLootTick(PlayerBase player, float curTime)
 					if ( item.GetType() == "RDG2SmokeGrenade_Black" )
 					{
 						continue;
-					}	
-					
+					}					
 					//Remove Melee, Firearms, Clothing and all other items dropped.
-					if ( item.IsWeapon() || item.IsClothing() || item.IsMeleeWeapon() || item.IsMagazine() ) //item.IsMan() && !item.IsAlive()
+					if ( item.IsWeapon() || item.IsClothing() || item.IsMeleeWeapon() || item.IsMagazine() )  //item.IsMan() && !item.IsAlive()
 					{	
 						if ( objects.Count() >= 1 )
 						{
