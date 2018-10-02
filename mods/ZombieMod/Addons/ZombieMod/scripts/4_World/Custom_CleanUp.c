@@ -4,7 +4,7 @@
 //Look into using a timer for this system in the future.
 
 //How many ticks before loot should be cleaned up.
-const float LOOT_CLEANUP_SECS = 180;
+const float LOOT_CLEANUP_SECS = 120;
 
 //default float, dont edit this.
 protected float	m_LootCheckTimer = 0.0;
@@ -57,19 +57,13 @@ void OnPlayerLootTick(PlayerBase player, float curTime)
 						continue;
 					} */
 					
-					//Don't remove players or ai.
-					/* if ( item.IsMan() )
-					{	
-						continue;
-					} */
-					
 					if ( item.GetType() == "SeaChest" )
 					{
 						continue;
 					}
 					
 					//Remove Melee, Firearms, Clothing and all other items dropped.
-					if ( item.IsWeapon() || item.IsClothing() || item.IsMeleeWeapon() || item.IsMagazine() )
+					if ( item.IsWeapon() || item.IsClothing() || item.IsMeleeWeapon() || item.IsMagazine() || item.IsMan() && !item.IsAlive() )
 					{	
 						if ( objects.Count() >= 1 )
 						{
@@ -82,7 +76,7 @@ void OnPlayerLootTick(PlayerBase player, float curTime)
 			}
 		
 			//Announce that we cleaned the world.
-			GetGame().ChatPlayer( 0, "[Items_Cleaned] = "+total_cleaned );
+			//GetGame().ChatPlayer( 0, "[Items_Cleaned] = "+total_cleaned );
 			
 			//Rest how many we cleaned.
 			total_cleaned = 0;

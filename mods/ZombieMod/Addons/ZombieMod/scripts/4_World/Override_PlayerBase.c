@@ -1,32 +1,18 @@
 //Class that are modded to be overridden!
 
+//How many ticks before bodies should be cleaned up.
+
 modded class PlayerBase extends ManBase
 {	
-	//How many ticks before bodies should be cleaned up.
-	const float BODY_CLEANUP_SECS = 18;
-	protected float	m_BodyCleanCheckTimer = 0.0;
-	override void OnScheduledTick(float deltaTime)
+	override void OnTick()
 	{
-		//Clean up dead bodies.
-		if ( !IsAlive() )
-		{
-			m_BodyCleanCheckTimer += deltaTime;
-			if ( m_BodyCleanCheckTimer > BODY_CLEANUP_SECS ) 
-			{
-				Delete();
-				Print("[DEBUG] - Cleaned PlayerBase Body");
-			}
-		}
+		float deltaT = (GetGame().GetTime() - m_LastTick) / 1000;
+		if ( m_LastTick < 0 )  deltaT = 0;//first tick protection
+		m_LastTick = GetGame().GetTime();
 		
-		//Clean up loot
-		OnPlayerLootTick(this, deltaTime);
+		OnPlayerLootTick(this, deltaT);
 		
-		//Vanilla Code
-		if( !IsPlayerSelected() || !IsAlive() ) return;
-		if( m_ModifiersManager ) m_ModifiersManager.OnScheduledTick(deltaTime);
-		if( m_NotifiersManager ) m_NotifiersManager.OnScheduledTick();
-		if( m_TrasferValues ) m_TrasferValues.OnScheduledTick(deltaTime);
-		if( m_DisplayStatus ) m_DisplayStatus.OnScheduledTick();
+		OnScheduledTick(deltaT);		
 	}
 	
 	int humans_killed;
