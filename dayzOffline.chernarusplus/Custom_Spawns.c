@@ -153,9 +153,9 @@ static vector GetRandomSpawn()
 	// RANDOM BALOTA #2
 	if (num == 17) 
 	{								    
-		x = 5683.43;
+		x = 5303.7;
 		y = 0;
-		z = 3004.63;
+		z = 2542.38;
 	}
 	
 	// RANDOM BALOTA #3
