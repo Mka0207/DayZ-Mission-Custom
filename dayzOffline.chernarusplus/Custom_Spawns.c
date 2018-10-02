@@ -308,9 +308,9 @@ static vector GetRandomSpawn()
 	//ELECTRO RANDOM #14
 	if (num == 37) 
 	{	
-		x = Math.RandomFloatInclusive(10477, 10526);
+		x = Math.RandomFloatInclusive(10465, 10511);
 		y = 0;
-		z = Math.RandomFloatInclusive(2523, 2598);
+		z = Math.RandomFloatInclusive(2506, 2586);
 	}
 	
 	return Vector(x, y, z);
