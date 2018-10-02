@@ -7,7 +7,7 @@ void AddBuildings()
 	//m_survivortest = g_Game.CreateObject("SurvivorM_Mirek", "5380.59 0 2170.23", false, true );
 	
     //ATC Spawn, replaces appartment
-	ItemBase m_atc;
+	Building m_atc;
     vector atc_pos;
     vector atc_dir;
    
@@ -33,7 +33,7 @@ void AddBuildings()
 	m_atc.SetOrientation(atc_dir);
 	
 	//ACT North East AF
-	ItemBase m_atc_ne;
+	Building m_atc_ne;
 	vector atc_ne_pos;
 	vector atc_ne_dir;
    
@@ -50,7 +50,7 @@ void AddBuildings()
 	m_atc_ne.SetOrientation(atc_ne_dir);
 	
 	//Crashed C130
-	ItemBase m_c130;
+	Building m_c130;
     vector c130_pos;
     vector c130_dir;
    
@@ -68,7 +68,7 @@ void AddBuildings()
 	
 	//Scaffolding for the Airport building 
 	
-	ItemBase m_scf1;
+	Building m_scf1;
     vector scf1_pos;
     vector scf1_dir;
    
@@ -85,7 +85,7 @@ void AddBuildings()
 	
 	//Stairs to the roofs of housing blocks in elektro
 	
-	ItemBase m_scf2;
+	Building m_scf2;
     vector scf2_pos;
     vector scf2_dir;
    
@@ -104,7 +104,7 @@ void AddBuildings()
 	//Ramp from lower roof to roof you can't easily jump to
 	
 	
-	ItemBase m_rmp1;
+	Building m_rmp1;
     vector rmp1_pos;
     vector rmp1_dir;
    
@@ -122,7 +122,7 @@ void AddBuildings()
 	
 	//New building acting as bridge. Doesn't look right, WIP. 
 	
-	ItemBase m_bld1;
+	Building m_bld1;
     vector bld1_pos;
     vector bld1_dir;
    
@@ -140,7 +140,7 @@ void AddBuildings()
 	
 	//Catwalk made of boat to bridge two buildings. To be replaced with better looking model
 	
-	ItemBase m_cat1;
+	Building m_cat1;
     vector cat1_pos;
     vector cat1_dir;
    
