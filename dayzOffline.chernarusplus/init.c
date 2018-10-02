@@ -2,6 +2,7 @@
 #include "$CurrentDir:\\mpmissions\\dayzOffline.chernarusplus\\Custom_Buildings.c"
 #include "$CurrentDir:\\mpmissions\\dayzOffline.chernarusplus\\Custom_Loadouts.c"
 #include "$CurrentDir:\\mpmissions\\dayzOffline.chernarusplus\\Custom_Adverts.c"
+#include "$CurrentDir:\\mpmissions\\dayzOffline.chernarusplus\\Custom_Events.c"
 
 void main()
 {
@@ -58,7 +59,65 @@ class CustomMission: MissionServer
 	override void StartingEquipSetup(PlayerBase player, bool clothesChosen)
 	{
 		player.RemoveAllItems();
-		OnSpawnCallback(player)
+		OnSpawnCallback(player);
+	}
+	
+	override void OnClientRespawnEvent(PlayerIdentity identity, PlayerBase player)
+	{
+		// note: player is now killed in db right after the actual kill happens 
+		/* if (GetHive() && player)
+		{
+			GetHive().CharacterKill(player);
+		} */
+		if(player)
+		{
+			if (player.IsUnconscious() || player.IsRestrained())
+			{
+				// kill character
+				player.SetHealth("", "", 0.0);
+			}
+		}
+	}
+	
+	override void PlayerDisconnected(PlayerBase player, PlayerIdentity identity, string uid)
+	{
+		// Note: At this point, identity can be already deleted
+		if (!player)
+		{
+			Print("[Logout]: Skipping player " + uid + ", already removed");
+			return;
+		}
+		
+		Print("[Logout]: Player " + uid + " finished");
+
+		/* if (GetHive())
+		{
+			// save player
+			player.Save();
+			
+			// unlock player in DB	
+			GetHive().CharacterExit(player);		
+		} */
+		
+		//HandleBody(player);
+		//player.Delete();
+		
+		// remove player from server
+		GetGame().DisconnectPlayer(identity, uid);
+	}
+	
+	override void HandleBody(PlayerBase player)
+	{
+		/* if (player.IsAlive() && !player.IsRestrained() && !player.IsUnconscious())
+		{
+			// remove the body
+			player.Delete();	
+		}
+		else if (player.IsUnconscious() || player.IsRestrained())
+		{
+			// kill character
+			player.SetHealth("", "", 0.0);
+		} */
 	}
 	
 	override void TickScheduler(float timeslice)
@@ -77,9 +136,10 @@ class CustomMission: MissionServer
 			currentPlayer.OnTick();
 			m_currentPlayer++;
 		}
-		
+
 		//Custom
 		OnTickAdverts( timeslice );
+		RandomEventTick( timeslice );
 	}
 };
   
