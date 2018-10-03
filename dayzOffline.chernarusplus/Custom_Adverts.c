@@ -8,9 +8,15 @@ TStringArray Timed_Adverts()
 	return {
 	"Contact Us @ discord.gg/npTNKeM",
 	"Support Us @ fwkzt.com/donate",
-	"Watch out for random Cache Zones!",
+	"Melee weapons KO on first hit!",
+	"Bodies auto clean after 18 secs!",
+	"Items auto clean after 3 mins!",
+	"Maintained and developed by FWKZT.com",
+	"Want to team up? Use Armbands!",
+	"Occasional lag spikes are normal.",
+	"Server Changelog posted on discord.",
 	"Try NOT to spawn camp!",
-	"Server restarts every 4 hours!"};
+	"Server restarts every 4-6 hours!"};
 }
 
 void OnTickAdverts( float timeslice )
