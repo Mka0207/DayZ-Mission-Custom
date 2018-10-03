@@ -3,13 +3,13 @@
 class Event
 {
     //How much time in secs before each mission starts(must always be lower than misson_end).
-    const float MISSION_DELAY_INTERVAL = 10;
+    const float MISSION_DELAY_INTERVAL = 260;
 
     //How much time in secs to and see if all zombies have been killed so the mission will be forced to end.
     //const float MISSION_END_CHECK = 60;
 
     //How much time in secs before each mission ends(must always be higher than mission_delay).
-    const float MISSION_END_INTERVAL = 60;
+    const float MISSION_END_INTERVAL = 900;
 
     //Basically the 'fat' version of the mission end interval, used for the cleanup timers.
     //const float MISSION_END_FAT = 60000;
@@ -24,7 +24,7 @@ class Event
 	float m_LastTick = -1;
 
     //Should be the number of events you have made in total.
-    int NumberOfEvents = 1;
+    int NumberOfEvents = 3;
 
     //math used to get a random event.
     int Random_Selector = Math.RandomIntInclusive( 1, NumberOfEvents );
@@ -67,8 +67,10 @@ class Event
         return zed_count;
     } */
 
+	//Reference the objects here.
     ref Cherno_Gas_Station m_CurrentEvent_1; 
     ref Balota_Barn_Fields m_CurrentEvent_2; 
+    ref Airfield_ZombieEvent m_CurrentEvent_3;
 
     //The brain of our system.
     void RandomEventTick(float timeslice)
@@ -87,6 +89,12 @@ class Event
 			{
                 m_CurrentEvent_2 = new Balota_Barn_Fields();
                 m_CurrentEvent_2.StartMission();
+			}
+
+            if ( Random_Selector == 3 )
+			{
+                m_CurrentEvent_3 = new Airfield_ZombieEvent();
+                m_CurrentEvent_3.StartMission();
 			}
 
             IsEventRunning = true;
@@ -135,8 +143,8 @@ class DefaultEvent extends Event
     //How many zombies should spawn on the event.
     int NUM_OF_EVENT_ZOMBIES;
 
-    //How much time in secs before the ents are removed ( 1000 = 1 second ).
-    int MISSION_RESET_INTERVAL = 60000;
+    //How much time in secs before the ents are removed, must match the misson_end delay. ( 1000 = 1 second ).
+    int MISSION_RESET_INTERVAL = 900000;
 
     //Central Pos to check for zombie count.
     //vector Central_Mission_Pos;
@@ -170,6 +178,28 @@ static void CreateFlareEnt(float x, float y, float z, float yaw, float pitch, fl
 static void DestroyFlareEnt()
 {
     GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).Remove(CreateFlareEnt);
+}
+
+//Clean up those spooky zombies!
+static void CleanUpZombies(float x, float y, float z, float radius)
+{
+	ref array<Object> Ev_Zombies = new array<Object>;
+	GetGame().GetObjectsAtPosition( Vector(x,y,z), radius, Ev_Zombies, NULL );
+
+	if ( GetGame() && Ev_Zombies )
+	{
+		if ( Ev_Zombies.Count() >= 1 ) 
+		{
+			for ( int i = 0; i < Ev_Zombies.Count(); i++ )
+			{
+				Object z_ent = Ev_Zombies.Get( i );
+				if ( z_ent.GetType() == "ZmbM_HunterOld_Autumn" )
+				{
+					GetGame().ObjectDelete(z_ent)
+				}
+			}
+		}
+	}
 }
 
 class Cherno_Gas_Station extends DefaultEvent
@@ -284,5 +314,42 @@ class Balota_Barn_Fields extends DefaultEvent
         //Tell everyone the event is active.
         GetGame().ChatPlayer( 0, "Mission Spotted!" );
         GetGame().ChatPlayer( 0, "North West of Balota!" );
+    }
+}
+
+class Airfield_ZombieEvent extends DefaultEvent
+{
+	override void Init()
+	{	
+        Event_Chance = 3;
+
+        NUM_OF_EVENT_ZOMBIES = 50;
+
+        //Central_Mission_Pos = Vector(5818.56, 8.98797, 2165.17);
+
+        //MISSION_RESET_INTERVAL = 60000;
+    }
+	
+    override void StartMission()
+    {
+        //Zombies
+        for ( int i = 0; i < NUM_OF_EVENT_ZOMBIES; i++ )
+        {
+            g_Game.CreateObject("ZmbM_HunterOld_Autumn", Vector(Math.RandomFloatInclusive(5000, 5270), 0, Math.RandomFloatInclusive(2333, 2474)), false, true );
+        }
+
+        for ( int i_2 = 0; i_2 < NUM_OF_EVENT_ZOMBIES; i_2++ )
+        {
+            g_Game.CreateObject("ZmbM_HunterOld_Autumn", Vector(Math.RandomFloatInclusive(5112, 5340), 0, Math.RandomFloatInclusive(2191, 2224)), false, true );
+        }
+
+        for ( int i_3 = 0; i_3 < NUM_OF_EVENT_ZOMBIES; i_3++ )
+        {
+            g_Game.CreateObject("ZmbM_HunterOld_Autumn", Vector(Math.RandomFloatInclusive(4900, 5090), 0, Math.RandomFloatInclusive(2560, 2920)), false, true );
+        }
+        
+        //Tell everyone the event is active.
+        GetGame().ChatPlayer( 0, "Zombie wave has arrived!" );
+        GetGame().ChatPlayer( 0, "Zombies have overrun the airfield!" );
     }
 }
