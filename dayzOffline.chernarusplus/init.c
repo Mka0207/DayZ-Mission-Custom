@@ -120,6 +120,7 @@ class CustomMission: MissionServer
 		} */
 	}
 	
+	ref Event curr_event = new Event();
 	override void TickScheduler(float timeslice)
 	{
 		GetGame().GetWorld().GetPlayerList(m_Players);
@@ -136,10 +137,11 @@ class CustomMission: MissionServer
 			currentPlayer.OnTick();
 			m_currentPlayer++;
 		}
-
+	
 		//Custom
+		curr_event.RandomEventTick(timeslice);
+		
 		OnTickAdverts( timeslice );
-		RandomEventTick( timeslice );
 	}
 };
   
