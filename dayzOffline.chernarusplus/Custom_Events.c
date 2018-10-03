@@ -6,13 +6,16 @@ class Event
     const float MISSION_DELAY_INTERVAL = 10;
 
     //How much time in secs to and see if all zombies have been killed so the mission will be forced to end.
-    const float MISSION_END_CHECK = 60;
+    //const float MISSION_END_CHECK = 60;
 
     //How much time in secs before each mission ends(must always be higher than mission_delay).
-    const float MISSION_END_INTERVAL = 900;
+    const float MISSION_END_INTERVAL = 60;
+
+    //Basically the 'fat' version of the mission end interval, used for the cleanup timers.
+    //const float MISSION_END_FAT = 60000;
 
     //Defauls, don't touch.
-    float Mission_StartTime = 0.0
+    float Mission_StartTime = 0.0;
     float Mission_FloatTime = 0.0;
     float Mission_EndTime = 0.0;
     bool IsEventRunning = false;
@@ -64,6 +67,9 @@ class Event
         return zed_count;
     } */
 
+    ref Cherno_Gas_Station m_CurrentEvent_1; 
+    ref Balota_Barn_Fields m_CurrentEvent_2; 
+
     //The brain of our system.
     void RandomEventTick(float timeslice)
     {
@@ -71,17 +77,20 @@ class Event
         
         if ( Mission_FloatTime > MISSION_DELAY_INTERVAL && !IsEventRunning )
         {
-            Mission_FloatTime = 0;
-
             if ( Random_Selector == 1 )
             {
-                ref Cherno_Gas_Station m_CurrentEvent = new Cherno_Gas_Station(); 
-                m_CurrentEvent.SetActive(true);
-                m_CurrentEvent.SetCleanUpTime(MISSION_END_INTERVAL);
-                m_CurrentEvent.StartMission();
+                m_CurrentEvent_1 = new Cherno_Gas_Station(); 
+                m_CurrentEvent_1.StartMission();
             }
 
+			if ( Random_Selector == 2 )
+			{
+                m_CurrentEvent_2 = new Balota_Barn_Fields();
+                m_CurrentEvent_2.StartMission();
+			}
+
             IsEventRunning = true;
+			Mission_FloatTime = 0;
         }
 
         /* if ( IsEventRunning )
@@ -100,14 +109,12 @@ class Event
             if ( ReturnZombieCount(x, y, z, 200.0) == 0 )
             {
                EndMission();
-               m_CurrentEvent.SetActive(false);
             }
         } */
         
         if ( Mission_FloatTime > MISSION_END_INTERVAL && IsEventRunning )
         {
             EndMission();
-            m_CurrentEvent.SetActive(false);
         }
     }
 
@@ -122,6 +129,18 @@ class Event
 
 class DefaultEvent extends Event
 {
+	//Chance of the event happening.
+    int Event_Chance;
+
+    //How many zombies should spawn on the event.
+    int NUM_OF_EVENT_ZOMBIES;
+
+    //How much time in secs before the ents are removed ( 1000 = 1 second ).
+    int MISSION_RESET_INTERVAL = 60000;
+
+    //Central Pos to check for zombie count.
+    //vector Central_Mission_Pos;
+
     void DefaultEvent()
 	{	
 		Init();
@@ -130,28 +149,6 @@ class DefaultEvent extends Event
 	void Init()
 	{	
         //
-    }
-
-    //Chance of the event happening.
-    int Event_Chance;
-
-    //How many zombies should spawn on the event.
-    int NUM_OF_EVENT_ZOMBIES;
-
-    //How much time in secs before the ents are removed ( 1000 = 1 second ).
-    int MISSION_RESET_INTERVAL;
-
-    vector Central_Mission_Pos;
-
-    void SetCleanUpTime(int time)
-    {
-        this.MISSION_RESET_INTERVAL = time;
-    }
-    
-    bool Active = false;
-    void SetActive(bool ShouldBeOn)
-    {
-        this.Active = ShouldBeOn;
     }
 
     void StartMission()
@@ -184,7 +181,9 @@ class Cherno_Gas_Station extends DefaultEvent
 
         NUM_OF_EVENT_ZOMBIES = 5;
 
-        Central_Mission_Pos = Vector(5818.56, 8.98797, 2165.17)
+        //Central_Mission_Pos = Vector(5818.56, 8.98797, 2165.17);
+
+        //MISSION_RESET_INTERVAL = 90000;
     }
 
     override void StartMission()
@@ -214,16 +213,9 @@ class Cherno_Gas_Station extends DefaultEvent
         GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(CreateFlareEnt, 6700, true, 5818.56, 8.98797, 2165.17, 2, -1.09999, -4.44645);
         
         //Zombies
-        EntityAI m_zombie;
-        float zombies_x;
-        float zombies_y = 0;
-        float zombies_z;
-
         for ( int i = 0; i < NUM_OF_EVENT_ZOMBIES; i++ )
         {
-            zombies_x = Math.RandomFloatInclusive(5797, 5869);
-            zombies_z = Math.RandomFloatInclusive(2123, 2168);
-            m_zombie = g_Game.CreateObject("ZmbM_HunterOld_Autumn", Vector(zombies_x, zombies_y, zombies_z), false, true );
+            g_Game.CreateObject("ZmbM_HunterOld_Autumn", Vector(Math.RandomFloatInclusive(5797, 5869), 0, Math.RandomFloatInclusive(2123, 2168)), false, true );
         }
         
         //Cleanup
@@ -238,18 +230,24 @@ class Cherno_Gas_Station extends DefaultEvent
     }
 }
 
-/* class Balota_Barn_Fields extends DefaultEvent
+class Balota_Barn_Fields extends DefaultEvent
 {
-    int MISSION_RESET_INTERVAL = 90000;
-    int NUM_OF_EVENT_ZOMBIES = 30;
+	override void Init()
+	{	
+        Event_Chance = 2;
 
+        NUM_OF_EVENT_ZOMBIES = 50;
+
+        //Central_Mission_Pos = Vector(5818.56, 8.98797, 2165.17);
+
+        //MISSION_RESET_INTERVAL = 60000;
+    }
+	
     override void StartMission()
     {
-        super.StartMission();
+        //super.StartMission();
 
-        //Removal Timer for the flare ( sorta hacky way to make use of it ).
-        vector Flare_Pos = "4259.18 8.31229 2773.94";
-        vector Flare_Axis = "26.8815 2.5061 5.20263";
+       //Removal Timer for the flare ( sorta hacky way to make use of it ).
         CreateFlareEnt(4259.18, 8.31229, 2773.94, 26.8815, 2.5061, 5.20263);
         GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(CreateFlareEnt, 6700, true, 4259.18, 8.31229, 2773.94, 26.8815, 2.5061, 5.20263);
 
@@ -273,25 +271,18 @@ class Cherno_Gas_Station extends DefaultEvent
         m_seachest_3.SetOrientation(Chest3_Axis);
         
         //Zombies
-        EntityAI m_zombie;
-        float zombies_x;
-        float zombies_y = 0;
-        float zombies_z;
-    
         for ( int i = 0; i < NUM_OF_EVENT_ZOMBIES; i++ )
-            zombies_x = Math.RandomFloatInclusive(4229, 4287);
-            zombies_z = Math.RandomFloatInclusive(2710, 2845);
-            m_zombie = g_Game.CreateObject("ZmbM_HunterOld_Autumn", Vector(zombies_x, zombies_y, zombies_z), false, true );
+        {
+            g_Game.CreateObject("ZmbM_HunterOld_Autumn", Vector(Math.RandomFloatInclusive(4229, 4287), 0, Math.RandomFloatInclusive(2710, 2845)), false, true );
         }
         
         //Cleanup
-        GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(CleanUpZombies, MISSION_RESET_INTERVAL, false, Math.RandomFloatInclusive(5797, 5869), 0, Math.RandomFloatInclusive(2123, 2168), 250.0);
         GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(GetGame().ObjectDelete, MISSION_RESET_INTERVAL, false, m_seachest_1);
         GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(GetGame().ObjectDelete, MISSION_RESET_INTERVAL, false, m_seachest_2);
         GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(GetGame().ObjectDelete, MISSION_RESET_INTERVAL, false, m_seachest_3);
         
         //Tell everyone the event is active.
-        GetGame().ChatPlayer( 0, "Gear Cache Spotted!" );
-        GetGame().ChatPlayer( 01, "North West of Balota!" );
+        GetGame().ChatPlayer( 0, "Mission Spotted!" );
+        GetGame().ChatPlayer( 0, "North West of Balota!" );
     }
-} */
+}
