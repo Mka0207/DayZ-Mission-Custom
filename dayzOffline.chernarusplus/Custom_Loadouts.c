@@ -29,11 +29,11 @@ void OnSpawnCallback(PlayerBase player)
 	//player.GetInventory().CreateInInventory( "CombatKnife" );
 	player.GetInventory().CreateInInventory( "SalineBagIV" );
 	
-	/* EntityAI item_bandage_ent;
+	EntityAI item_bandage_ent;
 	item_bandage_ent = player.GetInventory().CreateInInventory( "BandageDressing" );
 	player.GetInventory().CreateInInventory( "BandageDressing" );
 	player.GetInventory().CreateInInventory( "BandageDressing" );
-	player.GetInventory().CreateInInventory( "BandageDressing" ); */
+	player.GetInventory().CreateInInventory( "BandageDressing" );
 	
 	EntityAI primarywep;
 	int num = Math.RandomIntInclusive( 0, 5 );
@@ -58,7 +58,7 @@ void OnSpawnCallback(PlayerBase player)
 
 	player.PredictiveTakeEntityToHands(primarywep);
 	player.SetQuickBarEntityShortcut(primarywep, 0, true);
-	//player.SetQuickBarEntityShortcut(item_bandage_ent, 3, true);
+	player.SetQuickBarEntityShortcut(item_bandage_ent, 3, true);
 	
    //Set Hydration to full.
 	player.GetStatWater().Set(1000);
@@ -161,7 +161,7 @@ EntityAI DefaultClass_C(PlayerBase player) //UMP Loadout
 	
 	//PRIMARY WEAPON
 	EntityAI wep_primary = player.GetHumanInventory().CreateInHands( "UMP45" );
-	//wep_primary.GetInventory().CreateAttachment("PistolSuppressor");
+	wep_primary.GetInventory().CreateAttachment("PistolSuppressor");
 	
 	//MAGS
 	EntityAI mag;
@@ -245,7 +245,7 @@ EntityAI DefaultClass_E(PlayerBase player) //MP5 Loadout
 	EntityAI wep_primary = player.GetHumanInventory().CreateInHands( "MP5K" );
 	wep_primary.GetInventory().CreateAttachment("MP5_PlasticHndgrd");
 	wep_primary.GetInventory().CreateAttachment("MP5k_StockBttstck");
-	//wep_primary.GetInventory().CreateAttachment("PistolSuppressor");
+	wep_primary.GetInventory().CreateAttachment("PistolSuppressor");
 	optic2_attach = wep_primary.GetInventory().CreateAttachment( "M68Optic" );
 	optic2_attach.GetInventory().CreateAttachment( "Battery9V" );
 		
