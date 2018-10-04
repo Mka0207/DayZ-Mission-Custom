@@ -16,7 +16,15 @@ modded class BleedingSourcesManager
 		{
 			if ( m_Player.IsAlive() )
 			{
-				m_Player.SetHealth("","", -1);
+				times_hit++
+				if ( times_hit == 1 )
+				{
+					m_Player.SetHealth("","", 30);
+				}
+				else if ( times_hit >= 2 )
+				{
+					m_Player.SetHealth("","", -1);
+				}
 			}
 		}
 		

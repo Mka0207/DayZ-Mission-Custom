@@ -8,7 +8,7 @@ void AddKillStreak(Object killer)
 	if ( GetGame().IsServer() && Class.CastTo(man, killer) )
 	{
 		int kill_add = man.humans_killed++;
-		params.param1 = "Kill Streak : "+kill_add;
+		params.param1 = "Kills : "+kill_add;
 		man.RPCSingleParam( ERPCs.RPC_USER_ACTION_MESSAGE, params, true, man.GetIdentity() );
 	}
 }
