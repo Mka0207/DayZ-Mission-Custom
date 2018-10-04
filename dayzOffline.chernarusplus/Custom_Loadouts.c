@@ -29,11 +29,11 @@ void OnSpawnCallback(PlayerBase player)
 	//player.GetInventory().CreateInInventory( "CombatKnife" );
 	player.GetInventory().CreateInInventory( "SalineBagIV" );
 	
-	EntityAI item_bandage_ent;
+	/* EntityAI item_bandage_ent;
 	item_bandage_ent = player.GetInventory().CreateInInventory( "BandageDressing" );
 	player.GetInventory().CreateInInventory( "BandageDressing" );
 	player.GetInventory().CreateInInventory( "BandageDressing" );
-	player.GetInventory().CreateInInventory( "BandageDressing" );
+	player.GetInventory().CreateInInventory( "BandageDressing" ); */
 	
 	EntityAI primarywep;
 	int num = Math.RandomIntInclusive( 0, 5 );
@@ -58,7 +58,7 @@ void OnSpawnCallback(PlayerBase player)
 
 	player.PredictiveTakeEntityToHands(primarywep);
 	player.SetQuickBarEntityShortcut(primarywep, 0, true);
-	player.SetQuickBarEntityShortcut(item_bandage_ent, 3, true);
+	//player.SetQuickBarEntityShortcut(item_bandage_ent, 3, true);
 	
    //Set Hydration to full.
 	player.GetStatWater().Set(1000);
