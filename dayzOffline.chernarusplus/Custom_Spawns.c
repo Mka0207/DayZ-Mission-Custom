@@ -13,7 +13,7 @@ static vector GetRandomSpawn()
 	float y;
 	float z;
 
-	/* int MAX_PLAYERS = 25;
+	int MAX_PLAYERS = 25;
 	if ( player_count <= MAX_PLAYERS ) 
 	{
 		num = Math.RandomIntInclusive(1, 20);
@@ -22,10 +22,8 @@ static vector GetRandomSpawn()
 	if ( player_count > MAX_PLAYERS ) 
 	{
 		num = Math.RandomIntInclusive(1, 37);
-	} */
+	} 
 	
-	num = Math.RandomIntInclusive(1, 37);
-		
 	// RANDOM BALOTA
 	if (num == 1) 
 	{                                

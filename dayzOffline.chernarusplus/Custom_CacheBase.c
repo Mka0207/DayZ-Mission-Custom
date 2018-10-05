@@ -5,7 +5,7 @@
 class Event
 {
     //How much time in secs before each mission starts(must always be lower than misson_end).
-    const float MISSION_DELAY_INTERVAL = 300;
+    const float MISSION_DELAY_INTERVAL = 180;
 
     //How much time in secs to and see if all zombies have been killed so the mission will be forced to end.
     //const float MISSION_END_CHECK = 60;
@@ -85,7 +85,7 @@ class Event
         
         if ( Mission_FloatTime > MISSION_DELAY_INTERVAL && !IsEventRunning )
         {
-            int Random_Selector = Math.RandomIntInclusive( 5, 5 );
+            int Random_Selector = Math.RandomIntInclusive( 1, NumberOfEvents );
 
             if ( Random_Selector == m_LastMission )
             {
@@ -171,8 +171,9 @@ class Event
     void EndMission()
     {
         Mission_FloatTime = 0;
-        GetGame().ChatPlayer( 0, "Gear Cache in 5 mins!" );
+        GetGame().ChatPlayer( 0, "Gear Cache in 3 mins!" );
         IsEventRunning = false;
+		//GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(DestroyFlareEnt, 250, false);
     }
 
 }

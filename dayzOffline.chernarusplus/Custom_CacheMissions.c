@@ -42,8 +42,8 @@ class Cherno_Gas_Station extends DefaultEvent
         CreateContainrItems_3(m_barrel_y);
 
         //Removal Timer for the flare ( sorta hacky way to make use of it ).
-        CreateFlareEnt(5818.56, 8.98797, 2165.17, 2, -1.09999, -4.44645);
-        GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(CreateFlareEnt, 6700, true, 5818.56, 8.98797, 2165.17, 2, -1.09999, -4.44645);
+       // CreateFlareEnt(5818.56, 8.98797, 2165.17, 2, -1.09999, -4.44645);
+        //GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(CreateFlareEnt, 8500, true, 5818.56, 8.98797, 2165.17, 2, -1.09999, -4.44645);
         
         //Zombies
         for ( int i = 0; i < NUM_OF_EVENT_ZOMBIES; i++ )
@@ -53,7 +53,6 @@ class Cherno_Gas_Station extends DefaultEvent
         
         //Cleanup
         GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(CleanUpZombies, MISSION_RESET_INTERVAL, false, Math.RandomFloatInclusive(5797, 5869), 0, Math.RandomFloatInclusive(2123, 2168), 500.0);
-        GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(DestroyFlareEnt, MISSION_RESET_INTERVAL, false);
         GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(GetGame().ObjectDelete, MISSION_RESET_INTERVAL, false, m_barrel);
         GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(GetGame().ObjectDelete, MISSION_RESET_INTERVAL, false, m_barrel_g);
         GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(GetGame().ObjectDelete, MISSION_RESET_INTERVAL, false, m_barrel_y);
@@ -82,8 +81,8 @@ class Balota_Barn_Fields extends DefaultEvent
         //super.StartMission();
 
        //Removal Timer for the flare ( sorta hacky way to make use of it ).
-        CreateFlareEnt(4259.18, 8.31229, 2773.94, 26.8815, 2.5061, 5.20263);
-        GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(CreateFlareEnt, 6700, true, 4259.18, 8.31229, 2773.94, 26.8815, 2.5061, 5.20263);
+       // CreateFlareEnt(4259.18, 8.31229, 2773.94, 26.8815, 2.5061, 5.20263);
+        //GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(CreateFlareEnt, 8500, true, 4259.18, 8.31229, 2773.94, 26.8815, 2.5061, 5.20263);
 
         //SeaChests
         ItemBase m_seachest_1;
@@ -115,7 +114,7 @@ class Balota_Barn_Fields extends DefaultEvent
         
         //Cleanup
         GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(CleanUpZombies, MISSION_RESET_INTERVAL, false, Math.RandomFloatInclusive(4229, 4287), 0, Math.RandomFloatInclusive(2710, 2845), 350.0);
-        GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(DestroyFlareEnt, MISSION_RESET_INTERVAL, false);
+        //GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(DestroyFlareEnt, MISSION_RESET_INTERVAL, false);
         GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(GetGame().ObjectDelete, MISSION_RESET_INTERVAL, false, m_seachest_1);
         GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(GetGame().ObjectDelete, MISSION_RESET_INTERVAL, false, m_seachest_2);
         GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(GetGame().ObjectDelete, MISSION_RESET_INTERVAL, false, m_seachest_3);
@@ -179,8 +178,8 @@ class Balota_Crash_NW extends DefaultEvent
     override void StartMission()
     {
         //Removal Timer for the flare ( sorta hacky way to make use of it ).
-        CreateFlareEnt(4717.84, 65.29, 2932.43, 26.8815, 2.5061, 5.20263);
-        GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(CreateFlareEnt, 6700, true, 4717.84, 65.29, 2932.43, 26.8815, 2.5061, 5.20263);
+        //CreateFlareEnt(4717.84, 65.29, 2932.43, 26.8815, 2.5061, 5.20263);
+        //GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(CreateFlareEnt, 8500, true, 4717.84, 65.29, 2932.43, 26.8815, 2.5061, 5.20263);
        
         //Barrels
         ItemBase m_Barrel_1;
@@ -215,7 +214,7 @@ class Balota_Crash_NW extends DefaultEvent
         
         //Cleanup
 		GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(CleanUpZombies, MISSION_RESET_INTERVAL, false, Math.RandomFloatInclusive(4720, 4822), 0, Math.RandomFloatInclusive(2812, 2915), 350.0);
-        GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(DestroyFlareEnt, MISSION_RESET_INTERVAL, false);
+        //GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(DestroyFlareEnt, MISSION_RESET_INTERVAL, false);
 		GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(GetGame().ObjectDelete, MISSION_RESET_INTERVAL, false, m_Barrel_1);
 		GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(GetGame().ObjectDelete, MISSION_RESET_INTERVAL, false, m_Barrel_2);
 		GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(GetGame().ObjectDelete, MISSION_RESET_INTERVAL, false, m_Barrel_3);
@@ -241,8 +240,8 @@ class Balota_Crash_NE extends DefaultEvent
 	
     override void StartMission()
     {
-        CreateFlareEnt(5494.71, 47.5657, 2205.06, 0, 13, 1);
-        GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(CreateFlareEnt, 6700, true, 5494.71, 47.5657, 2205.06, 0, 13, 1);
+        //CreateFlareEnt(5494.71, 47.5657, 2205.06, 0, 13, 1);
+       // GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(CreateFlareEnt, 8500, true, 5494.71, 47.5657, 2205.06, 0, 13, 1);
 
         //SeaChests
         ItemBase m_heli_chest1;
@@ -274,7 +273,7 @@ class Balota_Crash_NE extends DefaultEvent
         
         //Cleanup
 		GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(CleanUpZombies, MISSION_RESET_INTERVAL, false, Math.RandomFloatInclusive(5483, 5535), 0, Math.RandomFloatInclusive(2215, 2256), 350.0);
-		GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(DestroyFlareEnt, MISSION_RESET_INTERVAL, false);
+		//GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(DestroyFlareEnt, MISSION_RESET_INTERVAL, false);
 		GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(GetGame().ObjectDelete, MISSION_RESET_INTERVAL, false, m_heli_chest1);
 		GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(GetGame().ObjectDelete, MISSION_RESET_INTERVAL, false, m_heli_chest2);
         GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(GetGame().ObjectDelete, MISSION_RESET_INTERVAL, false, m_heli_chest3);
