@@ -139,7 +139,7 @@ class CustomMission: MissionServer
 		}
 	
 		//Custom
-		curr_event.RandomEventTick(timeslice);
+		curr_event.OnEventTick(timeslice);
 		
 		OnTickAdverts( timeslice );
 	}

@@ -1,22 +1,7 @@
 //Event system by mka0207@fwkzt.com
 
-static void CreateFlareEnt(float x, float y, float z, float yaw, float pitch, float roll)
-{
-    ItemGrenade m_Flare;
-    m_Flare = g_Game.CreateObject("RDG2SmokeGrenade_Black", Vector(x, y, z), false);
-    m_Flare.SetOrientation(Vector(yaw, pitch, roll));
-    
-    //Turn the smoke on.
-    m_Flare.GetCompEM().SwitchOn();	
-}
-
-static void DestroyFlareEnt()
-{
-    GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).Remove(CreateFlareEnt);
-}
-
 //Clean up those spooky zombies!
-static void CleanUpZombies(float x, float y, float z, float radius)
+static void DoEventCleanUp(float x, float y, float z, float radius)
 {
 	ref array<Object> Ev_Zombies = new array<Object>;
 	GetGame().GetObjectsAtPosition( Vector(x,y,z), radius, Ev_Zombies, NULL );
@@ -28,13 +13,21 @@ static void CleanUpZombies(float x, float y, float z, float radius)
 			for ( int i = 0; i < Ev_Zombies.Count(); i++ )
 			{
 				Object z_ent = Ev_Zombies.Get( i );
-				//if ( z_ent.GetType() == "ZmbM_HunterOld_Autumn" )
-                /* if ( z_ent.IsMan() )
-                {
-                    continue;
-                } */
-            
+
+				//Zombies
                 if ( z_ent.IsInherited(ZombieBase) )
+				{
+					GetGame().ObjectDelete(z_ent);
+				}
+				
+				//Barrels
+				if ( z_ent.IsInherited(Barrel_ColorBase) )
+				{
+					GetGame().ObjectDelete(z_ent);
+				}
+				
+				//SeaChests
+				if ( z_ent.GetType() == "SeaChest" )
 				{
 					GetGame().ObjectDelete(z_ent);
 				}
