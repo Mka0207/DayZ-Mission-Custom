@@ -120,7 +120,7 @@ class CustomMission: MissionServer
 		} */
 	}
 	
-	ref Event curr_event = new Event();
+	ref CustomEventsSurvival curr_event = new CustomEventsSurvival();
 	override void TickScheduler(float timeslice)
 	{
 		GetGame().GetWorld().GetPlayerList(m_Players);
