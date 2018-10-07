@@ -50,8 +50,29 @@ class RandomEvent
 	float cleanup_radius;
 	int EVENT_NOTIFY_DELAY;
 	int NUM_OF_EVENT_ZOMBIES;
+	int LAST_EVENT_NUM = 0;
+	int TimesAdverted = 0;
+
+	//Make sure this stays correct.
+	int MAX_NUM_OF_EVENTS = 5;
+
 	bool FireOnlyOnce;
 	bool NoCleanUp;
+
+	ItemBase Item_1;
+	ItemBase Item_2;
+	ItemBase Item_3;
+	ItemBase Item_4;
+
+	vector Item_1_Pos;
+	vector Item_2_Pos;
+	vector Item_3_Pos;
+	vector Item_4_Pos;
+
+	vector Item_1_Axis;
+	vector Item_2_Axis;
+	vector Item_3_Axis;
+	vector Item_4_Axis;
 
 	void RandomEvent()
 	{
@@ -63,12 +84,11 @@ class RandomEvent
 
 	}
 
-	int TimesAdverted = 0;
 	void AnnounceEvent(string EventLocation)
 	{
 		if ( EventLocation )
 		{
-			TimesAdverted = TimesAdverted + 1
+			TimesAdverted = TimesAdverted + 1;
 			
 			if ( TimesAdverted == 1 )
 			{
@@ -107,9 +127,9 @@ class RandomEvent
 		}
 	}
 	
-	void CreateContainrItems_1(ItemBase item)
+	void CreateContainrItems(ItemBase item)
 	{
-		int RandomItemsChance = Math.RandomIntInclusive( 1, 2 );
+		int RandomItemsChance = Math.RandomIntInclusive( 1, 4 );
 
 		if ( RandomItemsChance == 1 )
 		{
@@ -143,13 +163,8 @@ class RandomEvent
 			item.GetInventory().CreateInInventory( "Binoculars" );
 			item.GetInventory().CreateInInventory( "ImprovisedSuppressor" );
 		}
-	}
 
-	void CreateContainrItems_2(ItemBase item)
-	{
-		int RandomItemsChance2 = Math.RandomIntInclusive( 1, 2 );
-
-		if ( RandomItemsChance2 == 1 )
+		if ( RandomItemsChance == 3 )
 		{
 			EntityAI wep2_attack_1;
 			EntityAI wep2_attack_2;
@@ -171,60 +186,7 @@ class RandomEvent
 			wep2_attack_2.GetInventory().CreateAttachment( "Battery9V" );
 		}
 
-		if ( RandomItemsChance2 == 2 )
-		{
-			item.GetInventory().CreateInInventory( "BallisticVest" );
-			item.GetInventory().CreateInInventory( "BallisticHelmet_Green" ); 
-			item.GetInventory().CreateInInventory( "AK_Suppressor" );
-			item.GetInventory().CreateInInventory( "M4_Suppressor" );
-			item.GetInventory().CreateInInventory( "PistolSuppressor" );
-			item.GetInventory().CreateInInventory( "ImprovisedSuppressor" );
-		}
-	}
-
-	void CreateContainrItems_3(ItemBase item)
-	{
-		int RandomItemsChance3 = Math.RandomIntInclusive( 1, 4 );
-
-		if ( RandomItemsChance3 == 1 )
-		{
-			EntityAI wep2_attack_1;
-			EntityAI wep2_attack_2;
-			EntityAI wep_AKM = item.GetInventory().CreateInInventory( "AKM" );
-			wep_AKM.GetInventory().CreateAttachment( "AK_WoodBttstck_Camo" );
-			wep_AKM.GetInventory().CreateAttachment( "AK_Bayonet" );
-			wep_AKM.GetInventory().CreateAttachment( "AK_WoodHndgrd_Camo" );
-			wep_AKM.GetInventory().CreateAttachment( "AK_Suppressor" );
-			wep_AKM.GetInventory().CreateAttachment( "GhillieAtt_Mossy" );
-			wep2_attack_1 = wep_AKM.GetInventory().CreateAttachment( "PSO1Optic" );
-			wep2_attack_1.GetInventory().CreateAttachment( "Battery9V" );
-
-			item.GetInventory().CreateInInventory( "Mag_AKM_Drum75Rnd" ); 
-			item.GetInventory().CreateInInventory( "Mag_AKM_Drum75Rnd" ); 
-			item.GetInventory().CreateInInventory( "Mag_AKM_Drum75Rnd" ); 
-
-			item.GetInventory().CreateInInventory( "BallisticHelmet_Green" ); 
-			wep2_attack_2 = item.GetInventory().CreateInInventory( "KobraOptic" );
-			wep2_attack_2.GetInventory().CreateAttachment( "Battery9V" );
-		}
-
-		if ( RandomItemsChance3 == 2 )
-		{
-			item.GetInventory().CreateInInventory( "BallisticVest" );
-			item.GetInventory().CreateInInventory( "BallisticHelmet_Green" ); 
-			item.GetInventory().CreateInInventory( "AK_Suppressor" );
-			item.GetInventory().CreateInInventory( "M4_Suppressor" );
-			item.GetInventory().CreateInInventory( "PistolSuppressor" );
-			item.GetInventory().CreateInInventory( "ImprovisedSuppressor" );
-		}
-
-		if ( RandomItemsChance3 == 3 )
-		{
-			item.GetInventory().CreateInInventory( "GhillieHood_Mossy" ); 
-			item.GetInventory().CreateInInventory( "GhillieSuit_Mossy" );
-		}
-
-		if ( RandomItemsChance3 == 4 )
+		if ( RandomItemsChance == 4 )
 		{
 			item.GetInventory().CreateInInventory( "GreatHelm" );
 			item.GetInventory().CreateInInventory( "PressVest_Blue" );
@@ -289,34 +251,36 @@ class RandomEvent
 		}
 	}
 
+	int random_event_chance = 0;
 	void StartEvent()
 	{	
-		int random_event_chance = Math.RandomIntInclusive( 1, 4 );
+		if ( random_event_chance == MAX_NUM_OF_EVENTS + 1 )
+		{
+			random_event_chance = 0;
+		}
+		random_event_chance++
 		int i;
 
 		//Cherno Gas Station.
 		if ( random_event_chance == 1 )
 		{
-			ItemBase m_barrel;
-			vector Barrel_Vect = "5811.6 8.96411 2164.76";
-			vector Barrel_Axis = "96.2432 0 0";
-			m_barrel = g_Game.CreateObject("Barrel_Blue", Barrel_Vect, false);
-			m_barrel.SetOrientation(Barrel_Axis);
-			CreateContainrItems_1(m_barrel);
+			Item_1_Pos = "5811.6 8.96411 2164.76";
+			Item_2_Axis = "96.2432 0 0";
+			Item_1 = g_Game.CreateObject("Barrel_Blue", Item_1_Pos, false);
+			Item_1.SetOrientation(Item_1_Axis);
+			CreateContainrItems(Item_1);
 
-			ItemBase m_barrel_g;
-			vector BarrelG_Vect = "5823.28 8.96548 2170.91";
-			vector BarrelG_Axis = "-122.941 0 0";
-			m_barrel_g = g_Game.CreateObject("Barrel_Green", BarrelG_Vect, false);
-			m_barrel_g.SetOrientation(BarrelG_Axis);
-			CreateContainrItems_2(m_barrel_g);
+			Item_2_Pos = "5823.28 8.96548 2170.91";
+			Item_2_Axis = "-122.941 0 0";
+			Item_2 = g_Game.CreateObject("Barrel_Green", Item_2_Pos, false);
+			Item_2.SetOrientation(Item_2_Axis);
+			CreateContainrItems(Item_2);
 
-			ItemBase m_barrel_y;
-			vector BarrelY_Vect = "5823.83 8.96395 2162.67";
-			vector BarrelY_Axis = "157.911 0 0";
-			m_barrel_y = g_Game.CreateObject("Barrel_Yellow", BarrelY_Vect, false);
-			m_barrel_y.SetOrientation(BarrelY_Axis);
-			CreateContainrItems_3(m_barrel_y);
+			Item_3_Pos = "5823.83 8.96395 2162.67";
+			Item_3_Axis = "157.911 0 0";
+			Item_3 = g_Game.CreateObject("Barrel_Yellow", Item_3_Pos, false);
+			Item_3.SetOrientation(Item_3_Axis);
+			CreateContainrItems(Item_3);
 
 			//Zombies
 			NUM_OF_EVENT_ZOMBIES = 25;
@@ -329,6 +293,7 @@ class RandomEvent
 			cleanup_vector = Vector( 5818.56, 8.98797, 2165.17 );
 			cleanup_radius = 400.0
 			NoCleanUp = false;
+			LAST_EVENT_NUM = random_event_chance;
 
 			EVENT_NOTIFY_DELAY = 180000;
 			AnnounceEvent(selected_event);
@@ -339,26 +304,23 @@ class RandomEvent
 		if ( random_event_chance == 2 )
 		{
 			//SeaChests
-			ItemBase m_heli_chest1;
-			vector m_heli_chest1_Pos = "5495.72 44.9966 2201.6";
-			vector m_heli_chest1_Axis = "147.388 -10.768 5.57808";
-			m_heli_chest1 = g_Game.CreateObject("SeaChest", m_heli_chest1_Pos, false);
-			m_heli_chest1.SetOrientation(m_heli_chest1_Axis);
-			CreateContainrItems_1(m_heli_chest1);
+			Item_1_Pos = "5495.72 44.9966 2201.6";
+			Item_1_Axis = "147.388 -10.768 5.57808";
+			Item_1 = g_Game.CreateObject("SeaChest", Item_1_Pos, false);
+			Item_1.SetOrientation(Item_1_Axis);
+			CreateContainrItems(Item_1);
 	
-			ItemBase m_heli_chest2;
-			vector m_heli_chest2_Pos = "5496.89 45.62 2204.02";
-			vector m_heli_chest2_Axis = "84.1955 2.90348 21.2722";
-			m_heli_chest2 = g_Game.CreateObject("SeaChest", m_heli_chest2_Pos, false);
-			m_heli_chest2.SetOrientation(m_heli_chest2_Axis);
-			CreateContainrItems_2(m_heli_chest2);
+			Item_2_Pos = "5496.89 45.62 2204.02";
+			Item_2_Axis = "84.1955 2.90348 21.2722";
+			Item_2 = g_Game.CreateObject("SeaChest", Item_2_Pos, false);
+			Item_2.SetOrientation(Item_2_Axis);
+			CreateContainrItems(Item_2);
 	
-			ItemBase m_heli_chest3;
-			vector m_heli_chest3_Pos = "5491.84 44.5761 2201.03";
-			vector m_heli_chest3_Axis = "16.4995 17.5878 -7.2719";
-			m_heli_chest3 = g_Game.CreateObject("SeaChest", m_heli_chest3_Pos, false);
-			m_heli_chest3.SetOrientation(m_heli_chest3_Axis);
-			CreateContainrItems_3(m_heli_chest3);
+			Item_3_Pos = "5491.84 44.5761 2201.03";
+			Item_3_Axis = "16.4995 17.5878 -7.2719";
+			Item_3 = g_Game.CreateObject("SeaChest", Item_3_Pos, false);
+			Item_3.SetOrientation(Item_3_Axis);
+			CreateContainrItems(Item_3);
 
 			//Zombies
 			NUM_OF_EVENT_ZOMBIES = 25;
@@ -371,8 +333,9 @@ class RandomEvent
 			cleanup_vector = Vector( 5495.72, 44.9966, 2201.6 );
 			cleanup_radius = 400.0
 			NoCleanUp = false;
+			LAST_EVENT_NUM = random_event_chance;
 
-			EVENT_NOTIFY_DELAY = 180000
+			EVENT_NOTIFY_DELAY = 180000;
 			AnnounceEvent(selected_event);
 			GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(AnnounceEvent, EVENT_NOTIFY_DELAY, true, selected_event);
 		}
@@ -381,29 +344,26 @@ class RandomEvent
 		if ( random_event_chance == 3 )
 			{
 			//Barrels
-			ItemBase m_Barrel_1;
-			vector Bar1_Pos = "4721.31 65.67 2932.7";
-			vector Bar1_Axis = "-50.52 4.11 -14.84";
-			m_Barrel_1 = g_Game.CreateObject("Barrel_green", Bar1_Pos, false);
-			m_Barrel_1.SetOrientation(Bar1_Axis);
-			m_Barrel_1.Open();
-			CreateContainrItems_1(m_Barrel_1)
+			Item_1_Pos = "4721.31 65.67 2932.7";
+			Item_1_Axis = "-50.52 4.11 -14.84";
+			Item_1 = g_Game.CreateObject("Barrel_green", Item_1_Pos, false);
+			Item_1.SetOrientation(Item_1_Axis);
+			Item_1.Open();
+			CreateContainrItems(Item_1)
 	
-			ItemBase m_Barrel_2;
-			vector Bar2_Pos = "4720.49 66.05 2934.52";
-			vector Bar2_Axis = "60.41 13.49 8.32";
-			m_Barrel_2 = g_Game.CreateObject("Barrel_red", Bar2_Pos, false);
-			m_Barrel_2.SetOrientation(Bar2_Axis);
-			m_Barrel_2.Open();
-			CreateContainrItems_2(m_Barrel_2);
-	
-			ItemBase m_Barrel_3;
-			vector Bar3_Pos = "4718.26 66.0143 2935.42";
-			vector Bar3_Axis = "-57.3 2.15 -15.21";
-			m_Barrel_3 = g_Game.CreateObject("Barrel_blue", Bar3_Pos, false);
-			m_Barrel_3.SetOrientation(Bar3_Axis);
-			m_Barrel_3.Open();
-			CreateContainrItems_3(m_Barrel_3);
+			Item_2_Pos = "4720.49 66.05 2934.52";
+			Item_2_Axis = "60.41 13.49 8.32";
+			Item_2 = g_Game.CreateObject("Barrel_red", Item_2_Pos, false);
+			Item_2.SetOrientation(Item_2_Axis);
+			Item_2.Open();
+			CreateContainrItems(Item_2);
+
+			Item_3_Pos = "4718.26 66.0143 2935.42";
+			Item_3_Axis = "-57.3 2.15 -15.21";
+			Item_3 = g_Game.CreateObject("Barrel_blue", Item_3_Pos, false);
+			Item_3.SetOrientation(Item_3_Axis);
+			Item_3.Open();
+			CreateContainrItems(Item_3);
 
 			//Zombies
 			NUM_OF_EVENT_ZOMBIES = 25;
@@ -416,8 +376,9 @@ class RandomEvent
 			cleanup_vector = Vector( 4721.31, 65.67, 2932.7 );
 			cleanup_radius = 400.0
 			NoCleanUp = false;
+			LAST_EVENT_NUM = random_event_chance;
 
-			EVENT_NOTIFY_DELAY = 180000
+			EVENT_NOTIFY_DELAY = 180000;
 			AnnounceEvent(selected_event);
 			GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(AnnounceEvent, EVENT_NOTIFY_DELAY, true, selected_event);
 		}
@@ -426,27 +387,24 @@ class RandomEvent
 		if ( random_event_chance == 4 )
 		{
 			//SeaChests
-			ItemBase m_seachest_1;
-			vector Chest1_Pos = "4258.03 8.07743 2771.52";
-			vector Chest1_Axis = "0.3979 2.22964 -1.19725";
-			m_seachest_1 = g_Game.CreateObject("SeaChest", Chest1_Pos, false);
-			m_seachest_1.SetOrientation(Chest1_Axis);
-			CreateContainrItems_1(m_seachest_1);
+			Item_1_Pos = "4258.03 8.07743 2771.52";
+			Item_1_Axis = "0.3979 2.22964 -1.19725";
+			Item_1 = g_Game.CreateObject("SeaChest", Item_1_Pos, false);
+			Item_1.SetOrientation(Item_1_Axis);
+			CreateContainrItems(Item_1);
 
-			ItemBase m_seachest_2;
-			vector Chest2_Pos = "4261.77 8.37863 2775.05";
-			vector Chest2_Axis = "-135.114 -3.29099 1.27619";
-			m_seachest_2 = g_Game.CreateObject("SeaChest", Chest2_Pos, false);
-			m_seachest_2.SetOrientation(Chest2_Axis);
-			CreateContainrItems_2(m_seachest_2);
+			Item_2_Pos = "4261.77 8.37863 2775.05";
+			Item_2_Axis = "-135.114 -3.29099 1.27619";
+			Item_2 = g_Game.CreateObject("SeaChest", Item_2_Pos, false);
+			Item_2.SetOrientation(Item_2_Axis);
+			CreateContainrItems(Item_2);
 
-			ItemBase m_seachest_3;
-			vector Chest3_Pos = "4256.82 8.21078 2776.04";
-			vector Chest3_Axis = "125.984 3.03312 -0.153311";
-			m_seachest_3 = g_Game.CreateObject("SeaChest", Chest3_Pos, false);
-			m_seachest_3.SetOrientation(Chest3_Axis);
-			CreateContainrItems_3(m_seachest_3);
-			
+			Item_3_Pos = "4256.82 8.21078 2776.04";
+			Item_3_Axis = "125.984 3.03312 -0.153311";
+			Item_3 = g_Game.CreateObject("SeaChest", Item_3_Pos, false);
+			Item_3.SetOrientation(Item_3_Axis);
+			CreateContainrItems(Item_3);
+
 			//Zombies
 			NUM_OF_EVENT_ZOMBIES = 30;
 			for ( i = 0; i < NUM_OF_EVENT_ZOMBIES; i++ )
@@ -458,37 +416,80 @@ class RandomEvent
 			cleanup_vector = Vector( 4258.03, 8.07743, 2771.52 );
 			cleanup_radius = 400.0
 			NoCleanUp = false;
+			LAST_EVENT_NUM = random_event_chance;
 
-			EVENT_NOTIFY_DELAY = 180000
+			EVENT_NOTIFY_DELAY = 180000;
 			AnnounceEvent(selected_event);
 			GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(AnnounceEvent, EVENT_NOTIFY_DELAY, true, selected_event);
 		}
 
 		//Zombie Overrun Balota Airfield.
-		/* if ( random_event_chance == 5 )
+		if ( random_event_chance == 5 )
 		{
-			//Zombies
-			for ( i = 0; i < NUM_OF_EVENT_ZOMBIES; i++ )
+			if ( !FireOnlyOnce )
 			{
-				g_Game.CreateObject(GrabRandomZombieClass().GetRandomElement(), Vector(Math.RandomFloatInclusive(5000, 5270), 0, Math.RandomFloatInclusive(2333, 2474)), false, true );
-			}
+				//Zombies
+				for ( i = 0; i < NUM_OF_EVENT_ZOMBIES; i++ )
+				{
+					g_Game.CreateObject(GrabRandomZombieClass().GetRandomElement(), Vector(Math.RandomFloatInclusive(5000, 5270), 0, Math.RandomFloatInclusive(2333, 2474)), false, true );
+				}
 
-			for ( int i_2 = 0; i_2 < NUM_OF_EVENT_ZOMBIES; i_2++ )
+				for ( int i_2 = 0; i_2 < NUM_OF_EVENT_ZOMBIES; i_2++ )
+				{
+					g_Game.CreateObject(GrabRandomZombieClass().GetRandomElement(), Vector(Math.RandomFloatInclusive(5112, 5340), 0, Math.RandomFloatInclusive(2191, 2224)), false, true );
+				}
+
+				for ( int i_3 = 0; i_3 < NUM_OF_EVENT_ZOMBIES; i_3++ )
+				{
+					g_Game.CreateObject(GrabRandomZombieClass().GetRandomElement(), Vector(Math.RandomFloatInclusive(4900, 5090), 0, Math.RandomFloatInclusive(2560, 2920)), false, true );
+				}
+
+				NoCleanUp = true;
+				FireOnlyOnce = true;
+				
+				//Tell everyone the event is active.
+				GetGame().ChatPlayer( 1, "Zombie Horde Spotted!" );
+				GetGame().ChatPlayer( 1, "Balota Airfield is overrun!" );
+			}
+			else
 			{
-				g_Game.CreateObject(GrabRandomZombieClass().GetRandomElement(), Vector(Math.RandomFloatInclusive(5112, 5340), 0, Math.RandomFloatInclusive(2191, 2224)), false, true );
-			}
+				//Airfield Chest Alternate.
+				Item_1_Pos = "5097.79 9.50848 2360.05";
+				Item_1_Axis = "-178.671 -0.47595 0.783043";
+				Item_1 = g_Game.CreateObject("Barrel_Red", Item_1_Pos, false);
+				Item_1.SetOrientation(Item_1_Axis);
+				CreateContainrItems(Item_1);
 
-			for ( int i_3 = 0; i_3 < NUM_OF_EVENT_ZOMBIES; i_3++ )
-			{
-				g_Game.CreateObject(GrabRandomZombieClass().GetRandomElement(), Vector(Math.RandomFloatInclusive(4900, 5090), 0, Math.RandomFloatInclusive(2560, 2920)), false, true );
-			}
+				Item_2_Pos = "5105.22 9.50898 2351";
+				Item_2_Axis = "-169.157 -0.593875 0.664015";
+				Item_2 = g_Game.CreateObject("Barrel_Green", Item_2_Pos, false);
+				Item_2.SetOrientation(Item_2_Axis);
+				CreateContainrItems(Item_2);
 
-			NoCleanUp = true;
-			
-			//Tell everyone the event is active.
-			GetGame().ChatPlayer( 1, "Zombie Horde Spotted!" );
-			GetGame().ChatPlayer( 1, "Balota Airfield is overrun!" );
-		} */
+				Item_3_Pos = "5114.63 9.49881 2360.64";
+				Item_3_Axis = "173.049 -0.186891 2.2534";
+				Item_3 = g_Game.CreateObject("Barrel_Yellow", Item_3_Pos, false);
+				Item_3.SetOrientation(Item_3_Axis);
+				CreateContainrItems(Item_3);
+				
+				//Zombies
+				NUM_OF_EVENT_ZOMBIES = 30;
+				for ( i = 0; i < NUM_OF_EVENT_ZOMBIES; i++ )
+				{
+					g_Game.CreateObject(GrabRandomZombieClass().GetRandomElement(), Vector(Math.RandomFloatInclusive(4229, 4287), 0, Math.RandomFloatInclusive(2710, 2845)), false, true );
+				}
+
+				selected_event = "Balota Airfield!";
+				cleanup_vector = Vector( 5097.79, 9.50848, 2360.05 );
+				cleanup_radius = 400.0
+				NoCleanUp = false;
+				LAST_EVENT_NUM = random_event_chance;
+
+				EVENT_NOTIFY_DELAY = 180000;
+				AnnounceEvent(selected_event);
+				GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(AnnounceEvent, EVENT_NOTIFY_DELAY, true, selected_event);
+			}
+		}
 	}
 
 	void CleanUp()
