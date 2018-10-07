@@ -291,7 +291,7 @@ class RandomEvent
 
 			selected_event = "Gas Station near Cherno!";
 			cleanup_vector = Vector( 5818.56, 8.98797, 2165.17 );
-			cleanup_radius = 400.0
+			cleanup_radius = 250.0
 			NoCleanUp = false;
 			LAST_EVENT_NUM = random_event_chance;
 
@@ -331,7 +331,7 @@ class RandomEvent
 
 			selected_event = "Hill Across from ATC";
 			cleanup_vector = Vector( 5495.72, 44.9966, 2201.6 );
-			cleanup_radius = 400.0
+			cleanup_radius = 250.0
 			NoCleanUp = false;
 			LAST_EVENT_NUM = random_event_chance;
 
@@ -374,7 +374,7 @@ class RandomEvent
 
 			selected_event = "Balota Town NW Hill";
 			cleanup_vector = Vector( 4721.31, 65.67, 2932.7 );
-			cleanup_radius = 400.0
+			cleanup_radius = 250.0
 			NoCleanUp = false;
 			LAST_EVENT_NUM = random_event_chance;
 
@@ -414,7 +414,7 @@ class RandomEvent
 
 			selected_event = "Balota Town West Field!";
 			cleanup_vector = Vector( 4258.03, 8.07743, 2771.52 );
-			cleanup_radius = 400.0
+			cleanup_radius = 250.0
 			NoCleanUp = false;
 			LAST_EVENT_NUM = random_event_chance;
 
@@ -481,7 +481,7 @@ class RandomEvent
 
 				selected_event = "Balota Airfield!";
 				cleanup_vector = Vector( 5097.79, 9.50848, 2360.05 );
-				cleanup_radius = 400.0
+				cleanup_radius = 250.0
 				NoCleanUp = false;
 				LAST_EVENT_NUM = random_event_chance;
 
