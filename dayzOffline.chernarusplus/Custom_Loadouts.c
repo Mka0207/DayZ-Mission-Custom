@@ -27,7 +27,7 @@ void OnSpawnCallback(PlayerBase player)
 	item_radio_ent.GetInventory().CreateAttachment( "Battery9V" );
 	
 	//player.GetInventory().CreateInInventory( "CombatKnife" );
-	//player.GetInventory().CreateInInventory( "SalineBagIV" );
+	player.GetInventory().CreateInInventory( "SalineBagIV" );
 	
 	/* EntityAI item_bandage_ent;
 	item_bandage_ent = player.GetInventory().CreateInInventory( "BandageDressing" );
@@ -134,7 +134,7 @@ EntityAI DefaultClass_B(PlayerBase player) //Mosin Loadout
 	EntityAI secondarymag;
 	secondarymag = player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
 	player.GetInventory().CreateInInventory( "Mag_FNX45_15Rnd" );
-	player.SetQuickBarEntityShortcut(secondarymag, 4, true);
+	player.SetQuickBarEntityShortcut(secondarymag, 3, true);
 	
 	//AMMO
 	EntityAI extra_ammo;
@@ -175,21 +175,6 @@ EntityAI DefaultClass_C(PlayerBase player) //UMP Loadout
 	
 	player.SetQuickBarEntityShortcut(mag, 1, true);
 	
-	
-	
-	//AMMO
-	EntityAI extra_ammo;
-	
-	player.GetInventory().CreateInInventory( "Ammo_45ACP" ); 
-	player.GetInventory().CreateInInventory( "Ammo_45ACP" ); 
-	player.GetInventory().CreateInInventory( "Ammo_45ACP" ); 
-	player.GetInventory().CreateInInventory( "Ammo_45ACP" ); 
-	player.GetInventory().CreateInInventory( "Ammo_45ACP" );
-	player.GetInventory().CreateInInventory( "Ammo_45ACP" );
-	player.GetInventory().CreateInInventory( "Ammo_45ACP" );
-	
-	player.SetQuickBarEntityShortcut(extra_ammo, 2, true);
-	
 	return wep_primary;
 	
 }
@@ -224,10 +209,7 @@ EntityAI DefaultClass_D(PlayerBase player) //SVD Loadout
 	extra_ammo = player.GetInventory().CreateInInventory( "Ammo_762x54" ); 
 	player.GetInventory().CreateInInventory( "Ammo_762x54" ); 
 	player.GetInventory().CreateInInventory( "Ammo_762x54" ); 
-	player.GetInventory().CreateInInventory( "Ammo_762x54" ); 
-	player.GetInventory().CreateInInventory( "Ammo_45ACP" );
-	player.GetInventory().CreateInInventory( "Ammo_45ACP" );
-	player.GetInventory().CreateInInventory( "Ammo_45ACP" );
+	player.GetInventory().CreateInInventory( "Ammo_762x54" );
 	
 	player.SetQuickBarEntityShortcut(extra_ammo, 2, true);
 	
@@ -269,9 +251,6 @@ EntityAI DefaultClass_E(PlayerBase player) //MP5 Loadout
 	player.GetInventory().CreateInInventory( "Ammo_9x19" ); 
 	player.GetInventory().CreateInInventory( "Ammo_9x19" ); 
 	player.GetInventory().CreateInInventory( "Ammo_9x19" ); 
-	player.GetInventory().CreateInInventory( "Ammo_45ACP" );
-	player.GetInventory().CreateInInventory( "Ammo_45ACP" );
-	player.GetInventory().CreateInInventory( "Ammo_45ACP" );
 	
 	player.SetQuickBarEntityShortcut(extra_ammo, 2, true);
 	

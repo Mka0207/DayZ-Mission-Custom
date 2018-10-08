@@ -46,9 +46,8 @@ class CustomMission: MissionServer
 	override PlayerBase CreateCharacter(PlayerIdentity identity, vector pos, ParamsReadContext ctx, string characterName)
 	{
 		Entity playerEnt;
-		//TVectorArray Spawn_Location_Table = GetRandomDMSpawnTable();
-		//Spawn_Location_Table.GetRandomElement()
-		playerEnt = GetGame().CreatePlayer(identity, characterName, GetRandomSpawn(), 0, "NONE");//Creates random player
+		TVectorArray Spawn_Location_Table = GetRandomDMSpawnTable();
+		playerEnt = GetGame().CreatePlayer(identity, characterName, Spawn_Location_Table.GetRandomElement(), 0, "NONE");//Creates random player
 		Class.CastTo(m_player, playerEnt);
 		
 		GetGame().SelectPlayer(identity, m_player);

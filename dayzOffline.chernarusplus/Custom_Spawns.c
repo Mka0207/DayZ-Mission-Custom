@@ -1,136 +1,32 @@
-//Custom Spawn system by Mka0207 & Pandas & Nonlin.
-
-static vector GetRandomSpawn()
+//Custom Spawn system by Mka0207.
+TVectorArray SelectedSpawn;
+TVectorArray GetRandomSpawn()
 {
+	int MaxNumOfSpawnAreas = 2;
+	
 	ref array<Man> player_list = new array<Man>;
 	GetGame().GetWorld().GetPlayerList(player_list);
 	int player_count = player_list.Count();
-	player_count++;
-
-	int num;
+	//player_count++;
 	
-	float x;
-	float y;
-	float z;
-
 	int MAX_PLAYERS = 40;
 	if ( player_count <= MAX_PLAYERS ) 
 	{
-		num = Math.RandomIntInclusive(1, 20);
+		MaxNumOfSpawnAreas = 1;
 	}
 	
 	if ( player_count > MAX_PLAYERS ) 
 	{
-		num = Math.RandomIntInclusive(1, 37);
-	} 
-	
-	// RANDOM BALOTA
-	if (num == 1) 
-	{                                
-		x = 5301.58;
-		y = 0;
-		z = 2145.16;
-	}
-	// RANDOM BALOTA
-	if (num == 2) 
-	{                                
-		x = 5318.98;
-		y = 0;
-		z = 2380.06;
-	}
-	// RANDOM BALOTA
-	if (num == 3) 
-	{                                
-		x = 5292.79;
-		y = 0;
-		z = 2515.46;
-	}
-	// RANDOM BALOTA
-	if (num == 4) 
-	{                                
-		x = 5028.18;
-		y = 0;
-		z = 2617.46;
-	}
-	// RANDOM BALOTA
-	if (num == 5) 
-	{                                
-		x = 4834.36;
-		y = 0;
-		z = 2718.34;
-	}
-	// RANDOM BALOTA
-	if (num == 6) 
-	{                                
-		x = 4803.65;
-		y = 0;
-		z = 2376.28;
-	}
-	// RANDOM BALOTA
-	if (num == 7) 
-	{                                
-		x = 4700.32;
-		y = 0;
-		z = 2391.18;
+		MaxNumOfSpawnAreas = 2;
 	}
 	
-	// WEST BALOTA TREES
-	if (num == 8) 
-	{                                
-		x = Math.RandomFloatInclusive(4219, 4341);
-		y = 0;
-		z = Math.RandomFloatInclusive(2508, 2557);
-	}
-	// NORTH BALOTA TREES
-	if (num == 9) 	
-	{                                
-		x = Math.RandomFloatInclusive(4497, 4581);
-		y = 0;
-		z = Math.RandomFloatInclusive(2664, 2723);
-	}
-	if (num == 10) 
-	// WEST AIRFIELD
-	{														
-		x = Math.RandomFloatInclusive(4750, 4783);
-		y = 0;
-		z = Math.RandomFloatInclusive(2605, 2654);
-	}
-	// SOUTH AIRFIELD
-	if (num == 11) {                                 
-		x = Math.RandomFloatInclusive(4713, 5097);
-		y = 0;
-		z = Math.RandomFloatInclusive(2252, 2409);
-	}
-	// EAST BALOTA
-	if (num == 12) 
-	{								    
-		x = Math.RandomFloatInclusive(4558, 4738);
-		y = 0;
-		z = Math.RandomFloatInclusive(2281, 2353);
-	}
-	// SOUTHEAST AIRFIELD
-	if (num == 13) 
-	{								    
-		x = Math.RandomFloatInclusive(5093, 5176);
-		y = 0;
-		z = Math.RandomFloatInclusive(2150, 2169);
-	}
-	// TANKER SPAWN
-	if (num == 14)
-	{								   
-		x = 5455.35;
-		y = 0;
-		z = 2227.32;
-	}
-	// NORTH BALOTA AIRFIELD
-	if (num == 15) 
-	{								    
-		x = Math.RandomFloatInclusive(5105, 5188);
-		y = 0;
-		z = Math.RandomFloatInclusive(2519, 2531);
-	}
-	
-	/* TVectorArray BalotaSpawns = { 
+	TVectorArray BalotaSpawns = { 
+		"5264.51 0 2609.22", "5249.87 0 2522.92", "5303.22 0 2407.54",
+		"5292.66 0 2255.77", "5398.6 0 2218.19", "5255.26 0 2535.83",
+		"5045.08 0 2596.03", "5009.99 0 2255.95", "4946 0 2365",
+		"4850 0 2352", "4942 0 2468", "4887 0 2477",
+		"5187 0 2069.52", "5382.29 0 2175.04", "5354 0 2378",
+		"5041 0 2235", "5022 0 2238", "5193.02 0 2079.14",
 		"5301.58 0 2145.16", "5381.36 0 2177.86", "5313.41 0 2265.02",
 		"5318.98 0 2380.06", "5340 0 2354.04", "5301.24 0 2415.23",
 		"5292.79 0 2515.46", "5261.81 0 2612.38", "5102.17 0 2622.19",
@@ -140,178 +36,45 @@ static vector GetRandomSpawn()
 		"4700.32 0 2391.18", "5187.12 0 2151.74", "5136.03 0 2142.11",
 		"5057.23 0 2229.75", "5013.31 0 2260.38", "4925.72 0 2307.05",
 		"4955.65 0 2351.09", "5019.05 0 2125.3", "4856.17 0 2301.47",
-		"4560.32 0 2656.03", "4418.09 0 2693.72", "5193.02 0 2079.14" }; */
+		"4560.32 0 2656.03", "4418.09 0 2693.72" };
 	
-	// RANDOM BALOTA #1
-	if (num == 16) 
-	{								    
-		x = 5057.23;
-		y = 0;
-		z = 2229.75;
-	}
+	TVectorArray ElectroSpawns = { 
+		"9892.8 0 2174.3", "10341.1 0 2251.1", "10241.1 0 1962.1",
+		"10233.8 0 2152.2", "10233.8 0 2152.2", "10344.2 0 2540.2",
+		"9874.4 0 2009.3", "10637.5 0 2575.6", "9905.1 0 2209.9",
+		"10428.4 0 2033.1", "10227.7 0 2197.9", "10095.2 0 2113.6",
+		"10074.6 0 2291.1", "10430.5 0 2699.8", "10691.1 0 2395.3",
+		"10713.7 0 2352.6", "10263.2 0 2018.3", "10557.6 0 2463.3",
+		"10375.5 0 2154.1", "10330.5 0 2294.5", "10078.4 0 2245.7",
+		"10364.9 0 2287.8", "10314.8 0 2221.1", "10361.0 0 2388.3",
+		"10373.0 0 2624.8", "9936.2 0 1944.8", "10517.6 0 2083.6",
+		"10725.1 0 2543.8", "9828.0 0 1949.1", "9869.5 0 1783.0",
+		"10677.4 0 2301.9", "10303.3  0 1967.9", "10402.0 0 1955.7",
+		"10315.8 0 2173.7", "9830.3 0 1826.4", "10273.5 0 2328.6",
+		"9963.6 0 2029.9", "9921.6 0 2120.3", "10016.6 0 2214.2",
+		"10013.0 0 2247.2", "10107.8 0 2335.4", "9893.6 0 1896.3",
+		"9953.9 0 1795.4", "9983.6 0 1937.3", "9895.2 0 1958.3",
+		"9825.3 0 1786.8", "10132.1 0 2237.3", "10408.0 0 1895.7",
+		"9859.2 0 1905.0", "10301.1 0 2057.6", "10648.3 0 2214.0",
+		"10344.0 0 2330.5", "10335.3 0 2413.0", "10642.2 0 2472.2",
+		"10686.5 0 2472.7", "10088.5 0 2189.0", "10271.2 0 2383.9",
+		"10171.5 0 2357.3", "10376.8 0 2022.6", "10476.1 0 2668.3",
+		"10341.8 0 2501.2", "10587.7 0 2602.0", "10088.2 0 2153.2",
+		"10225.9 0 2460.7", "10280.3 0 2209.4", "10318.8 0 2456.2",
+		"9923.9 0 2023.6", "10321.9 0 2361.0", "10239.4 0 2357.0",
+		"9981.2 0 2193.8", "10712.0 0 2439.5", "9942.2 0 2073.0" };
 	
-	// RANDOM BALOTA #2
-	if (num == 17) 
-	{								    
-		x = 4955.65;
-		y = 0;
-		z = 2351.09;
-	}
-	
-	// RANDOM BALOTA #3
-	if (num == 18) 
-	{								    
-		x = 4560.32;
-		y = 0;
-		z = 2656.03;
-	}
-	
-	// RANDOM BALOTA #4
-	if (num == 19) 
-	{								    
-		x = 5381.36;
-		y = 0;
-		z = 2177.86;
-	}
-	
-	// RANDOM BALOTA #5
-	if (num == 20) 
-	{								    
-		x = 5006.18;
-		y = 0;
-		z = 2743.86;
+	switch( Math.RandomIntInclusive( 1, MaxNumOfSpawnAreas ) ) 
+	{
+		case 1 :
+			SelectedSpawn = BalotaSpawns;
+		break;
+		
+		case 2 :
+			SelectedSpawn = ElectroSpawns;
+		break;
 	}
 	
-	//Random Electro #1
-	if (num == 21) 
-	{								    
-		x = 10845.3;
-		y = 0;
-		z = 2701.37;
-	}
 	
-	//Random Electro #2
-	if (num == 22) 
-	{								    
-		x = 9479.41;
-		y = 0;
-		z = 1960.8;
-	}
-	
-	//Random Electro #3
-	if (num == 23) 
-	{								    
-		x = 10497.3;
-		y = 0;
-		z = 2016.5;
-	}
-	
-	//Random Electro #4
-	if (num == 24) 
-	{								    
-		x = 10214.1;
-		y = 0;
-		z = 2411.58;
-	}
-	
-	//Random Electro #5
-	if (num == 25) 
-	{								    
-		x = 10432.7;
-		y = 0;
-		z = 2047.76;
-	}
-	
-	//Random Electro #5
-	if (num == 26) 
-	{								    
-		x = 10627.1;
-		y = 0;
-		z = 2142.0;
-	}
-	
-	//Random Electro #6
-	if (num == 27) 
-	{								    
-		x = 9892.8;
-		y = 0;
-		z = 2174.3;
-	}
-	
-	//Random Electro #7
-	if (num == 28) 
-	{								    
-		x = 10341.1;
-		y = 0;
-		z = 2251.1;
-	}
-	
-	//Random Electro #8
-	if (num == 29) 
-	{								    
-		x = 10642.2;
-		y = 0;
-		z = 2472.2;
-	}
-	
-	//Random Electro #9
-	if (num == 30) 
-	{								    
-		x = 10686.5;
-		y = 0;
-		z = 2472.7;
-	}
-
-	//Random Electro #10
-	if (num == 31) 
-	{								    
-		x = 9923.9;
-		y = 0;
-		z = 2023.6;
-	}
-	
-	// ELECTRO APPLES
-	if (num == 32) 
-	{					  
-		x = Math.RandomFloatInclusive(9868, 9927);
-		y = 0;
-		z = Math.RandomFloatInclusive(2232, 2310);
-	}
-	 // ELECTRO HAYBALES
-	if (num == 33) 
-	{					  
-		x = Math.RandomFloatInclusive(9844, 9936);
-		y = 0;
-		z = Math.RandomFloatInclusive(2041, 2132);
-	}
-	// ELECTRO CHURCH
-	if (num == 34) 
-	{								
-		x = Math.RandomFloatInclusive(10515, 10545);
-		y = 0;
-		z = Math.RandomFloatInclusive(2427, 2620);
-	}
-	//ELECTRO RANDOM #12
-	if (num == 35) 
-	{	
-		x = Math.RandomFloatInclusive(9785, 9843);
-		y = 0;
-		z = Math.RandomFloatInclusive(2284, 2349);
-	}
-	//ELECTRO RANDOM #13
-	if (num == 36) 
-	{	
-		x = Math.RandomFloatInclusive(9868, 9898);
-		y = 0;
-		z = Math.RandomFloatInclusive(2552, 2676);
-	}
-	//ELECTRO RANDOM #14
-	if (num == 37) 
-	{	
-		x = Math.RandomFloatInclusive(10465, 10511);
-		y = 0;
-		z = Math.RandomFloatInclusive(2506, 2586);
-	}
-	
-	return Vector(x, y, z);
+	return SelectedSpawn;
 }
