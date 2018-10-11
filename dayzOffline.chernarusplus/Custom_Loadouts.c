@@ -26,6 +26,8 @@ void OnSpawnCallback(PlayerBase player)
 	item_radio_ent = player.GetInventory().CreateInInventory( "PersonalRadio" );
 	item_radio_ent.GetInventory().CreateAttachment( "Battery9V" );
 	
+	player.GetInventory().CreateInInventory( "Compass" );
+	
 	//player.GetInventory().CreateInInventory( "CombatKnife" );
 	player.GetInventory().CreateInInventory( "SalineBagIV" );
 	

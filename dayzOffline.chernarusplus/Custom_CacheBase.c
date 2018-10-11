@@ -2,49 +2,22 @@
 
 class CustomEventsSurvival
 {
+	void CustomEventsSurvival()
+	{
+	}
+	
+	void ~CustomEventsSurvival()
+	{
+	}
 	
 	float Mission_FloatTime = 0.0;
+	float Mission_AdvertTime = 0.0;
 
 	const float EVENT_START_INTERVAL = 120;
-	const float EVENT_END_INTERVAL = 900;
+	const float EVENT_END_INTERVAL = 600;
 	
 	bool IsEventRunning = false;
 	
-	ref RandomEvent m_CurrentEvent = new RandomEvent();
-
-	void CustomEventsSurvival()
-	{
-		Init();
-	}
-	
-	void Init()
-	{
-		
-	}
-	
-	void OnEventTick(float CurTime)
-	{
-		Mission_FloatTime += CurTime;
-		
-		if ( Mission_FloatTime > EVENT_START_INTERVAL && !IsEventRunning )
-        {
-			m_CurrentEvent.StartEvent();
-			IsEventRunning = true;
-			Mission_FloatTime = 0;
-		}
-
-		if ( Mission_FloatTime > EVENT_END_INTERVAL && IsEventRunning )
-        {
-            m_CurrentEvent.EndEvent();
-			IsEventRunning = false;
-			GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).Remove(m_CurrentEvent.AnnounceEvent);
-			Mission_FloatTime = 0;
-	    }
-	}
-}
-
-class RandomEvent
-{
 	string selected_event;
 	vector cleanup_vector;
 	float cleanup_radius;
@@ -52,79 +25,101 @@ class RandomEvent
 	int NUM_OF_EVENT_ZOMBIES;
 	int LAST_EVENT_NUM = 0;
 	int TimesAdverted = 0;
-
+	
 	//Make sure this stays correct.
 	int MAX_NUM_OF_EVENTS = 5;
 
 	bool FireOnlyOnce;
 	bool NoCleanUp;
+	bool FirstWarningFired = false;
+	bool SecondWarningFired = false;
+	bool ThirdWarningFired = false;
+	bool FourthWarningFired = false;
 
+	//ItemBase Item_0;
 	ItemBase Item_1;
 	ItemBase Item_2;
 	ItemBase Item_3;
 	ItemBase Item_4;
 
+	//vector Item_0_Pos;
 	vector Item_1_Pos;
 	vector Item_2_Pos;
 	vector Item_3_Pos;
 	vector Item_4_Pos;
 
+	//vector Item_0_Axis;
 	vector Item_1_Axis;
 	vector Item_2_Axis;
 	vector Item_3_Axis;
 	vector Item_4_Axis;
-
-	void RandomEvent()
-	{
-		Init();
-	}
 	
-	void Init()
+	void OnEventTick(float CurTime)
 	{
+		Mission_FloatTime += CurTime;
+		Mission_AdvertTime += CurTime;
+		
+		if ( Mission_FloatTime > EVENT_START_INTERVAL && !IsEventRunning )
+        {
+			StartEvent();
+			IsEventRunning = true;
+			Mission_FloatTime = 0;
+		}
 
+		if ( Mission_AdvertTime > 120 && IsEventRunning && !FirstWarningFired )
+		{
+			GetGame().ChatPlayer( 1, "Gear Cache Active!" );
+			GetGame().ChatPlayer( 1, selected_event );
+			GetGame().ChatPlayer( 1, "8 minutes left!" );
+			Mission_AdvertTime = 0;
+			FirstWarningFired = true;
+		}
+		
+		if ( Mission_AdvertTime > 120 && IsEventRunning && !SecondWarningFired )
+		{
+			GetGame().ChatPlayer( 1, "Gear Cache Active!" );
+			GetGame().ChatPlayer( 1, selected_event );
+			GetGame().ChatPlayer( 1, "6 minutes left!" );
+			Mission_AdvertTime = 0;
+			SecondWarningFired = true;
+		}
+		
+		if ( Mission_AdvertTime > 120 && IsEventRunning && !ThirdWarningFired )
+		{
+			GetGame().ChatPlayer( 1, "Gear Cache Active!" );
+			GetGame().ChatPlayer( 1, selected_event );
+			GetGame().ChatPlayer( 1, "4 minutes left!" );
+			Mission_AdvertTime = 0;
+			ThirdWarningFired = true;
+		}
+		
+		if ( Mission_AdvertTime > 120 && IsEventRunning && !FourthWarningFired )
+		{
+			GetGame().ChatPlayer( 1, "Gear Cache Active!" );
+			GetGame().ChatPlayer( 1, selected_event );
+			GetGame().ChatPlayer( 1, "2 minutes left!" );
+			Mission_AdvertTime = 0;
+			FourthWarningFired = true;
+		}
+
+		if ( Mission_FloatTime > EVENT_END_INTERVAL && IsEventRunning )
+        {
+            EndEvent();
+			IsEventRunning = false;
+			Mission_FloatTime = 0;
+			Mission_AdvertTime = 0;
+			
+			FirstWarningFired = false;
+			SecondWarningFired = false;
+			ThirdWarningFired = false;
+			FourthWarningFired = false;
+	    }
 	}
 
 	void AnnounceEvent(string EventLocation)
 	{
-		if ( EventLocation )
-		{
-			TimesAdverted = TimesAdverted + 1;
-			
-			if ( TimesAdverted == 1 )
-			{
-				GetGame().ChatPlayer( 1, "Gear Cache Sighted!" );
-				GetGame().ChatPlayer( 1, EventLocation );
-			}
-
-			if ( TimesAdverted == 2 )
-			{
-				GetGame().ChatPlayer( 1, "Gear Cache is Active!" );
-				GetGame().ChatPlayer( 1, EventLocation );
-				GetGame().ChatPlayer( 1, "Ends in 12 mins!" );
-			}
-			else if ( TimesAdverted == 3 )
-			{
-				GetGame().ChatPlayer( 1, "Gear Cache is Active!" );
-				GetGame().ChatPlayer( 1, EventLocation );
-				GetGame().ChatPlayer( 1, "Ends in 9 mins!" );
-			}
-			else if ( TimesAdverted == 4 )
-			{
-				GetGame().ChatPlayer( 1, "Gear Cache is Active!" );
-				GetGame().ChatPlayer( 1, EventLocation );
-				GetGame().ChatPlayer( 1, "Ends in 6 mins!" );
-			}
-			else if ( TimesAdverted == 5 )
-			{
-				GetGame().ChatPlayer( 1, "Gear Cache is Active!" );
-				GetGame().ChatPlayer( 1, EventLocation );
-				GetGame().ChatPlayer( 1, "Ends in 3 mins!" );
-			}
-			else if ( TimesAdverted == 6 )
-			{
-				TimesAdverted = 0;
-			}
-		}
+		GetGame().ChatPlayer( 1, "Gear Cache Sighted!" );
+		GetGame().ChatPlayer( 1, EventLocation );
 	}
 	
 	void CreateContainrItems(ItemBase item)
@@ -193,6 +188,22 @@ class RandomEvent
 		}
 	}
 	
+	void CreateFlareEnt(float x, float y, float z, float yaw, float pitch, float roll)
+	{
+		ItemGrenade m_Flare;
+		m_Flare = g_Game.CreateObject("RDG2SmokeGrenade_Black", Vector(x, y, z), false);
+		m_Flare.SetOrientation(Vector(yaw, pitch, roll));
+		
+		//Turn the smoke on.
+		m_Flare.GetCompEM().SwitchOn();
+		m_Flare.SetTakeable(false);
+	}
+
+	void DestroyFlareEnt()
+	{
+		GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).Remove(CreateFlareEnt);
+	}
+
 	TStringArray GrabRandomZombieClass()
 	{
 		return {
@@ -211,16 +222,16 @@ class RandomEvent
 	//Clean up those spooky zombies!
 	void DoEventCleanUp(float x, float y, float z, float radius)
 	{
-		ref array<Object> Ev_Zombies = new array<Object>;
-		GetGame().GetObjectsAtPosition( Vector(x,y,z), radius, Ev_Zombies, NULL );
+		ref array<Object> Event_Items = new array<Object>;
+		GetGame().GetObjectsAtPosition( Vector(x,y,z), radius, Event_Items, NULL );
 
-		if ( GetGame() && Ev_Zombies )
+		if ( GetGame() && Event_Items )
 		{
-			if ( Ev_Zombies.Count() >= 1 ) 
+			if ( Event_Items.Count() >= 1 ) 
 			{
-				for ( int i = 0; i < Ev_Zombies.Count(); i++ )
+				for ( int i = 0; i < Event_Items.Count(); i++ )
 				{
-					Object z_ent = Ev_Zombies.Get( i );
+					Object z_ent = Event_Items.Get( i );
 
 					//Zombies
 					if ( z_ent.IsInherited(ZombieBase) )
@@ -228,7 +239,7 @@ class RandomEvent
 						GetGame().ObjectDelete(z_ent);
 					}
 					
-					/* //Barrels
+				    //Barrels
 					if ( z_ent.IsInherited(Barrel_ColorBase) )
 					{
 						GetGame().ObjectDelete(z_ent);
@@ -238,14 +249,21 @@ class RandomEvent
 					if ( z_ent.GetType() == "SeaChest" )
 					{
 						GetGame().ObjectDelete(z_ent);
-					} */
+					}
+					
+					//Smoke Grenades
+					if ( z_ent.GetType() == "Wreck_UH1Y" )
+					{
+						z_ent.SetPosition( Vector( 0, 0, 0 ) );
+						//GetGame().ObjectDelete(z_ent);
+					}
 					
 					//Remove Melee, Firearms, Clothing and all other items dropped.
-					if ( z_ent.IsWeapon() || z_ent.IsClothing() || z_ent.IsMeleeWeapon() || z_ent.IsMagazine() )  //item.IsMan() && !item.IsAlive()
+					/* if ( z_ent.IsWeapon() || z_ent.IsClothing() || z_ent.IsMeleeWeapon() || z_ent.IsMagazine() )  //item.IsMan() && !item.IsAlive()
 					{	
 						//Print("[DEBUG] - Removed Item "+item.GetType() + " idx = " + i.ToString());
 						GetGame().ObjectDelete(z_ent);
-					}
+					} */
 				}
 			}
 		}
@@ -258,26 +276,33 @@ class RandomEvent
 		{
 			random_event_chance = 0;
 		}
-		random_event_chance++
+		random_event_chance++;
 		int i;
 
-		//Cherno Gas Station.
+		//Balota Coast Near ATC.
 		if ( random_event_chance == 1 )
 		{
-			Item_1_Pos = "5811.6 8.96411 2164.76";
-			Item_2_Axis = "96.2432 0 0";
+			GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(CreateFlareEnt, 8500, true, 5019.09, 3.95992, 2008.58, 2, -1.09999, -4.44645);
+			
+			/* Item_0_Pos = "5021.9 3.93442 2010.06";
+			Item_0_Axis = "0 0 0";
+			Item_0 = g_Game.CreateObject("Wreck_UH1Y", Item_0_Pos, false);
+			Item_0.SetOrientation(Item_0_Axis); */
+			
+			Item_1_Pos = "5021.9 3.93442 2010.06";
+			Item_1_Axis = "96.2432 0 0";
 			Item_1 = g_Game.CreateObject("Barrel_Blue", Item_1_Pos, false);
 			Item_1.SetOrientation(Item_1_Axis);
 			CreateContainrItems(Item_1);
 
-			Item_2_Pos = "5823.28 8.96548 2170.91";
-			Item_2_Axis = "-122.941 0 0";
+			Item_2_Pos = "5018.78 3.86853 2006.11";
+			Item_2_Axis = "-90.1345 0 0";
 			Item_2 = g_Game.CreateObject("Barrel_Green", Item_2_Pos, false);
 			Item_2.SetOrientation(Item_2_Axis);
 			CreateContainrItems(Item_2);
 
-			Item_3_Pos = "5823.83 8.96395 2162.67";
-			Item_3_Axis = "157.911 0 0";
+			Item_3_Pos = "5016.79 3.96322 2009.79";
+			Item_3_Axis = "-109.642 0 0";
 			Item_3 = g_Game.CreateObject("Barrel_Yellow", Item_3_Pos, false);
 			Item_3.SetOrientation(Item_3_Axis);
 			CreateContainrItems(Item_3);
@@ -286,23 +311,22 @@ class RandomEvent
 			NUM_OF_EVENT_ZOMBIES = 25;
 			for ( i = 0; i < NUM_OF_EVENT_ZOMBIES; i++ )
 			{
-				g_Game.CreateObject(GrabRandomZombieClass().GetRandomElement(), Vector(Math.RandomFloatInclusive(5797, 5869), 0, Math.RandomFloatInclusive(2123, 2168)), false, true );
+				g_Game.CreateObject(GrabRandomZombieClass().GetRandomElement(), Vector(Math.RandomFloatInclusive(4998, 5052), 0, Math.RandomFloatInclusive(1992, 2014)), false, true );
 			}
 
-			selected_event = "Gas Station near Cherno!";
-			cleanup_vector = Vector( 5818.56, 8.98797, 2165.17 );
-			cleanup_radius = 250.0
+			selected_event = "Balota Coastline Behind ATC!";
+			cleanup_vector = Vector( 5021.9, 3.93442, 2010.06 );
+			cleanup_radius = 250.0;
 			NoCleanUp = false;
-			LAST_EVENT_NUM = random_event_chance;
 
-			EVENT_NOTIFY_DELAY = 180000;
 			AnnounceEvent(selected_event);
-			GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(AnnounceEvent, EVENT_NOTIFY_DELAY, true, selected_event);
 		}
 
 		//Balota AirField NE Hill Across from ATC.
 		if ( random_event_chance == 2 )
 		{
+			GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(CreateFlareEnt, 8500, true, 5494.71, 47.5657, 2205.06, 0, 13, 1);
+			
 			//SeaChests
 			Item_1_Pos = "5495.72 44.9966 2201.6";
 			Item_1_Axis = "147.388 -10.768 5.57808";
@@ -331,25 +355,25 @@ class RandomEvent
 
 			selected_event = "Hill Across from ATC";
 			cleanup_vector = Vector( 5495.72, 44.9966, 2201.6 );
-			cleanup_radius = 250.0
+			cleanup_radius = 250.0;
 			NoCleanUp = false;
-			LAST_EVENT_NUM = random_event_chance;
 
-			EVENT_NOTIFY_DELAY = 180000;
 			AnnounceEvent(selected_event);
-			GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(AnnounceEvent, EVENT_NOTIFY_DELAY, true, selected_event);
 		}
 
 		//Balota Town NW Hill
 		if ( random_event_chance == 3 )
-			{
+		{
+	
+			GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(CreateFlareEnt, 8500, true, 4717.84, 65.29, 2932.43, 26.8815, 2.5061, 5.20263);
+			
 			//Barrels
 			Item_1_Pos = "4721.31 65.67 2932.7";
 			Item_1_Axis = "-50.52 4.11 -14.84";
 			Item_1 = g_Game.CreateObject("Barrel_green", Item_1_Pos, false);
 			Item_1.SetOrientation(Item_1_Axis);
 			Item_1.Open();
-			CreateContainrItems(Item_1)
+			CreateContainrItems(Item_1);
 	
 			Item_2_Pos = "4720.49 66.05 2934.52";
 			Item_2_Axis = "60.41 13.49 8.32";
@@ -374,18 +398,17 @@ class RandomEvent
 
 			selected_event = "Balota Town NW Hill";
 			cleanup_vector = Vector( 4721.31, 65.67, 2932.7 );
-			cleanup_radius = 250.0
+			cleanup_radius = 250.0;
 			NoCleanUp = false;
-			LAST_EVENT_NUM = random_event_chance;
-
-			EVENT_NOTIFY_DELAY = 180000;
+	
 			AnnounceEvent(selected_event);
-			GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(AnnounceEvent, EVENT_NOTIFY_DELAY, true, selected_event);
 		}
 
 		//Balota_Barn_Fields West
 		if ( random_event_chance == 4 )
 		{
+			GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(CreateFlareEnt, 8500, true, 4259.18, 8.31229, 2773.94, 26.8815, 2.5061, 5.20263);
+			
 			//SeaChests
 			Item_1_Pos = "4258.03 8.07743 2771.52";
 			Item_1_Axis = "0.3979 2.22964 -1.19725";
@@ -414,13 +437,10 @@ class RandomEvent
 
 			selected_event = "Balota Town West Field!";
 			cleanup_vector = Vector( 4258.03, 8.07743, 2771.52 );
-			cleanup_radius = 250.0
+			cleanup_radius = 250.0;
 			NoCleanUp = false;
-			LAST_EVENT_NUM = random_event_chance;
 
-			EVENT_NOTIFY_DELAY = 180000;
 			AnnounceEvent(selected_event);
-			GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(AnnounceEvent, EVENT_NOTIFY_DELAY, true, selected_event);
 		}
 
 		//Zombie Overrun Balota Airfield.
@@ -481,13 +501,10 @@ class RandomEvent
 
 				selected_event = "Balota Airfield!";
 				cleanup_vector = Vector( 5097.79, 9.50848, 2360.05 );
-				cleanup_radius = 250.0
+				cleanup_radius = 250.0;
 				NoCleanUp = false;
-				LAST_EVENT_NUM = random_event_chance;
-
-				EVENT_NOTIFY_DELAY = 180000;
+				
 				AnnounceEvent(selected_event);
-				GetGame().GetCallQueue(CALL_CATEGORY_GAMEPLAY).CallLater(AnnounceEvent, EVENT_NOTIFY_DELAY, true, selected_event);
 			}
 		}
 	}
@@ -496,7 +513,8 @@ class RandomEvent
 	{
 		if ( NoCleanUp == true ) return;
 		
-		DoEventCleanUp( cleanup_vector[0], cleanup_vector[1], cleanup_vector[2], cleanup_radius )
+		//DestroyFlareEnt();
+		DoEventCleanUp( cleanup_vector[0], cleanup_vector[1], cleanup_vector[2], cleanup_radius );
 	}
 
 	void EndEvent()

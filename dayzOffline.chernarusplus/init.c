@@ -37,6 +37,13 @@ void main()
 
 class CustomMission: MissionServer
 {	
+	ref CustomEventsSurvival curr_event;
+	
+	void CustomMission()
+	{
+		curr_event = new CustomEventsSurvival();
+	}
+	
 	void SetRandomHealth(EntityAI itemEnt)
 	{
 		int rndHlt = Math.RandomInt(40,100);
@@ -89,57 +96,28 @@ class CustomMission: MissionServer
 		
 		Print("[Logout]: Player " + uid + " finished");
 
-		/* if (GetHive())
+		if (GetHive())
 		{
 			// save player
 			player.Save();
 			
 			// unlock player in DB	
 			GetHive().CharacterExit(player);		
-		} */
+		}
 		
 		//HandleBody(player);
-		//player.Delete();
+		player.Delete();
 		
 		// remove player from server
 		GetGame().DisconnectPlayer(identity, uid);
 	}
 	
-	override void HandleBody(PlayerBase player)
+	override void OnUpdate(float timeslice)
 	{
-		/* if (player.IsAlive() && !player.IsRestrained() && !player.IsUnconscious())
-		{
-			// remove the body
-			player.Delete();	
-		}
-		else if (player.IsUnconscious() || player.IsRestrained())
-		{
-			// kill character
-			player.SetHealth("", "", 0.0);
-		} */
-	}
-	
-	ref CustomEventsSurvival curr_event = new CustomEventsSurvival();
-	override void TickScheduler(float timeslice)
-	{
-		GetGame().GetWorld().GetPlayerList(m_Players);
-		if( m_Players.Count() == 0 ) return;
-		for(int i = 0; i < SCHEDULER_PLAYERS_PER_TICK; i++)
-		{
-			if(m_currentPlayer >= m_Players.Count() )
-			{
-				m_currentPlayer = 0;
-			}
-			//PrintString(m_currentPlayer.ToString());
-			PlayerBase currentPlayer = PlayerBase.Cast(m_Players.Get(m_currentPlayer));
-			
-			currentPlayer.OnTick();
-			m_currentPlayer++;
-		}
+		super.OnUpdate( timeslice );
 	
 		//Custom
 		curr_event.OnEventTick(timeslice);
-		
 		OnTickAdverts( timeslice );
 	}
 };
