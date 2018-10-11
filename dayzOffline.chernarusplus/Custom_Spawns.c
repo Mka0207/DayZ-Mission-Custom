@@ -9,16 +9,39 @@ TVectorArray GetRandomSpawn()
 	int player_count = player_list.Count();
 	//player_count++;
 	
-	int MAX_PLAYERS = 40;
-	if ( player_count <= MAX_PLAYERS ) 
+	int MEDIUM_PLAYERS = 35;
+	int LOW_PLAYERS = 10;
+	
+	if ( player_count <= LOW_PLAYERS ) 
 	{
 		MaxNumOfSpawnAreas = 1;
 	}
 	
-	if ( player_count > MAX_PLAYERS ) 
+	if ( player_count > LOW_PLAYERS && player_count <= MEDIUM_PLAYERS ) 
 	{
 		MaxNumOfSpawnAreas = 2;
 	}
+	
+	if ( player_count > MEDIUM_PLAYERS ) 
+	{
+		MaxNumOfSpawnAreas = 3;
+	}
+	
+	TVectorArray BalotaTownSpawns = { 
+		"4416.33 0 2702.79",
+		"4428.68 0 2701.26",
+		"4448.02 0 2699.24",
+		"4455.32 0 2702.1",
+		"4495.22 0 2669.4",
+		"4506.28 0 2666.37",
+		"4515.59 0 2669.44",
+		"4518.63 0 2660.05",
+		"4527.72 0 2658.43",
+		"4537 0 2671.59",
+		"4548.91 0 2671.74",
+		"4560.26 0 2681.54",
+		"4558.18 0 2694.76",
+		"4569.16 0 2703.49"};
 	
 	TVectorArray BalotaSpawns = { 
 		"5196.73 0 2122.63",
@@ -503,10 +526,14 @@ TVectorArray GetRandomSpawn()
 	switch( Math.RandomIntInclusive( 1, MaxNumOfSpawnAreas ) ) 
 	{
 		case 1 :
-			SelectedSpawn = BalotaSpawns;
+			SelectedSpawn = BalotaTownSpawns;
 		break;
 		
 		case 2 :
+			SelectedSpawn = BalotaSpawns;
+		break;
+		
+		case 3 :
 			SelectedSpawn = ElectroSpawns;
 		break;
 	}
