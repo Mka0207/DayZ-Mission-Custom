@@ -64,6 +64,7 @@ class CustomEventsSurvival
 			StartEvent();
 			IsEventRunning = true;
 			Mission_FloatTime = 0;
+			Mission_AdvertTime = 0;
 		}
 
 		if ( Mission_AdvertTime > 120 && IsEventRunning && !FirstWarningFired )
@@ -524,4 +525,3 @@ class CustomEventsSurvival
 		GetGame().ChatPlayer( 1, "Next Gear Cache in 2 mins!" );
 	}
 }
-
