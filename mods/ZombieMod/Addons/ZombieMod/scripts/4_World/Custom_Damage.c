@@ -16,7 +16,7 @@ modded class BleedingSourcesManager
 		{
 			if ( m_Player.IsAlive() )
 			{
-				times_hit++
+				times_hit++;
 				if ( times_hit == 1 )
 				{
 					m_Player.SetHealth("","", 30);
@@ -31,7 +31,7 @@ modded class BleedingSourcesManager
 		//Make humans instant kill humans with melee!
 		if(ammo_type == "Melee")
 		{
-			times_hit++
+			times_hit++;
 			if ( times_hit == 1 )
 			{
 				if(!m_Player.IsUnconscious())
