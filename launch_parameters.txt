@@ -1,4 +1,4 @@
--config=serverDZ.cfg -dologs -adminlog -profiles=C:\DayZ Server\Logs -scriptDebug=true -mod=ZombieMod -name=GLOBAL
+-config=serverDZ.cfg -dologs -adminlog -profiles=C:\DayZ Server\Logs -scriptDebug=true -mod=ServerMod -name=GLOBAL
 
 ^ Those I personally use.
 

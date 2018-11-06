@@ -1,15 +1,15 @@
 class CfgMods
 {
-	class ZombieMod
+	class ServerMod
 	{
-		dir = "ZombieMod";
+		dir = "ServerMod";
 		picture = "";
 		action = "";
 		hideName = 1;
 		hidePicture = 1;
-		name = "Fixed FPP Camera";
-		credits = "Jacob_Mango, Sumrak";
-		author = "Jacob Kumar";
+		name = "Server side changes, using zombiemod as reference";
+		credits = "Mka0207";
+		author = "Mka0207";
 		authorID = "0"; 
 		version = "1.0"; 
 		extra = 0;
